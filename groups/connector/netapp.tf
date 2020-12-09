@@ -1,12 +1,12 @@
 resource "aws_key_pair" "deployer" {
   key_name   = "netapp-manager"
-  public_key = 
+  public_key = "123"
 }
 
 module "netapp_connector" {
-  source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=tags/1.0.0"
+  source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=tags/1.0.19"
 
-  name              = format("%s%s", var.name, "001")
+  name              = format("%s%s", var.cloud_manager_company_name, "001")
   vpc_id            = data.aws_vpc.vpc.id
   region            = var.region
   company_name      = var.cloud_manager_company_name
@@ -20,14 +20,14 @@ module "netapp_connector" {
 
   egress_ports = var.cloud_manager_egress_ports
 
-  ingress_cidr_blocks = concat([
-    local.admin_cidrs,
-  ])
+  ingress_cidr_blocks = concat(
+    local.admin_cidrs
+  )
 
-  egress_cidr_blocks = [
+  egress_cidr_blocks = concat(
     local.admin_cidrs,
-    "0.0.0.0/0"
-  ]
+    ["0.0.0.0/0"]
+  )
 
   tags = merge(
     local.default_tags,

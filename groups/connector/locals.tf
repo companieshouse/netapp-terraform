@@ -2,11 +2,9 @@
 # Locals
 # ------------------------------------------------------------------------
 locals {
-  account_ids = data.vault_generic_secret.account_ids.data
-  admin_cidrs = values(data.vault_generic_secret.internal_cidrs.data)
-
-  internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
-
+  admin_cidrs   = values(data.vault_generic_secret.internal_cidrs.data)
+  internal_fqdn = "${replace(var.aws_account, "-", "")}.aws.internal"
+  
   default_tags = {
     Terraform = "true"
     Project   = var.account

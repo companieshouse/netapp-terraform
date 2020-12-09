@@ -35,6 +35,16 @@ variable "vault_password" {
 # ------------------------------------------------------------------------------
 # NetApp Cloud Manager Variables
 # ------------------------------------------------------------------------------
+variable "cloud_manager_netapp_refresh_token" {
+  type        = string
+  description = "Refresh Token from the NetApp Cloud Manager Portal to connect to the hosted Cloud Manager service"
+}
+
+variable "cloud_manager_netapp_account_id" {
+  type        = string
+  description = "account Id as provided by NetApp Cloud Manager Portal to connect to the hosted Cloud Manager service"
+}
+
 variable "cloud_manager_instance_type" {
   type        = string
   description = "instance type to be used for the NetApp Cloud Manager EC2 instance"
@@ -49,11 +59,6 @@ variable "cloud_manager_set_public_ip" {
   type        = string
   description = "Set a public IP on the NetApp Cloud Manager instance"
   default     = false
-}
-
-variable "cloud_manager_netapp_account_id" {
-  type        = string
-  description = "account Id as provided by NetApp Cloud Manager Portal to connect to the hosted Cloud Manager service"
 }
 
 variable "cloud_manager_ingress_ports" {

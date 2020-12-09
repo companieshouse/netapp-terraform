@@ -13,6 +13,10 @@ terraform {
       source  = "hashicorp/vault"
       version = ">= 2.0.0"
     }
+    netapp-cloudmanager = {
+      source  = "NetApp/netapp-cloudmanager"
+      version = ">= 20.12"
+    }
   }
   backend "s3" {}
 }
@@ -28,4 +32,8 @@ provider "vault" {
       password = var.vault_password
     }
   }
+}
+
+provider "netapp-cloudmanager" {
+  refresh_token = var.cloud_manager_netapp_refresh_token
 }

@@ -20,3 +20,11 @@ data "aws_route53_zone" "private_zone" {
 data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
 }
+
+data "aws_instance" "netapp_connector" {
+  instance_id = module.netapp_connector.occm_id
+
+  depends_on = [
+    module.netapp_connector
+  ]
+}

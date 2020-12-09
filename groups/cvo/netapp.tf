@@ -14,7 +14,7 @@ module "cvo" {
   ]
   
   ingress_security_group_ids = [
-    local.netapp_manager_data["occm-security-group-id"
+    local.netapp_manager_data["occm-security-group-id"]
   ] 
 
   mediator_key_pair_name = var.cvo_mediator_key_pair_name
