@@ -1,6 +1,0 @@
-aws_region  = "eu-west-2"
-aws_account = "heritage-staging"
-
-# shorthand
-account = "hstg"
-region  = "euw2"
