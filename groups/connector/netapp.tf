@@ -8,7 +8,7 @@ module "netapp_connector" {
 
   name              = format("%s-%s-%s", var.application, "connector", "001")
   vpc_id            = data.aws_vpc.vpc.id
-  region            = var.region
+  region            = var.aws_region
   company_name      = var.cloud_manager_company_name
   instance_type     = var.cloud_manager_instance_type
   subnet_id         = coalesce(data.aws_subnet_ids.monitor.ids...)
