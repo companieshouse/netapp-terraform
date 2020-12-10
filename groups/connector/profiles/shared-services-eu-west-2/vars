@@ -5,10 +5,12 @@ aws_account = "shared-services"
 account = "shared"
 region  = "euw2"
 
+# Application
+application = "netapp"
+
 # NetApp Connector
 cloud_manager_instance_type = "t3.xlarge"
-cloud_manager_company_name = companieshouse
-cloud_manager_key_pair_name = 
+cloud_manager_company_name = "companieshouse"
 cloud_manager_ingress_ports = [
     { "protocol" = "tcp", "port" = 22 },
     { "protocol" = "tcp", "port" = 80 },

@@ -32,19 +32,14 @@ variable "vault_password" {
   description = "Password for connecting to Vault"
 }
 
+variable "application" {
+  type        = string
+  description = "Name for the applicatino being deployed"
+}
+
 # ------------------------------------------------------------------------------
 # NetApp Cloud Manager Variables
 # ------------------------------------------------------------------------------
-variable "cloud_manager_netapp_refresh_token" {
-  type        = string
-  description = "Refresh Token from the NetApp Cloud Manager Portal to connect to the hosted Cloud Manager service"
-}
-
-variable "cloud_manager_netapp_account_id" {
-  type        = string
-  description = "account Id as provided by NetApp Cloud Manager Portal to connect to the hosted Cloud Manager service"
-}
-
 variable "cloud_manager_instance_type" {
   type        = string
   description = "instance type to be used for the NetApp Cloud Manager EC2 instance"
@@ -67,8 +62,4 @@ variable "cloud_manager_ingress_ports" {
 
 variable "cloud_manager_egress_ports" {
   description = "List object containg protocol, port and optional to_port"
-}
-
-variable "cloud_manager_key_pair_name" {
-  description = "Name of an existing key pair that should be used to create the Cloud Manager connector"
 }

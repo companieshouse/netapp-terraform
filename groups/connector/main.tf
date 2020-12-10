@@ -35,5 +35,5 @@ provider "vault" {
 }
 
 provider "netapp-cloudmanager" {
-  refresh_token = var.cloud_manager_netapp_refresh_token
+  refresh_token = local.netapp_account_data["refresh-token"]
 }

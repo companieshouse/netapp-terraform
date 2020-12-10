@@ -21,6 +21,15 @@ data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
 }
 
+
+data "vault_generic_secret" "netapp_account" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/account"
+}
+
+data "vault_generic_secret" "netapp_connector_input" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/connector-inputs"
+}
+
 data "aws_instance" "netapp_connector" {
   instance_id = module.netapp_connector.occm_id
 
