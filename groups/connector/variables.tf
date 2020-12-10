@@ -34,7 +34,7 @@ variable "vault_password" {
 
 variable "application" {
   type        = string
-  description = "Name for the applicatino being deployed"
+  description = "Name for the application being deployed"
 }
 
 # ------------------------------------------------------------------------------
