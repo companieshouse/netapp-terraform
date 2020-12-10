@@ -1,6 +1,0 @@
-aws_region  = "eu-west-2"
-aws_account = "heritage-development"
-
-# shorthand
-account = "hdev"
-region  = "euw2"
