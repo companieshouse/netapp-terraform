@@ -1,0 +1,19 @@
+aws_region  = "eu-west-2"
+aws_account = "heritage-live"
+
+# shorthand
+account = "hlive"
+region  = "euw2"
+
+# NetApp Cloud Volumes Ontap (CVO)
+cvo_name                    = "netapp"
+cvo_instance_type           = "m5.4xlarge"
+cvo_license_type            = "ha-cot-premium-byol"
+cvo_is_ha                   = true
+cvo_floating_ips            = [
+    "192.168.255.33",
+    "192.168.255.34",
+    "192.168.255.35",
+    "192.168.255.36"
+]
+

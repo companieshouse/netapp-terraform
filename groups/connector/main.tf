@@ -36,4 +36,8 @@ provider "vault" {
 
 provider "netapp-cloudmanager" {
   refresh_token = local.netapp_account_data["refresh-token"]
+<<<<<<< HEAD:groups/connector/main.tf
 }
+=======
+}
+>>>>>>> d0ff6d0... CVO code completed with per environment vars and conditionals based on HA/NonHA setup:groups/cvo/main.tf
