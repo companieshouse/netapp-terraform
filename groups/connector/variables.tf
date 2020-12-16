@@ -41,7 +41,7 @@ variable "application" {
 # NetApp Cloud Manager Variables
 # ------------------------------------------------------------------------------
 variable "cloud_manager_instance_type" {
- type        = string
+  type        = string
   description = "instance type to be used for the NetApp Cloud Manager EC2 instance"
 }
 
@@ -62,3 +62,4 @@ variable "cloud_manager_ingress_ports" {
 
 variable "cloud_manager_egress_ports" {
   description = "List object containg protocol, port and optional to_port"
+}
