@@ -10,6 +10,12 @@ locals {
 
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
+  netapp_connector_cidrs = [
+    "10.44.12.0/24",
+    "10.44.13.0/24",
+    "10.44.14.0/24"
+  ]
+
   default_tags = {
     Terraform = "true"
     Project   = "Storage"

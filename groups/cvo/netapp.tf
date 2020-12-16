@@ -25,12 +25,9 @@ module "cvo" {
   ## Security Group setting
   ingress_cidr_blocks = concat(
     local.admin_cidrs,
+    local.netapp_connector_cidrs,
     [data.aws_vpc.vpc.cidr_block]
   )
-
-  ingress_security_group_ids = [
-    format("%s/%s", local.account_ids["shared-services"], local.netapp_connector_data["occm-security-group-id"])
-  ]
 
   route_table_ids = [data.aws_route_table.default.route_table_id]
 
