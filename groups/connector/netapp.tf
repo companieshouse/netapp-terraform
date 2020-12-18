@@ -4,7 +4,7 @@ resource "aws_key_pair" "netapp" {
 }
 
 module "netapp_connector" {
-  source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=update/netapp-modules-multi-account-deployments"
+  source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=tags/1.0.25"
 
   name          = format("%s-%s-%s", var.application, "connector", "001")
   vpc_id        = data.aws_vpc.vpc.id
