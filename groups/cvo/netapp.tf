@@ -22,6 +22,7 @@ module "cvo" {
   connector_client_id     = local.netapp_connector_data["connector-client-id"]
   connector_accountId     = local.account_ids["shared-services"]
   svm_password            = local.netapp_cvo_data["svm-password"]
+  cloud_provider_account  = var.connector_account_access_id
 
   ## Security Group setting
   ingress_cidr_blocks = [

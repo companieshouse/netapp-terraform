@@ -81,3 +81,9 @@ variable "netapp_connector_ip" {
   description = "The full CIDR formatted IP of the Connector instance so that we can allow it to access CVO security groups"
   default     = "10.44.13.97/32"
 }
+
+variable "connector_account_access_id" {
+  type        = string
+  description = "The credential ID as found in the NetApp Connector credentials page, custom per account and must exist before deployment"
+  default     = null
+}
