@@ -4,7 +4,7 @@ resource "aws_key_pair" "netapp_mediator_key" {
 }
 
 module "cvo" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_aws?ref=tags/1.0.24"
+  source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_aws?ref=tags/1.0.26"
 
   vpc_id     = data.aws_vpc.vpc.id
   subnet_ids = data.aws_subnet_ids.storage.ids
@@ -20,12 +20,14 @@ module "cvo" {
   cluster_floating_ips    = var.cvo_floating_ips
   mediator_key_pair_name  = aws_key_pair.netapp_mediator_key.key_name
   connector_client_id     = local.netapp_connector_data["connector-client-id"]
+  connector_accountId     = local.account_ids["shared-services"]
   svm_password            = local.netapp_cvo_data["svm-password"]
 
   ## Security Group setting
-  ingress_cidr_blocks = concat(
-    [data.aws_vpc.vpc.cidr_block]
-  )
+  ingress_cidr_blocks = [
+    data.aws_vpc.vpc.cidr_block,
+    var.netapp_connector_ip
+  ]
 
   route_table_ids = [data.aws_route_table.default.route_table_id]
 

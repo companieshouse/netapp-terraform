@@ -75,3 +75,9 @@ variable "cvo_floating_ips" {
     error_message = "Invalid input for cvo_floating_ips, requires list with 4 entries."
   }
 }
+
+variable "netapp_connector_ip" {
+  type        = string
+  description = "The full CIDR formatted IP of the Connector instance so that we can allow it to access CVO security groups"
+  default     = "10.44.13.97/32"
+}
