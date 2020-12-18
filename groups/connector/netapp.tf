@@ -6,15 +6,21 @@ resource "aws_key_pair" "netapp" {
 module "netapp_connector" {
   source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=tags/1.0.20"
 
-  name              = format("%s-%s-%s", var.application, "connector", "001")
-  vpc_id            = data.aws_vpc.vpc.id
-  region            = var.aws_region
-  company_name      = var.cloud_manager_company_name
-  instance_type     = var.cloud_manager_instance_type
-  subnet_id         = coalesce(data.aws_subnet_ids.monitor.ids...)
-  set_public_ip     = var.cloud_manager_set_public_ip
-  key_pair_name     = aws_key_pair.netapp.key_name
+  name          = format("%s-%s-%s", var.application, "connector", "001")
+  vpc_id        = data.aws_vpc.vpc.id
+  region        = var.aws_region
+  company_name  = var.cloud_manager_company_name
+  instance_type = var.cloud_manager_instance_type
+  subnet_id     = coalesce(data.aws_subnet_ids.monitor.ids...)
+  set_public_ip = var.cloud_manager_set_public_ip
+  key_pair_name = aws_key_pair.netapp.key_name
+
   netapp_account_id = local.netapp_account_data["account-id"]
+  # netap_cvo_accountIds = [
+  #   local.account_ids["heritage-development"]
+  #   local.account_ids["heritage-staging"]
+  #   local.account_ids["heritage-live"]
+  # ]
 
   ingress_ports = var.cloud_manager_ingress_ports
 
@@ -24,10 +30,7 @@ module "netapp_connector" {
     local.admin_cidrs
   )
 
-  egress_cidr_blocks = concat(
-    local.admin_cidrs,
-    ["0.0.0.0/0"]
-  )
+  egress_cidr_blocks = ["0.0.0.0/0"]
 
   tags = merge(
     local.default_tags,
