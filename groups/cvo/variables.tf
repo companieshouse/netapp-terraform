@@ -87,3 +87,9 @@ variable "connector_account_access_id" {
   description = "The credential ID as found in the NetApp Connector credentials page, custom per account and must exist before deployment"
   default     = null
 }
+
+variable "client_ports" {
+  type        = list(any)
+  description = "A list of ports to allow from on-premise ranges"
+  default     = null
+}
