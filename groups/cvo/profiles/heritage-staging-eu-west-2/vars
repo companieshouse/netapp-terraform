@@ -16,7 +16,9 @@ cvo_floating_ips            = [
     "192.168.255.19",
     "192.168.255.20"
 ]
+connector_account_access_id = "CloudProviderAccount-AwVeHvwJ"
 client_ports                = [
     { "protocol" = "tcp", "port" = 22 },
     { "protocol" = "tcp", "port" = 443 },
 ]
+
