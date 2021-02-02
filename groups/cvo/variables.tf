@@ -66,12 +66,7 @@ variable "cvo_is_ha" {
   description = "Is this going to be a HA deployment or Standalone"
 }
 
-variable "use_latest_version" {
-  type        = bool
-  description = "Indicates whether to use the latest available ONTAP version. The default is 'true'."
-}
-
-variable "ontap_version" {
+variable "cvo_ontap_version" {
   type        = string
   description = "The required ONTAP version. Ignored if 'use_latest_version' is set to true. The default is to use the latest version."
 }
