@@ -73,7 +73,7 @@ variable "use_latest_version" {
 
 variable "ontap_version" {
   type        = string
-  description = "he required ONTAP version. Ignored if 'use_latest_version' is set to true. The default is to use the latest version."
+  description = "The required ONTAP version. Ignored if 'use_latest_version' is set to true. The default is to use the latest version."
 }
 
 variable "cvo_floating_ips" {
