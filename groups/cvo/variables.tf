@@ -66,6 +66,11 @@ variable "cvo_is_ha" {
   description = "Is this going to be a HA deployment or Standalone"
 }
 
+variable "cvo_ontap_version" {
+  type        = string
+  description = "The required ONTAP version. Ignored if 'use_latest_version' is set to true. The default is to use the latest version."
+}
+
 variable "cvo_floating_ips" {
   type        = list(string)
   default     = [null, null, null, null]

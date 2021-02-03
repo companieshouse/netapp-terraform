@@ -16,6 +16,8 @@ module "cvo" {
   ebs_volume_size_unit    = var.cvo_ebs_volume_size_unit
   license_type            = var.cvo_license_type
   is_ha                   = var.cvo_is_ha
+  use_latest_version      = false
+  ontap_version           = var.cvo_ontap_version
   platform_serial_numbers = try(jsondecode(local.netapp_cvo_data["node-serial-numbers"]), [null, null])
   cluster_floating_ips    = var.cvo_floating_ips
   mediator_key_pair_name  = aws_key_pair.netapp_mediator_key.key_name
@@ -30,7 +32,7 @@ module "cvo" {
     var.netapp_connector_ip
   ]
 
-  route_table_ids = [data.aws_route_table.default.route_table_id]
+  route_table_ids = [data.aws_route_table.private.route_table_id]
 
   tags = merge(
     local.default_tags,
