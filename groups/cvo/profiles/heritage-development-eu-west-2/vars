@@ -10,7 +10,7 @@ cvo_name                    = "netapp"
 cvo_instance_type           = "m5.xlarge"
 cvo_license_type            = "cot-explore-paygo"
 cvo_is_ha                   = false
-ontap_version               = "ONTAP-9.7P5.T1"
+cvo_ontap_version           = "ONTAP-9.7P5.T1"
 connector_account_access_id = "CloudProviderAccount-jufYYNpi"
 client_ports                = [
     { "protocol" = "tcp", "port" = 22 },

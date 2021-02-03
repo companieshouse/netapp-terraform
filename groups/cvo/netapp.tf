@@ -32,7 +32,7 @@ module "cvo" {
     var.netapp_connector_ip
   ]
 
-  route_table_ids = [data.aws_route_table.default.route_table_id]
+  route_table_ids = [data.aws_route_table.private.route_table_id]
 
   tags = merge(
     local.default_tags,

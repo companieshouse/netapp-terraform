@@ -12,11 +12,11 @@ data "aws_subnet_ids" "storage" {
   }
 }
 
-data "aws_route_table" "default" {
+data "aws_route_table" "private" {
   vpc_id = data.aws_vpc.vpc.id
   filter {
     name   = "tag:Name"
-    values = ["rtb-${var.account}*"]
+    values = ["rtb-${var.account}-001"]
   }
 }
 
