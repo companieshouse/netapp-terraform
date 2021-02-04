@@ -11,6 +11,7 @@ cvo_instance_type           = "m5.4xlarge"
 cvo_license_type            = "ha-cot-premium-byol"
 cvo_is_ha                   = true
 cvo_ontap_version           = "ONTAP-9.7P5.T1.ha"
+connector_account_access_id = "CloudProviderAccount-vB0TRxbb"
 cvo_floating_ips            = [
     "192.168.255.33",
     "192.168.255.34",
