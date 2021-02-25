@@ -17,10 +17,37 @@ data "aws_route53_zone" "private_zone" {
   private_zone = true
 }
 
+data "aws_kms_key" "ebs" {
+  key_id = "alias/sharedservices/euw2/ebs"
+}
+
 data "vault_generic_secret" "account_ids" {
   path = "aws-accounts/account-ids"
 }
 
 data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
+}
+
+data "vault_generic_secret" "unified_manager" {
+  path = "applications/${var.aws_account}-${var.aws_region}/netapp/${var.application}"
+}
+
+data "aws_ami" "unified_manager" {
+  most_recent = true
+  owners      = [data.vault_generic_secret.account_ids.data["development"]]
+
+  filter {
+    name = "name"
+    values = [
+      var.ami_name,
+    ]
+  }
+
+  filter {
+    name = "state"
+    values = [
+      "available",
+    ]
+  }
 }
