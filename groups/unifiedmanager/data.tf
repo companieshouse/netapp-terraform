@@ -18,7 +18,7 @@ data "aws_route53_zone" "private_zone" {
 }
 
 data "aws_kms_key" "ebs" {
-  key_id = "alias/sharedservices/euw2/ebs"
+  key_id = "alias/${var.account}/${var.region}/ebs"
 }
 
 data "vault_generic_secret" "account_ids" {
