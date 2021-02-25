@@ -25,7 +25,7 @@ resource "aws_instance" "netapp_unified_manager" {
   instance_type                = var.unified_manager_instance_type
   subnet_id                    = coalesce(data.aws_subnet_ids.monitor.ids...)
   security_groups              = [module.unified_manager_ec2_security_group.this_security_group_id]
-  iam_instance_profile            = module.unified_manager_outbound_profile.aws_iam_instance_profile.name
+  iam_instance_profile            = module.unified_manager_profile.aws_iam_instance_profile.name
   root_block_device {
       volume_size = "120"
       volume_type = "gp2"
