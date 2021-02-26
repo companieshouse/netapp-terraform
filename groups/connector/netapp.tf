@@ -4,7 +4,7 @@ resource "aws_key_pair" "netapp" {
 }
 
 module "netapp_connector" {
-  source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=tags/1.0.25"
+  source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=tags/1.0.50"
 
   name          = format("%s-%s-%s", var.application, "connector", "001")
   vpc_id        = data.aws_vpc.vpc.id
@@ -14,6 +14,8 @@ module "netapp_connector" {
   set_public_ip = var.cloud_manager_set_public_ip
   key_pair_name = aws_key_pair.netapp.key_name
 
+  # Set to false because of an issue with the app level connector service, terraform wants to build a new one which we do not want
+  build_connector   = false
   netapp_account_id = local.netapp_account_data["account-id"]
   netapp_cvo_accountIds = [
     local.account_ids["heritage-development"],
@@ -38,4 +40,15 @@ module "netapp_connector" {
       "ServiceTeam", "Storage"
     )
   )
+}
+
+resource "aws_security_group_rule" "cvo_ingress" {
+  security_group_id = module.netapp_connector.occm_security_group_id
+  description       = "Allow CVO clusters to communicate with Connector for updates"
+
+  type        = "ingress"
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  cidr_blocks = var.cvo_ranges
 }

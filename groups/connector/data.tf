@@ -34,7 +34,16 @@ data "vault_generic_secret" "netapp_connector_input" {
 }
 
 data "aws_instance" "netapp_connector" {
-  instance_id = module.netapp_connector.occm_id
+  filter {
+    name   = "tag:Name"
+    values = ["netapp-connector-001"]
+  }
+
+  filter {
+    name   = "instance-state-name"
+    values = ["running"]
+  }
+
 
   depends_on = [
     module.netapp_connector

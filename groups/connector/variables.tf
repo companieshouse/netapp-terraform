@@ -63,3 +63,11 @@ variable "cloud_manager_ingress_ports" {
 variable "cloud_manager_egress_ports" {
   description = "List object containg protocol, port and optional to_port"
 }
+
+# ------------------------------------------------------------------------------
+# NetApp CVO variablesg
+# ------------------------------------------------------------------------------
+variable "cvo_ranges" {
+  type        = list(string)
+  description = "A list of subnets that contain CVO infrastructure"
+}
