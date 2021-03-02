@@ -38,7 +38,7 @@ data "vault_generic_secret" "netapp_account" {
 }
 
 data "vault_generic_secret" "netapp_connector" {
-  path = "applications/shared-services-${var.aws_region}/netapp/connector-outputs"
+  path = "applications/shared-services-${var.aws_region}/netapp/connector-details"
 }
 
 data "vault_generic_secret" "netapp_cvo" {
