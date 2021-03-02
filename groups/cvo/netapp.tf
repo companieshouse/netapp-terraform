@@ -46,11 +46,29 @@ resource "aws_security_group_rule" "onpremise" {
   for_each = { for rule in var.client_ports : rule.port => rule }
 
   security_group_id = module.cvo.cvo_security_group_id
-  description       = "Allow on premise clients to access CVO"
+  description       = "Allow on premise ranges to access CVO"
 
   type        = "ingress"
   from_port   = each.value.port
   to_port     = lookup(each.value, "to_port", each.value.port)
   protocol    = each.value.protocol
   cidr_blocks = local.admin_cidrs
+}
+
+resource "aws_security_group_rule" "onpremise_icmp" {
+  for_each = { for rule in var.client_ports : rule.port => rule }
+
+  security_group_id = module.cvo.cvo_security_group_id
+  description       = "Allow on premise ranges to ping CVO via ICMP"
+
+  type        = "ingress"
+  from_port   = "-1"
+  to_port     = "-1"
+  protocol    = "icmp"
+  cidr_blocks = [
+    "172.19.235.3/32",
+    "172.19.235.4/32",
+    "172.19.235.1/32",
+    "172.19.235.2/32"
+  ]
 }

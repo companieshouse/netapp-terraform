@@ -21,4 +21,6 @@ cvo_floating_ips            = [
 client_ports                = [
     { "protocol" = "tcp", "port" = 22 },
     { "protocol" = "tcp", "port" = 443 },
+    { "protocol" = "tcp", "port" = 10000 },
+    { "protocol" = "tcp", "port" = 11104, "to_port" = 11105 },
 ]
