@@ -56,7 +56,6 @@ resource "aws_security_group_rule" "onpremise" {
 }
 
 resource "aws_security_group_rule" "onpremise_icmp" {
-  for_each = { for rule in var.client_ports : rule.port => rule }
 
   security_group_id = module.cvo.cvo_security_group_id
   description       = "Allow on premise NetApp cluster range to ping CVO via ICMP"
