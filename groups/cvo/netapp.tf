@@ -59,16 +59,12 @@ resource "aws_security_group_rule" "onpremise_icmp" {
   for_each = { for rule in var.client_ports : rule.port => rule }
 
   security_group_id = module.cvo.cvo_security_group_id
-  description       = "Allow on premise ranges to ping CVO via ICMP"
+  description       = "Allow on premise NetApp cluster range to ping CVO via ICMP"
 
   type        = "ingress"
   from_port   = "-1"
   to_port     = "-1"
   protocol    = "icmp"
-  cidr_blocks = [
-    "172.19.235.3/32",
-    "172.19.235.4/32",
-    "172.19.235.1/32",
-    "172.19.235.2/32"
-  ]
+  cidr_blocks = "172.19.235.0/24"
+  
 }
