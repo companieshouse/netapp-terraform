@@ -11,7 +11,7 @@ module "unified_manager_ec2_security_group" {
 
 
   ingress_cidr_blocks = local.admin_cidrs
-  ingress_rules       = ["http-80-tcp", "https-443-tcp"]
+  ingress_rules       = ["http-80-tcp", "https-443-tcp", "ssh-tcp"]
   egress_rules        = ["all-all"]
 }
 
