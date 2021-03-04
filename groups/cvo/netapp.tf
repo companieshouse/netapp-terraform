@@ -4,7 +4,7 @@ resource "aws_key_pair" "netapp_mediator_key" {
 }
 
 module "cvo" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_aws?ref=tags/1.0.47"
+  source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_aws?ref=tags/1.0.56"
 
   vpc_id     = data.aws_vpc.vpc.id
   subnet_ids = data.aws_subnet_ids.storage.ids
@@ -65,5 +65,5 @@ resource "aws_security_group_rule" "onpremise_icmp" {
   to_port     = "-1"
   protocol    = "icmp"
   cidr_blocks = ["172.19.235.0/24"]
-  
+
 }
