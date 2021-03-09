@@ -28,8 +28,7 @@ module "cvo" {
 
   ## Security Group setting
   ingress_cidr_blocks = [
-    data.aws_vpc.vpc.cidr_block,
-    var.netapp_connector_ip
+    data.aws_vpc.vpc.cidr_block
   ]
 
   route_table_ids = [data.aws_route_table.private.route_table_id]
@@ -42,6 +41,20 @@ module "cvo" {
   )
 }
 
+resource "aws_security_group_rule" "netapp_tooling" {
+  security_group_id = module.cvo.cvo_security_group_id
+  description       = "Rules for NetApp Tools - Connector and Unified Manager"
+
+  type      = "ingress"
+  from_port = "-1"
+  to_port   = "-1"
+  protocol  = "-1"
+  cidr_blocks = [
+    var.netapp_connector_ip,
+    var.netapp_unifiedmanager_ip
+  ]
+}
+
 resource "aws_security_group_rule" "onpremise" {
   for_each = { for rule in var.client_ports : rule.port => rule }
 
@@ -52,13 +65,14 @@ resource "aws_security_group_rule" "onpremise" {
   from_port   = each.value.port
   to_port     = lookup(each.value, "to_port", each.value.port)
   protocol    = each.value.protocol
-  cidr_blocks = local.admin_cidrs
+  cidr_blocks = var.client_ips
 }
+
 
 resource "aws_security_group_rule" "onpremise_icmp" {
 
   security_group_id = module.cvo.cvo_security_group_id
-  description       = "Allow on premise NetApp cluster range to ping CVO via ICMP"
+  description       = "Allow only the on premise NetApp metro-cluster range to ping CVO via ICMP"
 
   type        = "ingress"
   from_port   = "-1"
