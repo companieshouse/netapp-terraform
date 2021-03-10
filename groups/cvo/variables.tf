@@ -81,16 +81,28 @@ variable "cvo_floating_ips" {
   }
 }
 
+variable "connector_account_access_id" {
+  type        = string
+  description = "The credential ID as found in the NetApp Connector credentials page, custom per account and must exist before deployment"
+  default     = null
+}
+
 variable "netapp_connector_ip" {
   type        = string
   description = "The full CIDR formatted IP of the Connector instance so that we can allow it to access CVO security groups"
   default     = "10.44.13.97/32"
 }
 
-variable "connector_account_access_id" {
+variable "netapp_unifiedmanager_ip" {
   type        = string
-  description = "The credential ID as found in the NetApp Connector credentials page, custom per account and must exist before deployment"
-  default     = null
+  description = "The full CIDR formatted IP of the Unified Manager instance so that we can allow it to access CVO security groups"
+  default     = "10.44.13.208/32"
+}
+
+
+variable "client_ips" {
+  type        = list(any)
+  description = "The full CIDR formatted IPs of the client networks that need to access CVO"
 }
 
 variable "client_ports" {
