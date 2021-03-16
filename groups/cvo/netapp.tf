@@ -68,7 +68,6 @@ resource "aws_security_group_rule" "onpremise" {
   cidr_blocks = var.client_ips
 }
 
-
 resource "aws_security_group_rule" "onpremise_icmp" {
 
   security_group_id = module.cvo.cvo_security_group_id
@@ -79,5 +78,28 @@ resource "aws_security_group_rule" "onpremise_icmp" {
   to_port     = "-1"
   protocol    = "icmp"
   cidr_blocks = ["172.19.235.0/24"]
+}
 
+resource "aws_security_group_rule" "onpremise_ssh {
+
+  security_group_id = module.cvo.cvo_security_group_id
+  description       = "Allow on-premise ranges to access CVO over SSH for administration"
+
+  type        = "ingress"
+  from_port   = "22"
+  to_port     = "22"
+  protocol    = "tcp"
+  cidr_blocks = local.admin_cidrs
+}
+
+resource "aws_security_group_rule" "onpremise_https {
+
+  security_group_id = module.cvo.cvo_security_group_id
+  description       = "Allow on-premise ranges to access CVO over HTTPS for administration"
+
+  type        = "ingress"
+  from_port   = "443"
+  to_port     = "443"
+  protocol    = "tcp"
+  cidr_blocks = local.admin_cidrs
 }
