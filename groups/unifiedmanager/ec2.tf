@@ -19,23 +19,23 @@ module "unified_manager_ec2_security_group" {
 # Shared Services EC2
 # ------------------------------------------------------------------------------
 resource "aws_instance" "netapp_unified_manager" {
-  ami                          = data.aws_ami.unified_manager.id
-  associate_public_ip_address  = false
-  key_name                     = aws_key_pair.ec2_keypair.key_name
-  instance_type                = var.unified_manager_instance_type
-  subnet_id                    = coalesce(data.aws_subnet_ids.monitor.ids...)
-  vpc_security_group_ids       = [module.unified_manager_ec2_security_group.this_security_group_id]
-  iam_instance_profile            = module.unified_manager_profile.aws_iam_instance_profile.name
+  ami                         = data.aws_ami.unified_manager.id
+  associate_public_ip_address = false
+  key_name                    = aws_key_pair.ec2_keypair.key_name
+  instance_type               = var.unified_manager_instance_type
+  subnet_id                   = coalesce(data.aws_subnet_ids.monitor.ids...)
+  vpc_security_group_ids      = [module.unified_manager_ec2_security_group.this_security_group_id]
+  iam_instance_profile        = module.unified_manager_profile.aws_iam_instance_profile.name
   root_block_device {
-      volume_size = "120"
-      volume_type = "gp2"
-      encrypted   = true
-      kms_key_id  = data.aws_kms_key.ebs.arn
+    volume_size = "120"
+    volume_type = "gp2"
+    encrypted   = true
+    kms_key_id  = data.aws_kms_key.ebs.arn
   }
 
   user_data = templatefile("${path.module}/templates/user_data.tpl",
     {
-      key  = "value"
+      key = "value"
     }
   )
 

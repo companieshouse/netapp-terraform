@@ -1,0 +1,72 @@
+# XML Infrastructure
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0, < 0.14 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 0.3, < 4.0 |
+| <a name="requirement_netapp-cloudmanager"></a> [netapp-cloudmanager](#requirement\_netapp-cloudmanager) | 20.12 |
+| <a name="requirement_vault"></a> [vault](#requirement\_vault) | >= 2.0.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 0.3, < 4.0 |
+| <a name="provider_vault"></a> [vault](#provider\_vault) | >= 2.0.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_cvo"></a> [cvo](#module\_cvo) | git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_aws?ref=tags/1.0.56 |  |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_key_pair.netapp_mediator_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
+| [aws_security_group_rule.netapp_tooling](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.onpremise](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.onpremise_admin](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.onpremise_icmp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_route53_zone.private_zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
+| [aws_route_table.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route_table) | data source |
+| [aws_subnet_ids.storage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids) | data source |
+| [aws_vpc.vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
+| [vault_generic_secret.account_ids](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
+| [vault_generic_secret.internal_cidrs](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
+| [vault_generic_secret.netapp_account](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
+| [vault_generic_secret.netapp_connector](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
+| [vault_generic_secret.netapp_cvo](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_account"></a> [account](#input\_account) | The shorthand for the AWS account | `string` | n/a | yes |
+| <a name="input_aws_account"></a> [aws\_account](#input\_aws\_account) | The AWS account in which resources will be administered | `string` | n/a | yes |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region in which resources will be administered | `string` | n/a | yes |
+| <a name="input_client_ips"></a> [client\_ips](#input\_client\_ips) | The full CIDR formatted IPs of the client networks that need to access CVO | `list(any)` | n/a | yes |
+| <a name="input_cvo_instance_type"></a> [cvo\_instance\_type](#input\_cvo\_instance\_type) | Instance Type to be used for the CVO Nodes, different types allowed depending on license type chosen | `string` | n/a | yes |
+| <a name="input_cvo_is_ha"></a> [cvo\_is\_ha](#input\_cvo\_is\_ha) | Is this going to be a HA deployment or Standalone | `bool` | n/a | yes |
+| <a name="input_cvo_license_type"></a> [cvo\_license\_type](#input\_cvo\_license\_type) | The license type for the deployment, can be standalone or HA with different licenses providing different maximum storage allowance | `string` | n/a | yes |
+| <a name="input_cvo_name"></a> [cvo\_name](#input\_cvo\_name) | Name for the resources table being created | `string` | n/a | yes |
+| <a name="input_cvo_ontap_version"></a> [cvo\_ontap\_version](#input\_cvo\_ontap\_version) | The required ONTAP version. Ignored if 'use\_latest\_version' is set to true. The default is to use the latest version. | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The shorthand for the AWS region | `string` | n/a | yes |
+| <a name="input_vault_password"></a> [vault\_password](#input\_vault\_password) | Password for connecting to Vault | `string` | n/a | yes |
+| <a name="input_vault_username"></a> [vault\_username](#input\_vault\_username) | Username for connecting to Vault | `string` | n/a | yes |
+| <a name="input_client_ports"></a> [client\_ports](#input\_client\_ports) | A list of ports to allow from on-premise ranges | `list(any)` | `null` | no |
+| <a name="input_connector_account_access_id"></a> [connector\_account\_access\_id](#input\_connector\_account\_access\_id) | The credential ID as found in the NetApp Connector credentials page, custom per account and must exist before deployment | `string` | `null` | no |
+| <a name="input_cvo_ebs_volume_size"></a> [cvo\_ebs\_volume\_size](#input\_cvo\_ebs\_volume\_size) | Initial aggregate size, we are limiting this to 100GB as we want all used aggregates to be create purposefully in the same way i.e. we are not using this aggregate at all | `number` | `100` | no |
+| <a name="input_cvo_ebs_volume_size_unit"></a> [cvo\_ebs\_volume\_size\_unit](#input\_cvo\_ebs\_volume\_size\_unit) | Unit choice for volume size, can be TB or GB. In this case we are defaulting to GB so that we can create the smallest possible aggregate on first launch | `string` | `"GB"` | no |
+| <a name="input_cvo_floating_ips"></a> [cvo\_floating\_ips](#input\_cvo\_floating\_ips) | List of Floating IPs to use if HA mode is set to 'FloatingIP'. If provided, should be of length 4 and contain 4 IP addresses outside of the VPC range. | `list(string)` | <pre>[<br>  null,<br>  null,<br>  null,<br>  null<br>]</pre> | no |
+| <a name="input_netapp_connector_ip"></a> [netapp\_connector\_ip](#input\_netapp\_connector\_ip) | The full CIDR formatted IP of the Connector instance so that we can allow it to access CVO security groups | `string` | `"10.44.13.97/32"` | no |
+| <a name="input_netapp_unifiedmanager_ip"></a> [netapp\_unifiedmanager\_ip](#input\_netapp\_unifiedmanager\_ip) | The full CIDR formatted IP of the Unified Manager instance so that we can allow it to access CVO security groups | `string` | `"10.44.13.208/32"` | no |
+
+## Outputs
+
+No outputs.
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
