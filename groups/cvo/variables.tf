@@ -110,3 +110,9 @@ variable "client_ports" {
   description = "A list of ports to allow from on-premise ranges"
   default     = null
 }
+
+variable "nfs_cifs_ports" {
+  type        = list(any)
+  description = "A list of ports to allow from on-premise ranges"
+  default     = null
+}
