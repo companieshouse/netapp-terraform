@@ -108,11 +108,11 @@ variable "client_ips" {
 variable "client_ports" {
   type        = list(any)
   description = "A list of ports to allow from on-premise ranges"
-  default     = null
+  default     = []
 }
 
 variable "nfs_cifs_ports" {
   type        = list(any)
   description = "A list of ports to allow from on-premise ranges"
-  default     = null
+  default     = []
 }

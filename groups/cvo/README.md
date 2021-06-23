@@ -28,6 +28,7 @@
 | Name | Type |
 |------|------|
 | [aws_key_pair.netapp_mediator_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
+| [aws_security_group_rule.cardiff_nfs_cifs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.netapp_tooling](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.onpremise](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.onpremise_admin](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
@@ -58,13 +59,14 @@
 | <a name="input_region"></a> [region](#input\_region) | The shorthand for the AWS region | `string` | n/a | yes |
 | <a name="input_vault_password"></a> [vault\_password](#input\_vault\_password) | Password for connecting to Vault | `string` | n/a | yes |
 | <a name="input_vault_username"></a> [vault\_username](#input\_vault\_username) | Username for connecting to Vault | `string` | n/a | yes |
-| <a name="input_client_ports"></a> [client\_ports](#input\_client\_ports) | A list of ports to allow from on-premise ranges | `list(any)` | `null` | no |
+| <a name="input_client_ports"></a> [client\_ports](#input\_client\_ports) | A list of ports to allow from on-premise ranges | `list(any)` | `[]` | no |
 | <a name="input_connector_account_access_id"></a> [connector\_account\_access\_id](#input\_connector\_account\_access\_id) | The credential ID as found in the NetApp Connector credentials page, custom per account and must exist before deployment | `string` | `null` | no |
 | <a name="input_cvo_ebs_volume_size"></a> [cvo\_ebs\_volume\_size](#input\_cvo\_ebs\_volume\_size) | Initial aggregate size, we are limiting this to 100GB as we want all used aggregates to be create purposefully in the same way i.e. we are not using this aggregate at all | `number` | `100` | no |
 | <a name="input_cvo_ebs_volume_size_unit"></a> [cvo\_ebs\_volume\_size\_unit](#input\_cvo\_ebs\_volume\_size\_unit) | Unit choice for volume size, can be TB or GB. In this case we are defaulting to GB so that we can create the smallest possible aggregate on first launch | `string` | `"GB"` | no |
 | <a name="input_cvo_floating_ips"></a> [cvo\_floating\_ips](#input\_cvo\_floating\_ips) | List of Floating IPs to use if HA mode is set to 'FloatingIP'. If provided, should be of length 4 and contain 4 IP addresses outside of the VPC range. | `list(string)` | <pre>[<br>  null,<br>  null,<br>  null,<br>  null<br>]</pre> | no |
 | <a name="input_netapp_connector_ip"></a> [netapp\_connector\_ip](#input\_netapp\_connector\_ip) | The full CIDR formatted IP of the Connector instance so that we can allow it to access CVO security groups | `string` | `"10.44.13.97/32"` | no |
 | <a name="input_netapp_unifiedmanager_ip"></a> [netapp\_unifiedmanager\_ip](#input\_netapp\_unifiedmanager\_ip) | The full CIDR formatted IP of the Unified Manager instance so that we can allow it to access CVO security groups | `string` | `"10.44.13.208/32"` | no |
+| <a name="input_nfs_cifs_ports"></a> [nfs\_cifs\_ports](#input\_nfs\_cifs\_ports) | A list of ports to allow from on-premise ranges | `list(any)` | `[]` | no |
 
 ## Outputs
 
