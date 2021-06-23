@@ -93,7 +93,7 @@ resource "aws_security_group_rule" "onpremise_admin" {
 }
 
 resource "aws_security_group_rule" "cardiff_nfs_cifs" {
-  for_each = { for rule in var.nfs_cifs_ports : join("_", rule.protocol, rule.port) => rule }
+  for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
 
   security_group_id = module.cvo.cvo_security_group_id
   description       = "Allow Cardiff Backend range to access CVO via NFS and CIFS"
