@@ -91,3 +91,16 @@ resource "aws_security_group_rule" "onpremise_admin" {
   protocol          = "tcp"
   cidr_blocks       = local.admin_cidrs
 }
+
+resource "aws_security_group_rule" "cardiff_nfs_cifs" {
+  for_each = { for rule in var.nfs_cifs_ports : rule.port => rule }
+
+  security_group_id = module.cvo.cvo_security_group_id
+  description       = "Allow Cardiff Backend range to access CVO via NFS and CIFS"
+
+  type        = "ingress"
+  from_port   = each.value.port
+  to_port     = lookup(each.value, "to_port", each.value.port)
+  protocol    = each.value.protocol
+  cidr_blocks = ["172.19.236.0/24"]
+}
