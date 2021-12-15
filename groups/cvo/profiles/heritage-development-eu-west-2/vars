@@ -22,6 +22,11 @@ client_ips = [
 "172.19.235.0/24"
 ]
 
+client_ips_icmp = [
+"172.19.235.0/24",
+"10.10.9.0/28"
+]
+
 client_ports = [
     { "protocol" = "tcp", "port" = 8088 },
     { "protocol" = "tcp", "port" = 10000 },

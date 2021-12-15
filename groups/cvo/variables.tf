@@ -105,6 +105,11 @@ variable "client_ips" {
   description = "The full CIDR formatted IPs of the client networks that need to access CVO"
 }
 
+variable "client_ips_icmp" {
+  type        = list(any)
+  description = "The full CIDR formatted IPs of the client networks that need ICMP connectivity to CVO"
+}
+
 variable "client_ports" {
   type        = list(any)
   description = "A list of ports to allow from on-premise ranges"
