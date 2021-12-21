@@ -77,7 +77,7 @@ resource "aws_security_group_rule" "onpremise_icmp" {
   from_port   = "-1"
   to_port     = "-1"
   protocol    = "icmp"
-  cidr_blocks = ["172.19.235.0/24"]
+  cidr_blocks = var.client_ips_icmp
 }
 
 resource "aws_security_group_rule" "onpremise_admin" {
