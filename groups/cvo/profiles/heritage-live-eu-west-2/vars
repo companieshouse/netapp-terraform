@@ -41,6 +41,10 @@ client_ports = [
     { "protocol" = "tcp", "port" = 11104, "to_port" = 11105 },
 ]
 
+nfs_cifs_cidrs = [
+  "172.19.236.0/24"
+]
+
 nfs_cifs_ports = [
     { "protocol" = "tcp", "port" = 111 },
     { "protocol" = "udp", "port" = 111 },

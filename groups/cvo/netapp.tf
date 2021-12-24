@@ -102,5 +102,5 @@ resource "aws_security_group_rule" "cardiff_nfs_cifs" {
   from_port   = each.value.port
   to_port     = lookup(each.value, "to_port", each.value.port)
   protocol    = each.value.protocol
-  cidr_blocks = ["172.19.236.0/24"]
+  cidr_blocks = var.nfs_cifs_cidrs
 }

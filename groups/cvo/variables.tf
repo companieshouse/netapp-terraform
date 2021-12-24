@@ -116,6 +116,12 @@ variable "client_ports" {
   default     = []
 }
 
+variable "nfs_cifs_cidrs" {
+  type        = list(any)
+  description = "A list of CIDRs to allow NFS/CIFS access from"
+  default     = []
+}
+
 variable "nfs_cifs_ports" {
   type        = list(any)
   description = "A list of ports to allow from on-premise ranges"
