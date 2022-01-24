@@ -33,6 +33,14 @@ data "vault_generic_secret" "netapp-insight" {
   path = "applications/${var.aws_account}-${var.aws_region}/netapp/${var.application}"
 }
 
+data "vault_generic_secret" "security_kms_keys" {
+  path = "aws-accounts/security/kms"
+}
+
+data "vault_generic_secret" "security_s3_buckets" {
+  path = "aws-accounts/security/s3"
+}
+
 data "aws_ami" "netapp-insight" {
   most_recent = true
   owners      = [data.vault_generic_secret.account_ids.data["development"]]

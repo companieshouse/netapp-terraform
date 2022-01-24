@@ -1,4 +1,4 @@
-# XML Infrastructure
+# Netapp-Insight Configuration
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -21,7 +21,7 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_netapp_insight_ec2_security_group"></a> [netapp\_insight\_ec2\_security\_group](#module\_netapp\_insight\_ec2\_security\_group) | terraform-aws-modules/security-group/aws | ~> 3.0 |
-| <a name="module_netapp_insight_profile"></a> [netapp\_insight\_profile](#module\_netapp\_insight\_profile) | git@github.com:companieshouse/terraform-modules//aws/instance_profile | tags/1.0.40 |
+| <a name="module_netapp_insight_profile"></a> [netapp\_insight\_profile](#module\_netapp\_insight\_profile) | git@github.com:companieshouse/terraform-modules//aws/instance_profile | tags/1.0.59 |
 
 ## Resources
 
@@ -38,6 +38,8 @@
 | [vault_generic_secret.account_ids](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
 | [vault_generic_secret.internal_cidrs](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
 | [vault_generic_secret.netapp-insight](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
+| [vault_generic_secret.security_kms_keys](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
+| [vault_generic_secret.security_s3_buckets](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
 
 ## Inputs
 
