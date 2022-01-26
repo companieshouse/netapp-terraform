@@ -49,7 +49,6 @@
 | <a name="input_application"></a> [application](#input\_application) | Name for the application being deployed | `string` | n/a | yes |
 | <a name="input_aws_account"></a> [aws\_account](#input\_aws\_account) | The AWS account in which resources will be administered | `string` | n/a | yes |
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region in which resources will be administered | `string` | n/a | yes |
-| <a name="input_netapp_insight_company_name"></a> [netapp\_insight\_company\_name](#input\_netapp\_insight\_company\_name) | Company name string to be passed to NetApp module for naming and setup of Netapp Insight | `string` | n/a | yes |
 | <a name="input_netapp_insight_instance_type"></a> [netapp\_insight\_instance\_type](#input\_netapp\_insight\_instance\_type) | instance type to be used for the NetApp Insight EC2 instance | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The shorthand for the AWS region | `string` | n/a | yes |
 | <a name="input_vault_password"></a> [vault\_password](#input\_vault\_password) | Password for connecting to Vault | `string` | n/a | yes |
