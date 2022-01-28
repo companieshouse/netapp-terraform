@@ -51,7 +51,8 @@ resource "aws_security_group_rule" "netapp_tooling" {
   protocol  = "-1"
   cidr_blocks = [
     var.netapp_connector_ip,
-    var.netapp_unifiedmanager_ip
+    var.netapp_unifiedmanager_ip,
+    var.netapp_insight_ip
   ]
 }
 

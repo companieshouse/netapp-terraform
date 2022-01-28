@@ -99,6 +99,11 @@ variable "netapp_unifiedmanager_ip" {
   default     = "10.44.13.208/32"
 }
 
+variable "netapp_insight_ip" {
+  type        = string
+  description = "The full CIDR formatted IP of the Unified Manager instance so that we can allow it to access CVO security groups"
+  default     = "10.44.13.68/32"
+}
 
 variable "client_ips" {
   type        = list(any)
