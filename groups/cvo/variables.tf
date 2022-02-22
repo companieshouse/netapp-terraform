@@ -39,6 +39,11 @@ variable "cvo_name" {
   description = "Name for the resources table being created"
 }
 
+variable "cvo_instance_ami_id" {
+  type        = string
+  description = "An AMI Id thats used by the CVO instances, used for lookups of instance Ids to assign security groups to."
+}
+
 variable "cvo_instance_type" {
   type        = string
   description = "Instance Type to be used for the CVO Nodes, different types allowed depending on license type chosen"
@@ -103,6 +108,12 @@ variable "netapp_insight_ip" {
   type        = string
   description = "The full CIDR formatted IP of the Unified Manager instance so that we can allow it to access CVO security groups"
   default     = "10.44.13.68/32"
+}
+
+variable "vpc_ingress_cidrs" {
+  type        = list(string)
+  description = "A list of CIDR blocks to allow access, will be used with predefined port(s)."
+  default     = []
 }
 
 variable "client_ips" {
