@@ -44,3 +44,27 @@ data "vault_generic_secret" "netapp_connector" {
 data "vault_generic_secret" "netapp_cvo" {
   path = "applications/${var.aws_account}-${var.aws_region}/netapp/cvo-inputs"
 }
+
+data "aws_instances" "cvo_instances" {
+  instance_tags = {
+    WorkingEnvironment = "cvonetapp${var.account}001"
+  }
+
+  filter {
+    name   = "image-id"
+    values = [var.cvo_instance_ami_id]
+  }
+
+  instance_state_names = ["running"]
+
+  depends_on = [
+    module.cvo
+  ]
+}
+
+data "aws_instance" "cvo_instance" {
+  for_each = toset(data.aws_instances.cvo_instances.ids)
+
+  instance_id = each.value
+
+}
