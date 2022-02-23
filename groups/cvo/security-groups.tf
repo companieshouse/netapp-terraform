@@ -12,10 +12,10 @@ module "netapp_secondary_security_group" {
 }
 
 resource "aws_network_interface_sg_attachment" "cvo_instance_sgr_attachment" {
-  for_each = data.aws_instance.cvo_instance
+  for_each = toset(local.netapp_nics)
 
   security_group_id    = module.netapp_secondary_security_group.this_security_group_id
-  network_interface_id = each.value.network_interface_id
+  network_interface_id = each.value
 
 }
 

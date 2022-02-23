@@ -38,6 +38,7 @@ locals {
   # Create a map of vpc cidrs => ports to use as security group rules
   ingress_cidrs = length(var.vpc_ingress_cidrs) >= 1 ? setproduct(var.vpc_ingress_cidrs, local.cvo_ingress_ports) : []
 
+  netapp_nics = flatten([for eni in data.aws_network_interfaces.netapp : eni.ids])
 
   default_tags = {
     Terraform = "true"
