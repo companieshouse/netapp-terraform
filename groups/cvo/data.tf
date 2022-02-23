@@ -62,9 +62,11 @@ data "aws_instances" "cvo_instances" {
   ]
 }
 
-data "aws_instance" "cvo_instance" {
+data "aws_network_interfaces" "netapp" {
   for_each = toset(data.aws_instances.cvo_instances.ids)
 
-  instance_id = each.value
-
+  filter {
+    name   = "attachment.instance-id"
+    values = [each.value]
+  }
 }
