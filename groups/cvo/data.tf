@@ -45,28 +45,19 @@ data "vault_generic_secret" "netapp_cvo" {
   path = "applications/${var.aws_account}-${var.aws_region}/netapp/cvo-inputs"
 }
 
-data "aws_instances" "cvo_instances" {
-  instance_tags = {
-    WorkingEnvironment = "cvonetapp${var.account}001"
+data "aws_network_interfaces" "netapp" {
+
+  tags = {
+    "aws:cloudformation:stack-name" = "cvonetapp${var.account}001"
   }
 
   filter {
-    name   = "image-id"
-    values = [var.cvo_instance_ami_id]
+    name   = "subnet-id"
+    values = data.aws_subnet_ids.storage.ids
   }
 
-  instance_state_names = ["running"]
-
-  depends_on = [
-    module.cvo
-  ]
 }
 
-data "aws_network_interfaces" "netapp" {
-  for_each = toset(data.aws_instances.cvo_instances.ids)
-
-  filter {
-    name   = "attachment.instance-id"
-    values = [each.value]
-  }
+output "nics" {
+  value = data.aws_network_interfaces.netapp.ids
 }
