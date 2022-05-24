@@ -1,6 +1,3 @@
-# ------------------------------------------------------------------------------
-# CEU Frontend Security Group and rules
-# ------------------------------------------------------------------------------
 module "netapp_secondary_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 3.0"
