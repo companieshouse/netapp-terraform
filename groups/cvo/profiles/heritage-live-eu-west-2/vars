@@ -48,8 +48,7 @@ client_ports = [
 ]
 
 nfs_cifs_cidrs = [
-  "172.19.236.0/24",
-  "172.16.0.0/16"
+  "172.16.0.0/12"
 ]
 
 nfs_cifs_ports = [
