@@ -143,3 +143,42 @@ variable "nfs_cifs_ports" {
   description = "A list of ports to allow from on-premise ranges"
   default     = []
 }
+
+variable "nfs_ports" {
+  type        = list(any)
+  description = "A list of ports and protocols used for NFS client access"
+  default     = [
+                  { "protocol" = "tcp", "port" = 111 },
+                  { "protocol" = "udp", "port" = 111 },
+                  { "protocol" = "tcp", "port" = 2049 },
+                  { "protocol" = "udp", "port" = 2049 },
+                  { "protocol" = "tcp", "port" = 635 },
+                  { "protocol" = "udp", "port" = 635 },
+                  { "protocol" = "tcp", "port" = 4045, "to_port" = 4046 },
+                  { "protocol" = "udp", "port" = 4045, "to_port" = 4046 },
+                  { "protocol" = "tcp", "port" = 4049 },
+                  { "protocol" = "udp", "port" = 4049 }
+                ]
+}
+
+variable "nfs_client_cidrs" {
+  type        = list(any)
+  description = "A list of CIDRs requiring NFS access from outside of the home VPC"
+  default     = []
+}
+
+variable "cifs_ports" {
+  type        = list(any)
+  description = "A list of ports and protocols used for CIFS client access"
+  default     = [
+                  { "protocol" = "udp", "port" = 137, "to_port" = 138 },
+                  { "protocol" = "tcp", "port" = 139 },
+                  { "protocol" = "tcp", "port" = 445 },
+                ]
+}
+
+variable "cifs_client_cidrs" {
+  type        = list(any)
+  description = "A list of CIDRs requiring CIFS access from outside of the home VPC"
+  default     = []
+}

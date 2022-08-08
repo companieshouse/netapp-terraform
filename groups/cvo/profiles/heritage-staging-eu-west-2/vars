@@ -45,8 +45,8 @@ client_ports = [
 
 nfs_cifs_cidrs = [
   "172.16.0.0/16",
-  "10.84.6.48/32",
-  "10.84.6.63/32"
+#  "10.84.6.48/32",
+#  "10.84.6.63/32"
 ]
 
 nfs_cifs_ports = [
@@ -61,4 +61,9 @@ nfs_cifs_ports = [
     { "protocol" = "udp", "port" = 137, "to_port" = 138 },
     { "protocol" = "tcp", "port" = 139 },
     { "protocol" = "tcp", "port" = 445 },
+]
+
+nfs_client_cidrs = [
+    "172.16.0.0/12",
+    "10.84.6.0/24"
 ]

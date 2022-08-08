@@ -62,3 +62,47 @@ resource "aws_security_group_rule" "cardiff_nfs_cifs" {
   protocol    = each.value.protocol
   cidr_blocks = var.nfs_cifs_cidrs
 }
+
+# ------------------------------------------------------------------------------
+# NFS and CIFS
+# ------------------------------------------------------------------------------
+data "aws_network_interfaces" "cvo_data_eni" {
+  filter {
+    name   = "group-id"
+    values = [module.cvo.cvo_security_group_id]
+  }
+}
+
+# ------------------------------------------------------------------------------
+# Dedciated NFS Client Access Rules
+# ------------------------------------------------------------------------------
+resource "aws_security_group_rule" "cvo_data_nfs" {
+  for_each = { for rule in var.nfs_ports : join("_", [rule.protocol, rule.port]) => rule if length(var.nfs_client_cidrs) > 0 }
+
+  security_group_id = aws_security_group.cvo_data_nfs_sg.id
+  description       = "Allow clients to access CVO via NFS"
+
+  type        = "ingress"
+  from_port   = each.value.port
+  to_port     = lookup(each.value, "to_port", each.value.port)
+  protocol    = each.value.protocol
+  cidr_blocks = var.nfs_client_cidrs
+}
+
+
+# ------------------------------------------------------------------------------
+# Dedicated CIFS Client Access Rules
+# ------------------------------------------------------------------------------
+resource "aws_security_group_rule" "cvo_data_cifs" {
+  for_each = { for rule in var.cifs_ports : join("_", [rule.protocol, rule.port]) => rule if length(var.cifs_client_cidrs) > 0 }
+
+  security_group_id = aws_security_group.cvo_data_cifs_sg.id
+  description       = "Allow clients to access CVO via CIFS"
+
+  type        = "ingress"
+  from_port   = each.value.port
+  to_port     = lookup(each.value, "to_port", each.value.port)
+  protocol    = each.value.protocol
+  cidr_blocks = var.cifs_client_cidrs
+}
+
