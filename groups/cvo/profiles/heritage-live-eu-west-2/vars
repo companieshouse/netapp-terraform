@@ -65,3 +65,7 @@ nfs_cifs_ports = [
     { "protocol" = "tcp", "port" = 139 },
     { "protocol" = "tcp", "port" = 445 },
 ]
+
+nfs_client_cidrs = [
+    "172.16.0.0/12"
+]

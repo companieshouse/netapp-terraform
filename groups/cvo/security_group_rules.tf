@@ -64,7 +64,7 @@ resource "aws_security_group_rule" "cardiff_nfs_cifs" {
 }
 
 # ------------------------------------------------------------------------------
-# NFS and CIFS Client Access
+# NFS and CIFS
 # ------------------------------------------------------------------------------
 data "aws_network_interfaces" "cvo_data_eni" {
   filter {
@@ -73,43 +73,36 @@ data "aws_network_interfaces" "cvo_data_eni" {
   }
 }
 
-resource "aws_security_group" "cvo_data_sg" {
-  name        = "sgr-netapp-${var.account}-003"
-  description = "Allow client access to NFS and CIFS services"
-  vpc_id      = data.aws_vpc.vpc.id
+# ------------------------------------------------------------------------------
+# Dedciated NFS Client Access Rules
+# ------------------------------------------------------------------------------
+resource "aws_security_group_rule" "cvo_data_nfs" {
+  for_each = { for rule in var.nfs_ports : join("_", [rule.protocol, rule.port]) => rule if length(var.nfs_client_cidrs) > 0 }
 
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  tags = merge(
-    local.default_tags,
-    map(
-      "Name", "sgr-netapp-${var.account}-003",
-      "ServiceTeam", "Storage"
-    )
-  )
-}
-
-resource "aws_security_group_rule" "cvo_data_nfs_cifs" {
-  for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
-
-  security_group_id = aws_security_group.cvo_data_sg.id
-  description       = "Allow clients to access CVO via NFS and CIFS"
+  security_group_id = aws_security_group.cvo_data_nfs_sg.id
+  description       = "Allow clients to access CVO via NFS"
 
   type        = "ingress"
   from_port   = each.value.port
   to_port     = lookup(each.value, "to_port", each.value.port)
   protocol    = each.value.protocol
-  cidr_blocks = var.nfs_cifs_cidrs
+  cidr_blocks = var.nfs_client_cidrs
 }
 
-resource "aws_network_interface_sg_attachment" "cvo_data_sg_attachment" {
-  count = length(data.aws_network_interfaces.cvo_data_eni.ids)
 
-  security_group_id    = aws_security_group.cvo_data_sg.id
-  network_interface_id = sort(data.aws_network_interfaces.cvo_data_eni.ids)[count.index]
+# ------------------------------------------------------------------------------
+# Dedicated CIFS Client Access Rules
+# ------------------------------------------------------------------------------
+resource "aws_security_group_rule" "cvo_data_cifs" {
+  for_each = { for rule in var.cifs_ports : join("_", [rule.protocol, rule.port]) => rule if length(var.cifs_client_cidrs) > 0 }
+
+  security_group_id = aws_security_group.cvo_data_cifs_sg.id
+  description       = "Allow clients to access CVO via CIFS"
+
+  type        = "ingress"
+  from_port   = each.value.port
+  to_port     = lookup(each.value, "to_port", each.value.port)
+  protocol    = each.value.protocol
+  cidr_blocks = var.cifs_client_cidrs
 }
+
