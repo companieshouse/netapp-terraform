@@ -16,6 +16,13 @@ module "unified_manager_ec2_security_group" {
     {
       from_port   = 514
       to_port     = 514
+      protocol    = "tcp"
+      description = "Syslog Collector"
+      cidr_blocks = join(",", local.admin_cidrs)
+    },
+    {
+      from_port   = 514
+      to_port     = 514
       protocol    = "udp"
       description = "Syslog Collector"
       cidr_blocks = join(",", local.admin_cidrs)
