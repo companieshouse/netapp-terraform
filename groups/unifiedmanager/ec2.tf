@@ -12,6 +12,22 @@ module "unified_manager_ec2_security_group" {
 
   ingress_cidr_blocks = local.admin_cidrs
   ingress_rules       = ["http-80-tcp", "https-443-tcp", "ssh-tcp"]
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 514
+      to_port     = 514
+      protocol    = "tcp"
+      description = "Syslog Collector"
+      cidr_blocks = join(",", local.admin_cidrs)
+    },
+    {
+      from_port   = 514
+      to_port     = 514
+      protocol    = "udp"
+      description = "Syslog Collector"
+      cidr_blocks = join(",", local.admin_cidrs)
+    }
+  ]
   egress_rules        = ["all-all"]
 }
 

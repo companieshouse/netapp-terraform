@@ -8,6 +8,9 @@ region  = "euw2"
 # Application
 application = "unified-manager"
 
+# AMI Version
+ami_name = "centos7-base-0.1.7"
+
 # NetApp Unified Manager
 unified_manager_instance_type = "t3.xlarge"
 unified_manager_company_name = "companieshouse"
