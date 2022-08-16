@@ -69,3 +69,7 @@ nfs_cifs_ports = [
 nfs_client_cidrs = [
     "172.16.0.0/12"
 ]
+
+cifs_client_cidrs = [
+    "172.16.0.0/12"
+]
