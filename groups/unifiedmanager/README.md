@@ -22,6 +22,7 @@
 |------|--------|---------|
 | <a name="module_unified_manager_ec2_security_group"></a> [unified\_manager\_ec2\_security\_group](#module\_unified\_manager\_ec2\_security\_group) | terraform-aws-modules/security-group/aws | ~> 3.0 |
 | <a name="module_unified_manager_profile"></a> [unified\_manager\_profile](#module\_unified\_manager\_profile) | git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.40 |  |
+| <a name="module_aiqum_backup_bucket"></a> [unified\_manager\_ec2\_security\_group](#module\aiqum_backup_bucket) | terraform-aws-modules/s3-bucket/aws | ~> 2.1.0 |
 
 ## Resources
 
