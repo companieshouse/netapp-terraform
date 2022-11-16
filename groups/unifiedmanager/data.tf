@@ -33,10 +33,6 @@ data "vault_generic_secret" "unified_manager" {
   path = "applications/${var.aws_account}-${var.aws_region}/netapp/${var.application}"
 }
 
-data "aws_s3_bucket" "aiqum" {
-  bucket = local.unified_manager_data["aiqum_bucket_name"]
-}
-
 data "aws_ami" "unified_manager" {
   most_recent = true
   owners      = [data.vault_generic_secret.account_ids.data["development"]]

@@ -10,8 +10,8 @@ module "unified_manager_profile" {
       sid       = "aiqumAccess"
       effect    = "Allow"
       resources = [
-        data.aws_s3_bucket.aiqum.arn,
-        "${data.aws_s3_bucket.aiqum.arn}/*"
+        "${var.aws_account}.${var.aws_region}.aiqum.ch.gov.uk.arn",
+        "${var.aws_account}.${var.aws_region}.aiqum.ch.gov.uk.arn/*"
       ]
       actions   = [
         "s3:Get*",
