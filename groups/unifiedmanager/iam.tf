@@ -16,7 +16,8 @@ module "unified_manager_profile" {
       actions   = [
         "s3:Get*",
         "s3:List*",
-        "s3:Put*"
+        "s3:Put*",
+        "s3:DeleteObject"
       ]
     }
   ]
