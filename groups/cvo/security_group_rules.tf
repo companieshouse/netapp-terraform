@@ -103,6 +103,6 @@ resource "aws_security_group_rule" "cvo_data_cifs" {
   from_port   = each.value.port
   to_port     = lookup(each.value, "to_port", each.value.port)
   protocol    = each.value.protocol
-  cidr_blocks = var.cifs_client_cidrs
+  cidr_blocks = concat(var.cifs_client_cidrs, var.vpc_ingress_cidrs)
 }
 
