@@ -4,7 +4,7 @@ resource "aws_instance" "snapcenter" {
   instance_type          = var.instance_type
   monitoring             = var.monitoring
   get_password_data      = var.get_password_data
-  subnet_id              = 
+  subnet_id              = data.aws_subnet.monitor.id
   vpc_security_group_ids = [aws_security_group.snapcenter.id]
   ebs_optimized          = var.ebs_optimized
 
