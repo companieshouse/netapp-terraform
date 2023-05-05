@@ -23,3 +23,10 @@ data "vault_generic_secret" "ec2_data" {
 data "vault_generic_secret" "kms_data" {
   path = "aws-accounts/${var.aws_account}/kms"
 }
+
+data "aws_subnet" "monitor" {
+   filter {
+    name   = "tag:Name"
+    values = [var.subnet_name]
+  } 
+}
