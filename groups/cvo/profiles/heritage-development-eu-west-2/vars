@@ -11,6 +11,7 @@ cvo_instance_type           = "m5.xlarge"
 cvo_license_type            = "cot-explore-paygo"
 cvo_is_ha                   = false
 cvo_ontap_version           = "ONTAP-9.7P5.T1"
+cvo2_ontap_version          = "ONTAP-9.11.0"
 connector_account_access_id = "CloudProviderAccount-jufYYNpi"
 cvo_instance_ami_id         = "ami-0522b8ca8e272d9c1"
 

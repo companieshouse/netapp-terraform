@@ -104,10 +104,10 @@ resource "aws_network_interface_sg_attachment" "cvo_data_nfs_sg_attachment" {
 }
 
 resource "aws_network_interface_sg_attachment" "cvo2_data_nfs_sg_attachment" {
-  for_each = data.aws_network_interfaces.cvo2_data_eni.ids
+   count = length(data.aws_network_interfaces.cvo2_data_eni.ids)
 
   security_group_id    = aws_security_group.cvo2_data_nfs_sg.id
-  network_interface_id = each.value
+  network_interface_id = sort(data.aws_network_interfaces.cvo2_data_eni.ids)[count.index]
 }
 
 
@@ -165,6 +165,7 @@ resource "aws_network_interface_sg_attachment" "cvo_data_cifs_sg_attachment" {
 }
 
 resource "aws_network_interface_sg_attachment" "cvo2_data_cifs_sg_attachment" {
+  
   count = length(data.aws_network_interfaces.cvo2_data_eni.ids)
 
   security_group_id    = aws_security_group.cvo2_data_cifs_sg.id

@@ -55,7 +55,7 @@ module "cvo2" {
   license_type            = var.cvo_license_type
   is_ha                   = var.cvo_is_ha
   use_latest_version      = false
-  ontap_version           = var.cvo_ontap_version
+  cvo_ontap_version       = var.cvo2_ontap_version
   platform_serial_numbers = try(jsondecode(local.netapp_cvo_data["node-serial-numbers"]), [null, null])
   cluster_floating_ips    = var.cvo_floating_ips
   mediator_key_pair_name  = aws_key_pair.netapp_mediator_key.key_name
