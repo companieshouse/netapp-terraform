@@ -10,8 +10,8 @@ locals {
 
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
-  cvo2_netapp_interface_ids = var.enable_cvo2_deployment ? data.aws_network_interfaces.netapp2[0].ids : []
-  cvo2_data_interface_ids   = var.enable_cvo2_deployment ? data.aws_network_interfaces.cvo2_data_eni[0].ids : []
+  # cvo2_netapp_interface_ids = var.enable_cvo2_deployment ? data.aws_network_interfaces.netapp2[0].ids : []
+  # cvo2_data_interface_ids   = var.enable_cvo2_deployment ? data.aws_network_interfaces.cvo2_data_eni[0].ids : []
 
   # See https://docs.netapp.com/us-en/occm/reference_security_groups.html#rules-for-cloud-volumes-ontap for port details
   # Initially leaving egress open as per netapp reccomendations, we can restrict this further after initial deploys if required.
