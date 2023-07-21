@@ -27,6 +27,18 @@ resource "aws_network_interface_sg_attachment" "cvo_instance_sgr_attachment" {
   ]
 }
 
+resource "aws_network_interface_sg_attachment" "cvo2_instance_sgr_attachment" {
+  for_each = toset(local.cvo2_netapp_interface_ids)
+
+  security_group_id    = module.netapp_secondary_security_group.this_security_group_id
+  network_interface_id = each.value
+
+  depends_on = [
+    module.netapp_secondary_security_group,
+    data.aws_network_interfaces.netapp2
+  ]
+}
+
 resource "aws_security_group_rule" "ingress_cidrs" {
   count = length(local.ingress_cidrs)
 
@@ -63,6 +75,28 @@ resource "aws_security_group" "cvo_data_nfs_sg" {
   )
 }
 
+resource "aws_security_group" "cvo2_data_nfs_sg" {
+  count  = var.enable_cvo2_deployment ? 1 : 0
+  name        = "sgr-netapp-${var.account}-nfs-002"
+  description = "Allow client access to NFS services"
+  vpc_id      = data.aws_vpc.vpc.id
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = merge(
+    local.default_tags,
+    map(
+      "Name", "sgr-netapp-${var.account}-nfs-002",
+      "ServiceTeam", "Storage"
+    )
+  )
+}
+
 resource "aws_network_interface_sg_attachment" "cvo_data_nfs_sg_attachment" {
   count = length(data.aws_network_interfaces.cvo_data_eni.ids)
 
@@ -70,10 +104,18 @@ resource "aws_network_interface_sg_attachment" "cvo_data_nfs_sg_attachment" {
   network_interface_id = sort(data.aws_network_interfaces.cvo_data_eni.ids)[count.index]
 }
 
+#resource "aws_network_interface_sg_attachment" "cvo2_data_nfs_sg_attachment" {
+#  count = length(local.cvo2_data_interface_ids)
+#
+#  security_group_id    = aws_security_group.cvo2_data_nfs_sg[0].id
+#  network_interface_id = sort(local.cvo2_data_interface_ids)[count.index]
+#}
+
 
 # ------------------------------------------------------------------------------
 # Dedicated CIFS Access Security Group
 # ------------------------------------------------------------------------------
+
 resource "aws_security_group" "cvo_data_cifs_sg" {
   name        = "sgr-netapp-${var.account}-cifs-001"
   description = "Allow client access to CIFS services"
@@ -95,9 +137,38 @@ resource "aws_security_group" "cvo_data_cifs_sg" {
   )
 }
 
+resource "aws_security_group" "cvo2_data_cifs_sg" {
+  count  = var.enable_cvo2_deployment ? 1 : 0
+  name        = "sgr-netapp-${var.account}-cifs-002"
+  description = "Allow client access to CIFS services"
+  vpc_id      = data.aws_vpc.vpc.id
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = merge(
+    local.default_tags,
+    map(
+      "Name", "sgr-netapp-${var.account}-cifs-002",
+      "ServiceTeam", "Storage"
+    )
+  )
+}
+
 resource "aws_network_interface_sg_attachment" "cvo_data_cifs_sg_attachment" {
   count = length(data.aws_network_interfaces.cvo_data_eni.ids)
 
   security_group_id    = aws_security_group.cvo_data_cifs_sg.id
   network_interface_id = sort(data.aws_network_interfaces.cvo_data_eni.ids)[count.index]
 }
+
+#resource "aws_network_interface_sg_attachment" "cvo2_data_cifs_sg_attachment" {
+#  count = length(local.cvo2_data_interface_ids)
+#
+#  security_group_id    = aws_security_group.cvo2_data_cifs_sg[0].id
+#  network_interface_id = sort(local.cvo2_data_interface_ids)[count.index]
+#}

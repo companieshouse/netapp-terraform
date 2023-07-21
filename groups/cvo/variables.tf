@@ -76,6 +76,17 @@ variable "cvo_ontap_version" {
   description = "The required ONTAP version. Ignored if 'use_latest_version' is set to true. The default is to use the latest version."
 }
 
+variable "cvo2_ontap_version" {
+  type        = string
+  description = "The required ONTAP version for the cvo upgrade. Ignored if 'use_latest_version' is set to true. The default is to use the latest version."
+}
+
+variable "enable_cvo2_deployment" {
+  type        = bool
+  description = "This enables and disables the deployment of the new CVO module"
+  default     = false
+}
+
 variable "cvo_floating_ips" {
   type        = list(string)
   default     = [null, null, null, null]

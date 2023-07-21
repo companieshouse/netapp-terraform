@@ -73,6 +73,14 @@ data "aws_network_interfaces" "cvo_data_eni" {
   }
 }
 
+data "aws_network_interfaces" "cvo2_data_eni" {
+  count  = var.enable_cvo2_deployment ? 1 : 0
+  filter {
+    name   = "group-id"
+    values = [module.cvo2[0].cvo_security_group_id]
+  }
+}
+
 # ------------------------------------------------------------------------------
 # Dedciated NFS Client Access Rules
 # ------------------------------------------------------------------------------
