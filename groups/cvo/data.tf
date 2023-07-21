@@ -61,7 +61,7 @@ data "aws_network_interfaces" "netapp" {
 data "aws_network_interfaces" "netapp2" {
 
   tags = {
-    "aws:cloudformation:stack-name" = "cvonetapp${var.account}001"
+    "aws:cloudformation:stack-name" = "dev-cvo"
   }
 
   filter {
