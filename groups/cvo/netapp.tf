@@ -42,8 +42,8 @@ module "cvo" {
 }
 
 module "cvo2" {
-  count  = var.enable_cvo2_deployment ? 1 : 0
   source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_aws?ref=tags/1.0.56"
+  count  = var.enable_cvo2_deployment ? 1 : 0
 
   vpc_id     = data.aws_vpc.vpc.id
   subnet_ids = data.aws_subnet_ids.storage.ids
@@ -56,7 +56,7 @@ module "cvo2" {
   license_type            = var.cvo_license_type
   is_ha                   = var.cvo_is_ha
   use_latest_version      = false
-  cvo_ontap_version       = var.cvo2_ontap_version
+  ontap_version           = var.cvo2_ontap_version
   platform_serial_numbers = try(jsondecode(local.netapp_cvo_data["node-serial-numbers"]), [null, null])
   cluster_floating_ips    = var.cvo_floating_ips
   mediator_key_pair_name  = aws_key_pair.netapp_mediator_key.key_name
