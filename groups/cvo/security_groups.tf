@@ -28,7 +28,9 @@ resource "aws_network_interface_sg_attachment" "cvo_instance_sgr_attachment" {
 }
 
 resource "aws_network_interface_sg_attachment" "cvo2_instance_sgr_attachment" {
-  for_each = toset(data.aws_network_interfaces.netapp2.ids)
+  count  = var.enable_cvo2_deployment ? 1 : 0
+  
+  for_each = toset(data.aws_network_interfaces.netapp2[0].ids)
 
   security_group_id    = module.netapp_secondary_security_group.this_security_group_id
   network_interface_id = each.value
@@ -76,6 +78,7 @@ resource "aws_security_group" "cvo_data_nfs_sg" {
 }
 
 resource "aws_security_group" "cvo2_data_nfs_sg" {
+  count  = var.enable_cvo2_deployment ? 1 : 0
   name        = "sgr-netapp-${var.account}-nfs-002"
   description = "Allow client access to NFS services"
   vpc_id      = data.aws_vpc.vpc.id
@@ -104,10 +107,10 @@ resource "aws_network_interface_sg_attachment" "cvo_data_nfs_sg_attachment" {
 }
 
 resource "aws_network_interface_sg_attachment" "cvo2_data_nfs_sg_attachment" {
-   count = length(data.aws_network_interfaces.cvo2_data_eni.ids)
+   count  = var.enable_cvo2_deployment ? length(data.aws_network_interfaces.cvo2_data_eni[0].ids) : 0
 
   security_group_id    = aws_security_group.cvo2_data_nfs_sg.id
-  network_interface_id = sort(data.aws_network_interfaces.cvo2_data_eni.ids)[count.index]
+  network_interface_id = sort(data.aws_network_interfaces.cvo2_data_eni[0].ids)[count.index]
 }
 
 
@@ -137,6 +140,7 @@ resource "aws_security_group" "cvo_data_cifs_sg" {
 }
 
 resource "aws_security_group" "cvo2_data_cifs_sg" {
+  count  = var.enable_cvo2_deployment ? 1 : 0
   name        = "sgr-netapp-${var.account}-cifs-002"
   description = "Allow client access to CIFS services"
   vpc_id      = data.aws_vpc.vpc.id
@@ -165,9 +169,8 @@ resource "aws_network_interface_sg_attachment" "cvo_data_cifs_sg_attachment" {
 }
 
 resource "aws_network_interface_sg_attachment" "cvo2_data_cifs_sg_attachment" {
-  
-  count = length(data.aws_network_interfaces.cvo2_data_eni.ids)
+  count  = var.enable_cvo2_deployment ? length(data.aws_network_interfaces.cvo2_data_eni[0].ids) : 0
 
-  security_group_id    = aws_security_group.cvo2_data_cifs_sg.id
-  network_interface_id = sort(data.aws_network_interfaces.cvo2_data_eni.ids)[count.index]
+  security_group_id    = aws_security_group.cvo2_data_cifs_sg[0].id
+  network_interface_id = sort(data.aws_network_interfaces.cvo2_data_eni[0].ids)[count.index]
 }

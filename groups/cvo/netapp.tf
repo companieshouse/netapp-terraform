@@ -42,6 +42,7 @@ module "cvo" {
 }
 
 module "cvo2" {
+  count  = var.enable_cvo2_deployment ? 1 : 0
   source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_aws?ref=tags/1.0.56"
 
   vpc_id     = data.aws_vpc.vpc.id

@@ -59,6 +59,7 @@ data "aws_network_interfaces" "netapp" {
 }
 
 data "aws_network_interfaces" "netapp2" {
+  count  = var.enable_cvo2_deployment ? 1 : 0
 
   tags = {
     "aws:cloudformation:stack-name" = "dev-cvo"
