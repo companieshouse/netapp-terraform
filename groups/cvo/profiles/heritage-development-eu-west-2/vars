@@ -15,6 +15,8 @@ cvo2_ontap_version          = "ONTAP-9.13.3"
 connector_account_access_id = "CloudProviderAccount-jufYYNpi"
 cvo_instance_ami_id         = "ami-0522b8ca8e272d9c1"
 
+enable_cvo2_deployment = true
+
 client_ips = [
 "10.10.9.0/28",
 "172.24.4.192/32",
