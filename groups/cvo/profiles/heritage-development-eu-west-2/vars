@@ -7,7 +7,7 @@ region  = "euw2"
 
 # NetApp Cloud Volumes Ontap (CVO)
 cvo_name                    = "netapp"
-cvo2_name                   = "netapp new"
+cvo2_name                   = "netapp-new"
 cvo_instance_type           = "m5.xlarge"
 cvo_license_type            = "cot-explore-paygo"
 cvo_is_ha                   = false
