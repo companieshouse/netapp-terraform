@@ -49,7 +49,7 @@ module "cvo2" {
   subnet_ids = data.aws_subnet_ids.storage.ids
 
   ## cvo setup
-  name                    = format("%s-%s-%s", var.cvo_name, var.account, "002")
+  name                    = format("%s-%s-%s", var.cvo2_name, var.account, "001")
   instance_type           = var.cvo_instance_type
   ebs_volume_size         = var.cvo_ebs_volume_size
   ebs_volume_size_unit    = var.cvo_ebs_volume_size_unit
