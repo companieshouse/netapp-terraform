@@ -27,17 +27,17 @@ resource "aws_network_interface_sg_attachment" "cvo_instance_sgr_attachment" {
   ]
 }
 
-resource "aws_network_interface_sg_attachment" "cvo2_instance_sgr_attachment" {
-  for_each = toset(local.cvo2_netapp_interface_ids)
+# resource "aws_network_interface_sg_attachment" "cvo2_instance_sgr_attachment" {
+#   for_each = toset(local.cvo2_netapp_interface_ids)
 
-  security_group_id    = module.netapp_secondary_security_group.this_security_group_id
-  network_interface_id = each.value
+#   security_group_id    = module.netapp_secondary_security_group.this_security_group_id
+#   network_interface_id = each.value
 
-  depends_on = [
-    module.netapp_secondary_security_group,
-    data.aws_network_interfaces.netapp2
-  ]
-}
+#   depends_on = [
+#     module.netapp_secondary_security_group,
+#     data.aws_network_interfaces.netapp2
+#   ]
+# }
 
 resource "aws_security_group_rule" "ingress_cidrs" {
   count = length(local.ingress_cidrs)

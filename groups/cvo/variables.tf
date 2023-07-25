@@ -39,6 +39,11 @@ variable "cvo_name" {
   description = "Name for the resources table being created"
 }
 
+variable "cvo2_name" {
+  type        = string
+  description = "Name for the resources table being created for the upgrade"
+}
+
 variable "cvo_instance_ami_id" {
   type        = string
   description = "An AMI Id thats used by the CVO instances, used for lookups of instance Ids to assign security groups to."
