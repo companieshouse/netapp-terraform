@@ -50,6 +50,7 @@ module "cvo2" {
 
   ## cvo setup
   name                    = format("%s-%s-%s", var.cvo2_name, var.account, "001")
+  short_name              = var.cvo2_name
   instance_type           = var.cvo_instance_type
   ebs_volume_size         = var.cvo_ebs_volume_size
   ebs_volume_size_unit    = var.cvo_ebs_volume_size_unit
