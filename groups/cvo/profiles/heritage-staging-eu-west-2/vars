@@ -12,7 +12,6 @@ cvo_instance_type           = "m5.4xlarge"
 cvo_license_type            = "ha-cot-premium-paygo"
 cvo_is_ha                   = true
 cvo_ontap_version           = "ONTAP-9.7P5.T1.ha"
-cvo2_ontap_version          = "ONTAP-9.13.0"
 connector_account_access_id = "CloudProviderAccount-AwVeHvwJ"
 cvo_instance_ami_id         = "ami-0f3eef449fe9501e4"
 
