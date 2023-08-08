@@ -13,6 +13,24 @@ resource "aws_security_group_rule" "netapp_tooling" {
   ]
 }
 
+# resource "aws_security_group_rule" "netapp_tooling_new" {
+#   # security_group_id = module.cvo2.cvo_security_group_id
+#   description       = "Rules for NetApp Tools - Connector and Unified Manager"
+
+#   type      = "ingress"
+#   from_port = "-1"
+#   to_port   = "-1"
+#   protocol  = "-1"
+#   cidr_blocks = [
+#     var.netapp_connector_ip,
+#     var.netapp_unifiedmanager_ip,
+#     var.netapp_insight_ip
+#   ]
+#   depends_on = [
+#     module.cvo2
+#   ]
+# }
+
 resource "aws_security_group_rule" "onpremise" {
   for_each = { for rule in var.client_ports : rule.port => rule }
 
@@ -113,3 +131,6 @@ resource "aws_security_group_rule" "cvo_data_cifs" {
   cidr_blocks = concat(var.cifs_client_cidrs, var.vpc_ingress_cidrs)
 }
 
+output "cvo2" {
+  value = module.cvo2
+}
