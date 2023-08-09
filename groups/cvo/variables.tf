@@ -193,3 +193,15 @@ variable "cifs_client_cidrs" {
   description = "A list of CIDRs requiring CIFS access from outside of the home VPC"
   default     = []
 }
+
+variable "capacity_tier" {
+  type        = string
+  default     = "NONE"
+  description = "(Optional) Whether to enable data tiering for the first data aggregate: ['S3','NONE']. The default is 'NONE'."
+}
+
+variable "ebs_volume_type" {
+  type        = string
+  default     = "gp3"
+  description = "(Optional) The EBS volume type for the first data aggregate ['gp2','io1','st1','sc1']. The default is 'gp3'."
+}
