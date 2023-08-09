@@ -65,6 +65,18 @@ resource "aws_security_group_rule" "onpremise_admin" {
   cidr_blocks       = local.admin_cidrs
 }
 
+resource "aws_security_group_rule" "onpremise_admin2" {
+
+  security_group_id = module.cvo2[0].cvo_security_group_id
+  description       = "Allow on-premise ranges to access CVO over SSH and HTTPS for administration"
+  for_each          = toset(["22", "443"])
+  type              = "ingress"
+  from_port         = each.value
+  to_port           = each.value
+  protocol          = "tcp"
+  cidr_blocks       = local.admin_cidrs
+}
+
 resource "aws_security_group_rule" "cardiff_nfs_cifs" {
   for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
 
