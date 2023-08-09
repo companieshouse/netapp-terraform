@@ -76,5 +76,5 @@ output "nics" {
   value = data.aws_network_interfaces.netapp.ids
 }
 output "nics2" {
-  value = data.aws_network_interfaces.netapp2.ids
+  value = data.aws_network_interfaces.netapp2[0].ids
 }
