@@ -9,7 +9,7 @@ resource "aws_security_group_rule" "netapp_tooling" {
   cidr_blocks = [
     var.netapp_connector_ip,
     var.netapp_unifiedmanager_ip,
-    var.netapp_insight_ip
+    var.netapp_insight_ip,
     var.netapp_snapcentre_ip
   ]
 }
@@ -25,7 +25,7 @@ resource "aws_security_group_rule" "netapp_tooling_new" {
   cidr_blocks = [
     var.netapp_connector_ip,
     var.netapp_unifiedmanager_ip,
-    var.netapp_insight_ip
+    var.netapp_insight_ip,
     var.netapp_snapcentre_ip
   ]
 }
