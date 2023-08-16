@@ -121,6 +121,12 @@ variable "netapp_insight_ip" {
   default     = "10.44.13.68/32"
 }
 
+variable "netapp_snapcentre_ip" {
+  type        = string
+  description = "The full CIDR formatted IP of the SnapCentre instance so that we can allow it to access CVO security groups"
+  default     = "10.44.12.150/32"
+}
+
 variable "vpc_ingress_cidrs" {
   type        = list(string)
   description = "A list of CIDR blocks to allow access, will be used with predefined port(s)."
