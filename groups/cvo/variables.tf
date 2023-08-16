@@ -121,7 +121,7 @@ variable "netapp_insight_ip" {
   default     = "10.44.13.68/32"
 }
 
-variable "netapp_snapcentre_ip" {
+variable "netapp_snapcenter_ip" {
   type        = string
   description = "The full CIDR formatted IP of the SnapCentre instance so that we can allow it to access CVO security groups"
   default     = "10.44.12.150/32"

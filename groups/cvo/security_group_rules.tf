@@ -10,7 +10,7 @@ resource "aws_security_group_rule" "netapp_tooling" {
     var.netapp_connector_ip,
     var.netapp_unifiedmanager_ip,
     var.netapp_insight_ip,
-    var.netapp_snapcentre_ip
+    var.netapp_snapcenter_ip
   ]
 }
 
@@ -26,7 +26,7 @@ resource "aws_security_group_rule" "netapp_tooling_new" {
     var.netapp_connector_ip,
     var.netapp_unifiedmanager_ip,
     var.netapp_insight_ip,
-    var.netapp_snapcentre_ip
+    var.netapp_snapcenter_ip
   ]
 }
 
