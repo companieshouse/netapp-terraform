@@ -1,6 +1,6 @@
 resource "aws_security_group_rule" "netapp_tooling" {
   security_group_id = module.cvo.cvo_security_group_id
-  description       = "Rules for NetApp Tools - Connector and Unified Manager"
+  description       = "Rules for NetApp Tools - Connector, Unified Manager and SnapCenter"
 
   type      = "ingress"
   from_port = "-1"
@@ -16,7 +16,7 @@ resource "aws_security_group_rule" "netapp_tooling" {
 
 resource "aws_security_group_rule" "netapp_tooling_new" {
   security_group_id = module.cvo2[0].cvo_security_group_id
-  description       = "Rules for NetApp Tools - Connector and Unified Manager"
+  description       = "Rules for NetApp Tools - Connector, Unified Manager and SnapCenter"
 
   type      = "ingress"
   from_port = "-1"
