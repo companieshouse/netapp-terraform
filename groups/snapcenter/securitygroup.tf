@@ -35,6 +35,14 @@ resource "aws_security_group" "snapcenter" {
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.admin.id]
   }
 
+    ingress {
+    description     = "Allow SnapCenter access from Internal"
+    from_port       = 8146
+    to_port         = 8146
+    protocol        = "tcp"
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.admin.id]
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
