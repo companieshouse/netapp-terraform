@@ -15,7 +15,7 @@ terraform {
     }
     netapp-cloudmanager = {
       source  = "NetApp/netapp-cloudmanager"
-      version = "20.12"
+      version = "23.7.0"
     }
   }
   backend "s3" {}
