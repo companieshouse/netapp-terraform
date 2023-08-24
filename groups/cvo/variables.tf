@@ -200,7 +200,13 @@ variable "capacity_tier" {
   description = "(Optional) Whether to enable data tiering for the first data aggregate: ['S3','NONE']. The default is 'NONE'."
 }
 
-variable "ebs_volume_type" {
+variable "ebs_volume_type_cvo" {
+  type        = string
+  default     = "gp2"
+  description = "(Optional) The EBS volume type for the first data aggregate ['gp2','io1','st1','sc1']. The default is 'gp3'."
+}
+
+variable "ebs_volume_type_cvo2" {
   type        = string
   default     = "gp3"
   description = "(Optional) The EBS volume type for the first data aggregate ['gp2','io1','st1','sc1']. The default is 'gp3'."
