@@ -11,7 +11,7 @@ resource "aws_instance" "snapcenter" {
   root_block_device {
     delete_on_termination = true
     encrypted             = true
-    kms_key_id            = data.aws_kms_key.ebs_key.id
+    kms_key_id            = data.aws_kms_key.ebs_key.arn
     volume_size           = "100"
     volume_type           = "gp2"
   }
@@ -20,7 +20,7 @@ resource "aws_instance" "snapcenter" {
     delete_on_termination = true
     device_name           = "/dev/xvdf"
     encrypted             = true
-    kms_key_id            = data.aws_kms_key.ebs_key.id
+    kms_key_id            = data.aws_kms_key.ebs_key.arn
     volume_size           = "100"
     volume_type           = "gp2"
   }
