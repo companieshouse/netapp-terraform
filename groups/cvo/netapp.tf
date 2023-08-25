@@ -25,6 +25,7 @@ module "cvo" {
   connector_accountId     = local.account_ids["shared-services"]
   svm_password            = local.netapp_cvo_data["svm-password"]
   cloud_provider_account  = var.connector_account_access_id
+  ebs_volume_type         = var.ebs_volume_type_cvo
 
   ## Security Group setting
   ingress_cidr_blocks = [
@@ -65,7 +66,7 @@ module "cvo2" {
   svm_password            = local.netapp_cvo_data["svm-password"]
   cloud_provider_account  = var.connector_account_access_id
   capacity_tier           = var.capacity_tier 
-  ebs_volume_type         = var.ebs_volume_type
+  ebs_volume_type         = var.ebs_volume_type_cvo2
 
   ## Security Group setting
   ingress_cidr_blocks = [
