@@ -28,7 +28,7 @@ resource "aws_instance" "snapcenter" {
   tags = {
     Name        = "${var.service}-${var.application}-01"
     Application = "${title(var.service)} ${title(var.application)}"
-    ServiceTeam = "Unix/Storage"
+    ServiceTeam = "WindowsSupport"
     Backup      = "backup14"
   }
 }
