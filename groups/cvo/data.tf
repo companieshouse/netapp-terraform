@@ -56,19 +56,26 @@ data "aws_network_interfaces" "netapp" {
     values = data.aws_subnet_ids.storage.ids
   }
 
+  depends_on = [
+    module.cvo
+  ]
 }
 
 data "aws_network_interfaces" "netapp2" {
   count  = var.enable_cvo2_deployment ? 1 : 0
 
   tags = {
-    "aws:cloudformation:stack-name" = "dev-cvo"
+    "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
   }
 
   filter {
     name   = "subnet-id"
     values = data.aws_subnet_ids.storage.ids
   }
+
+  depends_on = [
+    module.cvo2
+  ]
 
 }
 
