@@ -34,9 +34,9 @@ variable "vault_password" {
 # ------------------------------------------------------------------------------
 # NetApp Cloud Volumes Variables
 # ------------------------------------------------------------------------------
-variable "cvo_name" {
+variable "cvo2_name" {
   type        = string
-  description = "Name for the resources table being created"
+  description = "Name for the resources table being created for the upgrade"
 }
 
 variable "cvo_instance_ami_id" {
@@ -71,10 +71,6 @@ variable "cvo_is_ha" {
   description = "Is this going to be a HA deployment or Standalone"
 }
 
-variable "cvo_ontap_version" {
-  type        = string
-  description = "The required ONTAP version. Ignored if 'use_latest_version' is set to true. The default is to use the latest version."
-}
 variable "cvo_floating_ips" {
   type        = list(string)
   default     = [null, null, null, null]
@@ -196,6 +192,6 @@ variable "capacity_tier" {
 
 variable "ebs_volume_type" {
   type        = string
-  default     = "gp2"
+  default     = "gp3"
   description = "(Optional) The EBS volume type for the first data aggregate ['gp3','gp2','io1','st1','sc1']. The default is 'gp3'."
 }

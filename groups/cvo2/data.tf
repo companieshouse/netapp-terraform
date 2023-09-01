@@ -48,17 +48,13 @@ data "vault_generic_secret" "netapp_cvo" {
 data "aws_network_interfaces" "netapp" {
 
   tags = {
-    "aws:cloudformation:stack-name" = "cvonetapp${var.account}001"
+    "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
   }
 
   filter {
     name   = "subnet-id"
     values = data.aws_subnet_ids.storage.ids
   }
-
-  depends_on = [
-    module.cvo
-  ]
 }
 
 output "nics" {

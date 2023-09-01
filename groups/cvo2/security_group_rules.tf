@@ -1,5 +1,5 @@
 resource "aws_security_group_rule" "netapp_tooling" {
-  security_group_id = module.cvo.cvo_security_group_id
+  security_group_id = module.cvo2.cvo_security_group_id
   description       = "Rules for NetApp Tools - Connector, Unified Manager and SnapCenter"
 
   type      = "ingress"
@@ -13,10 +13,11 @@ resource "aws_security_group_rule" "netapp_tooling" {
     var.netapp_snapcenter_ip
   ]
 }
+
 resource "aws_security_group_rule" "onpremise" {
   for_each = { for rule in var.client_ports : rule.port => rule }
 
-  security_group_id = module.cvo.cvo_security_group_id
+  security_group_id = module.cvo2.cvo_security_group_id
   description       = "Allow on premise ranges to access CVO"
 
   type        = "ingress"
@@ -28,7 +29,7 @@ resource "aws_security_group_rule" "onpremise" {
 
 resource "aws_security_group_rule" "onpremise_icmp" {
 
-  security_group_id = module.cvo.cvo_security_group_id
+  security_group_id = module.cvo2.cvo_security_group_id
   description       = "Allow only the on premise NetApp metro-cluster range to ping CVO via ICMP"
 
   type        = "ingress"
@@ -40,7 +41,7 @@ resource "aws_security_group_rule" "onpremise_icmp" {
 
 resource "aws_security_group_rule" "onpremise_admin" {
 
-  security_group_id = module.cvo.cvo_security_group_id
+  security_group_id = module.cvo2.cvo_security_group_id
   description       = "Allow on-premise ranges to access CVO over SSH and HTTPS for administration"
   for_each          = toset(["22", "443"])
   type              = "ingress"
@@ -53,7 +54,7 @@ resource "aws_security_group_rule" "onpremise_admin" {
 resource "aws_security_group_rule" "cardiff_nfs_cifs" {
   for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
 
-  security_group_id = module.cvo.cvo_security_group_id
+  security_group_id = module.cvo2.cvo_security_group_id
   description       = "Allow Cardiff Backend range to access CVO via NFS and CIFS"
 
   type        = "ingress"
@@ -68,7 +69,7 @@ resource "aws_security_group_rule" "cardiff_nfs_cifs" {
 data "aws_network_interfaces" "cvo_data_eni" {
   filter {
     name   = "group-id"
-    values = [module.cvo.cvo_security_group_id]
+    values = [module.cvo2.cvo_security_group_id]
   }
 }
 
