@@ -13,23 +13,6 @@ resource "aws_security_group_rule" "netapp_tooling" {
     var.netapp_snapcenter_ip
   ]
 }
-
-resource "aws_security_group_rule" "netapp_tooling_new" {
-  security_group_id = module.cvo2[0].cvo_security_group_id
-  description       = "Rules for NetApp Tools - Connector, Unified Manager and SnapCenter"
-
-  type      = "ingress"
-  from_port = "-1"
-  to_port   = "-1"
-  protocol  = "-1"
-  cidr_blocks = [
-    var.netapp_connector_ip,
-    var.netapp_unifiedmanager_ip,
-    var.netapp_insight_ip,
-    var.netapp_snapcenter_ip
-  ]
-}
-
 resource "aws_security_group_rule" "onpremise" {
   for_each = { for rule in var.client_ports : rule.port => rule }
 
@@ -67,18 +50,6 @@ resource "aws_security_group_rule" "onpremise_admin" {
   cidr_blocks       = local.admin_cidrs
 }
 
-resource "aws_security_group_rule" "onpremise_admin2" {
-
-  security_group_id = module.cvo2[0].cvo_security_group_id
-  description       = "Allow on-premise ranges to access CVO over SSH and HTTPS for administration"
-  for_each          = toset(["22", "443"])
-  type              = "ingress"
-  from_port         = each.value
-  to_port           = each.value
-  protocol          = "tcp"
-  cidr_blocks       = local.admin_cidrs
-}
-
 resource "aws_security_group_rule" "cardiff_nfs_cifs" {
   for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
 
@@ -98,14 +69,6 @@ data "aws_network_interfaces" "cvo_data_eni" {
   filter {
     name   = "group-id"
     values = [module.cvo.cvo_security_group_id]
-  }
-}
-
-data "aws_network_interfaces" "cvo2_data_eni" {
-  count  = var.enable_cvo2_deployment ? 1 : 0
-  filter {
-    name   = "group-id"
-    values = [module.cvo2[0].cvo_security_group_id]
   }
 }
 
