@@ -1,40 +1,40 @@
-aws_region  = "eu-west-2"
-aws_account = "heritage-staging"
+aws_region                  = "eu-west-2"
+aws_account                 = "heritage-staging"
 
 # shorthand
-account = "hstg"
-region  = "euw2"
+account                     = "hstg"
+region                      = "euw2"
 
 # NetApp Cloud Volumes Ontap (CVO)
-cvo2_name                    = "netapp-new"
+cvo2_name                   = "netapp-new"
 cvo_instance_type           = "m5.4xlarge"
 cvo_license_type            = "ha-cot-premium-paygo"
 cvo_is_ha                   = true
 connector_account_access_id = "CloudProviderAccount-AwVeHvwJ"
 cvo_instance_ami_id         = "ami-0f3eef449fe9501e4"
 
-cvo_floating_ips            = [
+# cvo_floating_ips            = [
     "192.168.255.17",
     "192.168.255.18",
     "192.168.255.19",
     "192.168.255.20"
 ]
 
-client_ips = [
-  "10.10.9.0/28",
-  "172.24.4.192/32",
-  "172.16.200.144/29",
-  "172.16.2.112/29",
-  "172.21.12.92/30",
-  "172.19.235.0/24"
+client_ips                  = [
+    "10.10.9.0/28",
+    "172.24.4.192/32",
+    "172.16.200.144/29",
+    "172.16.2.112/29",
+    "172.21.12.92/30",
+    "172.19.235.0/24"
 ]
 
-client_ips_icmp = [
-  "172.19.235.0/24",
-  "10.10.9.0/28"
+client_ips_icmp             = [
+    "172.19.235.0/24",
+    "10.10.9.0/28"
 ]
 
-client_ports = [
+client_ports                = [
     { "protocol" = "tcp", "port" = 8088 },
     { "protocol" = "tcp", "port" = 10000 },
     { "protocol" = "tcp", "port" = 10565, "to_port" = 10569 },
@@ -42,13 +42,13 @@ client_ports = [
     { "protocol" = "tcp", "port" = 11104, "to_port" = 11105 },
 ]
 
-nfs_cifs_cidrs = [
-  "172.16.0.0/16",
-#  "10.84.6.48/32",
-#  "10.84.6.63/32"
+nfs_cifs_cidrs              = [
+    "172.16.0.0/16",
+#   "10.84.6.48/32",
+#   "10.84.6.63/32"
 ]
 
-nfs_cifs_ports = [
+nfs_cifs_ports              = [
     { "protocol" = "tcp", "port" = 111 },
     { "protocol" = "udp", "port" = 111 },
     { "protocol" = "tcp", "port" = 2049 },
@@ -62,11 +62,11 @@ nfs_cifs_ports = [
     { "protocol" = "tcp", "port" = 445 },
 ]
 
-nfs_client_cidrs = [
+nfs_client_cidrs            = [
     "172.16.0.0/12",
     "10.84.6.0/24"
 ]
 
-cifs_client_cidrs = [
+cifs_client_cidrs           = [
     "172.16.0.0/12"
 ]

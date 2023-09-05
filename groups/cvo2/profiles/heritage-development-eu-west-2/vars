@@ -1,33 +1,33 @@
-aws_region  = "eu-west-2"
-aws_account = "heritage-development"
+aws_region                  = "eu-west-2"
+aws_account                 = "heritage-development"
 
 # shorthand
-account = "hdev"
-region  = "euw2"
+account                     = "hdev"
+region                      = "euw2"
 
 # NetApp Cloud Volumes Ontap (CVO)
-cvo2_name                    = "netapp-new"
+cvo2_name                   = "netapp-new"
 cvo_instance_type           = "m5.xlarge"
 cvo_license_type            = "cot-explore-paygo"
 cvo_is_ha                   = false
 connector_account_access_id = "CloudProviderAccount-jufYYNpi"
 cvo_instance_ami_id         = "ami-0522b8ca8e272d9c1"
 
-client_ips = [
-"10.10.9.0/28",
-"172.24.4.192/32",
-"172.16.200.144/29",
-"172.16.2.112/29",
-"172.21.12.92/30",
-"172.19.235.0/24"
+client_ips                  = [
+    "10.10.9.0/28",
+    "172.24.4.192/32",
+    "172.16.200.144/29",
+    "172.16.2.112/29",
+    "172.21.12.92/30",
+    "172.19.235.0/24"
 ]
 
-client_ips_icmp = [
-"172.19.235.0/24",
-"10.10.9.0/28"
+client_ips_icmp             = [
+    "172.19.235.0/24",
+    "10.10.9.0/28"
 ]
 
-client_ports = [
+client_ports                = [
     { "protocol" = "tcp", "port" = 8088 },
     { "protocol" = "tcp", "port" = 10000 },
     { "protocol" = "tcp", "port" = 10565, "to_port" = 10569 },
