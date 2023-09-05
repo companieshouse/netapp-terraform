@@ -37,7 +37,13 @@ locals {
 
   # Create a map of vpc cidrs => ports to use as security group rules
   ingress_cidrs = length(var.vpc_ingress_cidrs) >= 1 ? setproduct(var.vpc_ingress_cidrs, local.cvo_ingress_ports) : []
-
+  
+  tooling_cidrs = {
+    connector      = var.netapp_connector_ip,
+    unifiedmanager = var.netapp_unifiedmanager_ip,
+    insight        = var.netapp_insight_ip,
+    snapcenter     = var.netapp_snapcenter_ip
+  }
   default_tags = {
     Terraform = "true"
     Project   = "Storage"
