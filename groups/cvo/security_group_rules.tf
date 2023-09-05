@@ -1,18 +1,16 @@
 resource "aws_security_group_rule" "netapp_tooling" {
-  security_group_id = module.cvo.cvo_security_group_id
-  description       = "Rules for NetApp Tools - Connector, Unified Manager and SnapCenter"
+  for_each = local.tooling_cidrs
 
-  type      = "ingress"
-  from_port = "-1"
-  to_port   = "-1"
-  protocol  = "-1"
-  cidr_blocks = [
-    var.netapp_connector_ip,
-    var.netapp_unifiedmanager_ip,
-    var.netapp_insight_ip,
-    var.netapp_snapcenter_ip
-  ]
+  security_group_id = module.cvo.cvo_security_group_id
+  description       = "Tooling access from ${each.key}"
+
+  type              = "ingress"
+  from_port         = "-1"
+  to_port           = "-1"
+  protocol          = "-1"
+  cidr_blocks       = [each.value]
 }
+
 resource "aws_security_group_rule" "onpremise" {
   for_each = { for rule in var.client_ports : rule.port => rule }
 
