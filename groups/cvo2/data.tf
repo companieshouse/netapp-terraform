@@ -47,9 +47,9 @@ data "vault_generic_secret" "netapp_cvo" {
 
 data "aws_network_interfaces" "netapp" {
 
-  tags = {
-    "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
-  }
+  # tags = {
+  #   "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
+  # }
 
   filter {
     name   = "subnet-id"
