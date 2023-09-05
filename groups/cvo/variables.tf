@@ -39,11 +39,6 @@ variable "cvo_name" {
   description = "Name for the resources table being created"
 }
 
-variable "cvo2_name" {
-  type        = string
-  description = "Name for the resources table being created for the upgrade"
-}
-
 variable "cvo_instance_ami_id" {
   type        = string
   description = "An AMI Id thats used by the CVO instances, used for lookups of instance Ids to assign security groups to."
@@ -80,13 +75,6 @@ variable "cvo_ontap_version" {
   type        = string
   description = "The required ONTAP version. Ignored if 'use_latest_version' is set to true. The default is to use the latest version."
 }
-
-variable "enable_cvo2_deployment" {
-  type        = bool
-  description = "This enables and disables the deployment of the new CVO module"
-  default     = false
-}
-
 variable "cvo_floating_ips" {
   type        = list(string)
   default     = [null, null, null, null]
@@ -206,14 +194,8 @@ variable "capacity_tier" {
   description = "(Optional) Whether to enable data tiering for the first data aggregate: ['S3','NONE']. The default is 'NONE'."
 }
 
-variable "ebs_volume_type_cvo" {
+variable "ebs_volume_type" {
   type        = string
   default     = "gp2"
-  description = "(Optional) The EBS volume type for the first data aggregate ['gp2','io1','st1','sc1']. The default is 'gp3'."
-}
-
-variable "ebs_volume_type_cvo2" {
-  type        = string
-  default     = "gp3"
-  description = "(Optional) The EBS volume type for the first data aggregate ['gp2','io1','st1','sc1']. The default is 'gp3'."
+  description = "(Optional) The EBS volume type for the first data aggregate ['gp3','gp2','io1','st1','sc1']. The default is 'gp3'."
 }
