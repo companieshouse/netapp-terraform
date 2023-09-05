@@ -2,14 +2,14 @@ module "netapp_secondary_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 3.0"
 
-  name        = "sgr-netapp-${var.account}-002"
+  name        = "sgr-netapp-new-${var.account}-002"
   description = "Secondary security group for the NetApp CVO Service"
   vpc_id      = data.aws_vpc.vpc.id
 
   tags = merge(
     local.default_tags,
     map(
-      "Name", "sgr-netapp-${var.account}-002",
+      "Name", "sgr-netapp-new-${var.account}-002",
       "ServiceTeam", "Storage"
     )
   )
@@ -43,7 +43,7 @@ resource "aws_security_group_rule" "ingress_cidrs" {
 # Dedicated NFS Access Security Group
 # ------------------------------------------------------------------------------
 resource "aws_security_group" "cvo_data_nfs_sg" {
-  name        = "sgr-netapp-${var.account}-nfs-001"
+  name        = "sgr-netapp-new-${var.account}-nfs-001"
   description = "Allow client access to NFS services"
   vpc_id      = data.aws_vpc.vpc.id
 
@@ -57,7 +57,7 @@ resource "aws_security_group" "cvo_data_nfs_sg" {
   tags = merge(
     local.default_tags,
     map(
-      "Name", "sgr-netapp-${var.account}-nfs-001",
+      "Name", "sgr-netapp-new-${var.account}-nfs-001",
       "ServiceTeam", "Storage"
     )
   )
@@ -76,7 +76,7 @@ resource "aws_network_interface_sg_attachment" "cvo_data_nfs_sg_attachment" {
 # ------------------------------------------------------------------------------
 
 resource "aws_security_group" "cvo_data_cifs_sg" {
-  name        = "sgr-netapp-${var.account}-cifs-001"
+  name        = "sgr-netapp-new-${var.account}-cifs-001"
   description = "Allow client access to CIFS services"
   vpc_id      = data.aws_vpc.vpc.id
 
@@ -90,7 +90,7 @@ resource "aws_security_group" "cvo_data_cifs_sg" {
   tags = merge(
     local.default_tags,
     map(
-      "Name", "sgr-netapp-${var.account}-cifs-001",
+      "Name", "sgr-netapp-new-${var.account}-cifs-001",
       "ServiceTeam", "Storage"
     )
   )
