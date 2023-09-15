@@ -13,11 +13,11 @@ cvo_is_ha                   = true
 connector_account_access_id = "CloudProviderAccount-vB0TRxbb"
 cvo_instance_ami_id         = "ami-0f3eef449fe9501e4"
 
-# cvo_floating_ips            = [
-    "192.168.255.33",
-    "192.168.255.34",
-    "192.168.255.35",
-    "192.168.255.36"
+cvo_floating_ips            = [
+    "192.168.255.37",
+    "192.168.255.38",
+    "192.168.255.39",
+    "192.168.255.40"
 ]
 
 vpc_ingress_cidrs           = [

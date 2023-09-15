@@ -33,16 +33,16 @@ data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
 }
 
-data "vault_generic_secret" "netapp_account" {
-  path = "applications/shared-services-${var.aws_region}/netapp/account"
+data "vault_generic_secret" "netapp_new_account" {
+  path = "applications/shared-services-${var.aws_region}/netapp-new/account"
 }
 
-data "vault_generic_secret" "netapp_connector" {
-  path = "applications/shared-services-${var.aws_region}/netapp/connector-details"
+data "vault_generic_secret" "netapp_new_connector" {
+  path = "applications/shared-services-${var.aws_region}/netapp-new/connector-details"
 }
 
-data "vault_generic_secret" "netapp_cvo" {
-  path = "applications/${var.aws_account}-${var.aws_region}/netapp/cvo-inputs"
+data "vault_generic_secret" "netapp_new_cvo" {
+  path = "applications/${var.aws_account}-${var.aws_region}/netapp-new/cvo-inputs"
 }
 
 # data "aws_network_interfaces" "netapp" {

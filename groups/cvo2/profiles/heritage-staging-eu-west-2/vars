@@ -13,11 +13,11 @@ cvo_is_ha                   = true
 connector_account_access_id = "CloudProviderAccount-AwVeHvwJ"
 cvo_instance_ami_id         = "ami-0f3eef449fe9501e4"
 
-# cvo_floating_ips            = [
-    "192.168.255.17",
-    "192.168.255.18",
-    "192.168.255.19",
-    "192.168.255.20"
+cvo_floating_ips            = [
+    "192.168.255.21",
+    "192.168.255.22",
+    "192.168.255.23",
+    "192.168.255.24"
 ]
 
 client_ips                  = [
