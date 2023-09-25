@@ -196,14 +196,14 @@ variable "ebs_volume_type" {
   description = "(Optional) The EBS volume type for the first data aggregate ['gp3','gp2','io1','st1','sc1']. The default is 'gp3'."
 }
 
-variable "iops" {
-  type        = number
-  default     = 3000
-  description = "the provisioned Iops value for the gp3 volume types"
-}
+# variable "iops" {
+#   type        = number
+#   default     = 3000
+#   description = "the provisioned Iops value for the gp3 volume types"
+# }
 
-variable "throughput" {
-  type        = number 
-  default     = 125
-  description = "The throughput value for the gp3 volume types"
-}
+# variable "throughput" {
+#   type        = number 
+#   default     = 125
+#   description = "The throughput value for the gp3 volume types"
+# }
