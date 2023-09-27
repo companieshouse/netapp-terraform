@@ -4,7 +4,7 @@ resource "aws_key_pair" "netapp_mediator_key" {
 }
 
 module "cvo2" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_aws?ref=tags/1.0.198"
+  source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_aws?ref=tags/1.0.199"
   vpc_id     = data.aws_vpc.vpc.id
   subnet_ids = data.aws_subnet_ids.storage.ids
 
@@ -26,8 +26,8 @@ module "cvo2" {
   cloud_provider_account  = var.connector_account_access_id
   capacity_tier           = var.capacity_tier 
   ebs_volume_type         = var.ebs_volume_type
-  # iops                    = var.iops
-  # throughput              = var.throughput
+  iops                    = var.iops
+  throughput              = var.throughput
 
   ## Security Group setting
   ingress_cidr_blocks = [
