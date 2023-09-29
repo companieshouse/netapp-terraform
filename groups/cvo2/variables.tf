@@ -198,7 +198,7 @@ variable "ebs_volume_type" {
 
 variable "iops" {
   type        = number
-  default     = 3000
+  default     = 12000
   description = "the provisioned Iops value for the gp3 volume types"
 }
 
