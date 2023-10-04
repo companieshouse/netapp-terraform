@@ -60,6 +60,7 @@ resource "aws_security_group_rule" "cardiff_nfs_cifs" {
   protocol    = each.value.protocol
   cidr_blocks = var.nfs_cifs_cidrs
 }
+
 # ------------------------------------------------------------------------------
 # NFS and CIFS
 # ------------------------------------------------------------------------------
@@ -91,7 +92,7 @@ resource "aws_security_group_rule" "cvo_data_nfs" {
 # Dedicated CIFS Client Access Rules
 # ------------------------------------------------------------------------------
 resource "aws_security_group_rule" "cvo_data_cifs" {
-  for_each = { for rule in var.cifs_ports : join("_", [rule.protocol, rule.port]) => rule if length(var.cifs_client_cidrs) > 0 }
+  for_each = { for rule in var.cifs_ports : join("_", [rule.protocol, rule.port]) => rule if length(local.cifs_client_cidrs) > 0 }
 
   security_group_id = aws_security_group.cvo_data_cifs_sg.id
   description       = "Allow clients to access CVO via CIFS"
@@ -100,5 +101,5 @@ resource "aws_security_group_rule" "cvo_data_cifs" {
   from_port   = each.value.port
   to_port     = lookup(each.value, "to_port", each.value.port)
   protocol    = each.value.protocol
-  cidr_blocks = concat(var.cifs_client_cidrs, var.vpc_ingress_cidrs)
+  cidr_blocks = local.cifs_client_cidrs
 }

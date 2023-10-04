@@ -1,3 +1,10 @@
+data "aws_ec2_managed_prefix_list" "vpn" {
+  filter {
+    name   = "prefix-list-name"
+    values = [var.vpn_prefix_list_name]
+  }
+}
+
 data "aws_vpc" "vpc" {
   tags = {
     Name = "vpc-${var.aws_account}"
