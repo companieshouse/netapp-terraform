@@ -50,4 +50,10 @@ locals {
     Project   = "Storage"
     Region    = var.aws_region
   }
+
+  cifs_client_cidrs = concat(
+    var.cifs_client_cidrs,
+    var.vpc_ingress_cidrs,
+    data.aws_ec2_managed_prefix_list.vpn.entries.*.cidr
+  )
 }

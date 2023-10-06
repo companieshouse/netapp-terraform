@@ -31,6 +31,12 @@ variable "vault_password" {
   description = "Password for connecting to Vault"
 }
 
+variable "vpn_prefix_list_name" {
+  type        = string
+  description = "Name of the vpn prefix list to lookup"
+  default     = "vpn-cidr-ranges"
+}
+
 # ------------------------------------------------------------------------------
 # NetApp Cloud Volumes Variables
 # ------------------------------------------------------------------------------
