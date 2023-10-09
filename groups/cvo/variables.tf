@@ -194,6 +194,11 @@ variable "cifs_client_cidrs" {
   default     = []
 }
 
+variable "peering_cidrs" { 
+  type        = list(any) 
+  description = "The full CIDR formatted IPs used for cluster peering from Cardiff nodes to all AWS CVO instances " 
+}
+
 variable "capacity_tier" {
   type        = string
   default     = "NONE"

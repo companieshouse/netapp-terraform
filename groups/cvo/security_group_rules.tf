@@ -103,3 +103,45 @@ resource "aws_security_group_rule" "cvo_data_cifs" {
   protocol    = each.value.protocol
   cidr_blocks = local.cifs_client_cidrs
 }
+
+# ------------------------------------------------------------------------------
+# Dedicated Cluster Peering
+# ------------------------------------------------------------------------------
+resource "aws_security_group_rule" "onprem_peering_10000" {
+  for_each = { for idx, cidr in var.peering_cidrs : idx => cidr }
+
+  security_group_id = module.cvo.cvo_security_group_id
+  description = "Enable cluster peering from ${each.value}"
+
+  type        = "ingress"
+  from_port   = 10000
+  to_port     = 10000
+  protocol    = "tcp"
+  cidr_blocks = [each.value]
+}
+
+resource "aws_security_group_rule" "onprem_peering_11104" {
+  for_each = { for idx, cidr in var.peering_cidrs : idx => cidr }
+  
+  security_group_id = module.cvo.cvo_security_group_id
+  description = "Enable cluster peering from ${each.value}"
+
+  type        = "ingress"
+  from_port   = 11104
+  to_port     = 11105
+  protocol    = "tcp"
+  cidr_blocks = [each.value]
+}
+
+resource "aws_security_group_rule" "onprem_peering_icmp" {
+  for_each = { for idx, cidr in var.peering_cidrs : idx => cidr }
+
+  security_group_id = module.cvo.cvo_security_group_id
+  description = "Enable cluster peering from ${each.value}"
+
+  type        = "ingress"
+  from_port   = -1
+  to_port     = -1
+  protocol    = "icmp"
+  cidr_blocks = [each.value]
+}
