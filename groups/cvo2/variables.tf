@@ -63,13 +63,13 @@ variable "cvo_license_type" {
 variable "cvo_ebs_volume_size" {
   type        = number
   description = "Initial aggregate size, we are limiting this to 100GB as we want all used aggregates to be create purposefully in the same way i.e. we are not using this aggregate at all"
-  default     = 1
+  default     = 500
 }
 
 variable "cvo_ebs_volume_size_unit" {
   type        = string
   description = "Unit choice for volume size, can be TB or GB. In this case we are defaulting to GB so that we can create the smallest possible aggregate on first launch"
-  default     = "TB"
+  default     = "GB"
 }
 
 variable "cvo_is_ha" {
