@@ -195,8 +195,8 @@ variable "cifs_client_cidrs" {
 }
 
 variable "peering_cidrs" { 
-  type        = list(any) 
-  description = "The full CIDR formatted IP used for cluster peering from Cardiff nodes to all AWS CVO instances " 
+  type        = list(string) 
+  description = "A List of CIDRs used for cluster peering" 
 }
 
 variable "capacity_tier" {

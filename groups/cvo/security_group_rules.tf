@@ -17,11 +17,11 @@ resource "aws_security_group_rule" "onpremise" {
   security_group_id = module.cvo.cvo_security_group_id
   description       = "Allow on premise ranges to access CVO"
 
-  type        = "ingress"
-  from_port   = each.value.port
-  to_port     = lookup(each.value, "to_port", each.value.port)
-  protocol    = each.value.protocol
-  cidr_blocks = var.client_ips
+  type              = "ingress"
+  from_port         = each.value.port
+  to_port           = lookup(each.value, "to_port", each.value.port)
+  protocol          = each.value.protocol
+  cidr_blocks       = var.client_ips
 }
 
 resource "aws_security_group_rule" "onpremise_icmp" {
@@ -29,11 +29,11 @@ resource "aws_security_group_rule" "onpremise_icmp" {
   security_group_id = module.cvo.cvo_security_group_id
   description       = "Allow only the on premise NetApp metro-cluster range to ping CVO via ICMP"
 
-  type        = "ingress"
-  from_port   = "-1"
-  to_port     = "-1"
-  protocol    = "icmp"
-  cidr_blocks = var.client_ips_icmp
+  type              = "ingress"
+  from_port         = "-1"
+  to_port           = "-1"
+  protocol          = "icmp"
+  cidr_blocks       = var.client_ips_icmp
 }
 
 resource "aws_security_group_rule" "onpremise_admin" {
@@ -54,11 +54,11 @@ resource "aws_security_group_rule" "cardiff_nfs_cifs" {
   security_group_id = module.cvo.cvo_security_group_id
   description       = "Allow Cardiff Backend range to access CVO via NFS and CIFS"
 
-  type        = "ingress"
-  from_port   = each.value.port
-  to_port     = lookup(each.value, "to_port", each.value.port)
-  protocol    = each.value.protocol
-  cidr_blocks = var.nfs_cifs_cidrs
+  type              = "ingress"
+  from_port         = each.value.port
+  to_port           = lookup(each.value, "to_port", each.value.port)
+  protocol          = each.value.protocol
+  cidr_blocks       = var.nfs_cifs_cidrs
 }
 
 # ------------------------------------------------------------------------------
@@ -80,11 +80,11 @@ resource "aws_security_group_rule" "cvo_data_nfs" {
   security_group_id = aws_security_group.cvo_data_nfs_sg.id
   description       = "Allow clients to access CVO via NFS"
 
-  type        = "ingress"
-  from_port   = each.value.port
-  to_port     = lookup(each.value, "to_port", each.value.port)
-  protocol    = each.value.protocol
-  cidr_blocks = var.nfs_client_cidrs
+  type              = "ingress"
+  from_port         = each.value.port
+  to_port           = lookup(each.value, "to_port", each.value.port)
+  protocol          = each.value.protocol
+  cidr_blocks       = var.nfs_client_cidrs
 }
 
 
@@ -97,11 +97,11 @@ resource "aws_security_group_rule" "cvo_data_cifs" {
   security_group_id = aws_security_group.cvo_data_cifs_sg.id
   description       = "Allow clients to access CVO via CIFS"
 
-  type        = "ingress"
-  from_port   = each.value.port
-  to_port     = lookup(each.value, "to_port", each.value.port)
-  protocol    = each.value.protocol
-  cidr_blocks = local.cifs_client_cidrs
+  type              = "ingress"
+  from_port         = each.value.port
+  to_port           = lookup(each.value, "to_port", each.value.port)
+  protocol          = each.value.protocol
+  cidr_blocks       = local.cifs_client_cidrs
 }
 
 # ------------------------------------------------------------------------------
@@ -111,37 +111,37 @@ resource "aws_security_group_rule" "onprem_peering_10000" {
   for_each = { for idx, cidr in var.peering_cidrs : idx => cidr }
 
   security_group_id = module.cvo.cvo_security_group_id
-  description = "Enable cluster peering from ${each.value}"
+  description       = "Enable cluster peering from ${each.value}"
 
-  type        = "ingress"
-  from_port   = 10000
-  to_port     = 10000
-  protocol    = "tcp"
-  cidr_blocks = [each.value]
+  type              = "ingress"
+  from_port         = 10000
+  to_port           = 10000
+  protocol          = "tcp"
+  cidr_blocks       = [each.value]
 }
 
 resource "aws_security_group_rule" "onprem_peering_11104" {
   for_each = { for idx, cidr in var.peering_cidrs : idx => cidr }
   
   security_group_id = module.cvo.cvo_security_group_id
-  description = "Enable cluster peering from ${each.value}"
+  description       = "Enable cluster peering from ${each.value}"
 
-  type        = "ingress"
-  from_port   = 11104
-  to_port     = 11105
-  protocol    = "tcp"
-  cidr_blocks = [each.value]
+  type              = "ingress"
+  from_port         = 11104
+  to_port           = 11105
+  protocol          = "tcp"
+  cidr_blocks       = [each.value]
 }
 
 resource "aws_security_group_rule" "onprem_peering_icmp" {
   for_each = { for idx, cidr in var.peering_cidrs : idx => cidr }
 
   security_group_id = module.cvo.cvo_security_group_id
-  description = "Enable cluster peering from ${each.value}"
+  description       = "Enable cluster peering from ${each.value}"
 
-  type        = "ingress"
-  from_port   = -1
-  to_port     = -1
-  protocol    = "icmp"
-  cidr_blocks = [each.value]
+  type              = "ingress"
+  from_port         = -1
+  to_port           = -1
+  protocol          = "icmp"
+  cidr_blocks       = [each.value]
 }
