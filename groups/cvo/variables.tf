@@ -194,6 +194,11 @@ variable "cifs_client_cidrs" {
   default     = []
 }
 
+variable "peering_cidrs" { 
+  type        = list(string) 
+  description = "A List of CIDRs used for cluster peering" 
+}
+
 variable "capacity_tier" {
   type        = string
   default     = "NONE"

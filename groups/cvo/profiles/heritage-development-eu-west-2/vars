@@ -35,3 +35,7 @@ client_ports = [
     { "protocol" = "tcp", "port" = 10670 },
     { "protocol" = "tcp", "port" = 11104, "to_port" = 11105 },
 ]
+
+peering_cidrs = [
+  "172.16.201.15/32"
+]

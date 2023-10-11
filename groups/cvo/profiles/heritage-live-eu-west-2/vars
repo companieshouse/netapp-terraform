@@ -73,3 +73,7 @@ nfs_client_cidrs = [
 cifs_client_cidrs = [
     "172.16.0.0/12"
 ]
+
+peering_cidrs = [
+  "172.16.201.15/32"
+]
