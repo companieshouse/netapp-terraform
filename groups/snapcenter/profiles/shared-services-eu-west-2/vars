@@ -1,3 +1,4 @@
-aws_account = "shared-services"
-ami_id = "ami-073613937254785ce"
-subnet_name = "sub-monitor-a"
+aws_account   = "shared-services"
+ami_id        = "ami-073613937254785ce"
+subnet_name   = "sub-monitor-a"
+azure_dc_sg = "sg-012c9f920c74ee2ca"

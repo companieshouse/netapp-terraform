@@ -63,3 +63,11 @@ variable "subnet_name" {
   type        = string
   description = "Name of the subnet to deploy the instance into"
 }
+
+# security group variables
+
+variable "azure_dc_sg" {
+  type = string
+  description = "The cidr of Azure DC connectivity"
+  default = ""
+}

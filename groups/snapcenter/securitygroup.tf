@@ -43,6 +43,14 @@ resource "aws_security_group" "snapcenter" {
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.admin.id]
   }
 
+  ingress {
+    description     = "Allow SnapCenter access to Azure DC"
+    from_port       = 443
+    to_port         = 443
+    protocol        = "https"
+    security_groups = [var.azure_dc_sg]
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
