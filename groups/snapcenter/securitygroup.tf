@@ -43,43 +43,16 @@ resource "aws_security_group" "snapcenter" {
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.admin.id]
   }
 
-  ingress {
-    for_each    = local.azure_ad_ingress_rules_tcp_udp
-    description = "Allow Azure AD"
-    from_port   = each.value.port
-    to_port     = each.value.port
-    protocol    = "-1"
-    cidr_blocks = each.value.cidrs
-  }
-
-  ingress {
-    for_each    = local.azure_ad_ingress_rules_tcp
-    description = "Allow Azure AD"
-    from_port   = each.value.port
-    to_port     = each.value.port
-    protocol    = "tcp"
-    cidr_blocks = each.value.cidrs
-  }
-
-  ingress {
-    for_each    = local.azure_ad_ingress_rules_udp
-    description = "Allow Azure AD"
-    from_port   = each.value.port
-    to_port     = each.value.port
-    protocol    = "udp"
-    cidr_blocks = each.value.cidrs
-  }
-
-  dynamic "ingress" {
-    for_each = var.Azure_ad_ingress_port_ranges_tcp_udp
-    content {
-      description = "Allow Azure AD"
-      from_port   = ingress.value.from_port
-      to_port     = ingress.value.to_port
-      protocol    = ingress.value.protocol
-      cidr_blocks = ingress.value.cidr_blocks
-    }
-  }
+  # dynamic "ingress" {
+  #   for_each = local.Azure_ad_ingress_port_ranges_tcp_udp
+  #   content {
+  #     description = "Allow Azure AD"
+  #     from_port   = ingress.value.from_port
+  #     to_port     = ingress.value.to_port
+  #     protocol    = ingress.value.protocol
+  #     cidr_blocks = ingress.value.cidr_blocks
+  #   }
+  # }
 
   egress {
     from_port        = 0
