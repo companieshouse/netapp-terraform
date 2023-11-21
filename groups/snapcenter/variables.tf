@@ -64,10 +64,41 @@ variable "subnet_name" {
   description = "Name of the subnet to deploy the instance into"
 }
 
-# security group variables
+# Azure AD security group variables
 
-variable "azure_dc_sg" {
-  type = string
-  description = "The cidr of Azure DC connectivity"
-  default = ""
+variable "azure_ad_ingress_tcp_udp" {
+  type        = list(any)
+  description = "A list of ports for Azure AD access UDP & TCP"
+  default     = []
+}
+
+variable "azure_ad_ingress_tcp" {
+  type        = list(any)
+  description = "A list of ports for Azure AD access TCP"
+  default     = []
+}
+
+variable "azure_ad_ingress_udp" {
+  type        = list(any)
+  description = "A list of ports for Azure AD access UDP"
+  default     = []
+}
+
+variable "azure_ad_cidrs" {
+  type        = list(any)
+  description = "A list of cirdr blocks for azure AD access"
+  default     = []
+}
+
+variable "Azure_ad_ingress_port_ranges_tcp_udp" {
+  type        = list(any)
+  description = "A list of ports, protocols and cirdr blocks for azure AD access"
+  default     = [
+                  { from_port = 3268,  to_port = 3269,  protocol  = "tcp", cidr_blocks = var.azure_ad_cidrs[0] },
+                  { from_port = 3268,  to_port = 3269,  protocol  = "tcp", cidr_blocks = var.azure_ad_cidrs[1] },
+                  { from_port = 137,   to_port = 138,   protocol  = "udp", cidr_blocks = var.azure_ad_cidrs[0] },
+                  { from_port = 137,   to_port = 138,   protocol  = "udp", cidr_blocks = var.azure_ad_cidrs[1] }, 
+                  { from_port = 49152, to_port = 65535, protocol  = "-1",  cidr_blocks = var.azure_ad_cidrs[0] },
+                  { from_port = 49152, to_port = 65535, protocol  = "-1",  cidr_blocks = var.azure_ad_cidrs[1] }
+                ]
 }
