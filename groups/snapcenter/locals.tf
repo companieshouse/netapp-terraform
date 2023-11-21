@@ -37,13 +37,15 @@ locals {
               }
         }
     ]...)
-  
-#  Azure_ad_ingress_port_ranges_tcp_udp = [
-#    { from_port = 3268, to_port = 3269, protocol = "tcp", cidr_blocks = var.azure_ad_cidrs[0] },
-#    { from_port = 3268, to_port = 3269, protocol = "tcp", cidr_blocks = var.azure_ad_cidrs[1] },
-#    { from_port = 137, to_port = 138, protocol = "udp", cidr_blocks = var.azure_ad_cidrs[0] },
-#    { from_port = 137, to_port = 138, protocol = "udp", cidr_blocks = var.azure_ad_cidrs[1] },
-#    { from_port = 49152, to_port = 65535, protocol = "-1", cidr_blocks = var.azure_ad_cidrs[0] },
-#    { from_port = 49152, to_port = 65535, protocol = "-1", cidr_blocks = var.azure_ad_cidrs[1] }
-#  ]
+
+  acs_tup = flatten(var.azure_ad_cidrs)
+
+  Azure_ad_ingress_port_ranges_tcp_udp = [
+    { from_port = 3268,  to_port = 3269,  protocol = "tcp", cidr_blocks = local.acs_tup[0] },
+    { from_port = 3268,  to_port = 3269,  protocol = "tcp", cidr_blocks = local.acs_tup[1] },
+    { from_port = 137,   to_port = 138,   protocol = "udp", cidr_blocks = local.acs_tup[0] },
+    { from_port = 137,   to_port = 138,   protocol = "udp", cidr_blocks = local.acs_tup[1] },
+    { from_port = 49152, to_port = 65535, protocol = "-1",  cidr_blocks = local.acs_tup[0] },
+    { from_port = 49152, to_port = 65535, protocol = "-1",  cidr_blocks = local.acs_tup[1] }
+  ]
 }

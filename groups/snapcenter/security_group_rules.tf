@@ -30,15 +30,3 @@ resource "aws_security_group_rule" "azure_ad_udp" {
   cidr_blocks       = each.value.cidrs
   security_group_id = aws_security_group.snapcenter.id
 }
-
-output "test_udp"{
-    value = local.azure_ad_ingress_rules_udp
-}
-
-output "test_tcp"{
-    value = local.azure_ad_ingress_rules_tcp
-}
-
-output "test_udp_tcp"{
-    value = local.azure_ad_ingress_rules_tcp_udp
-}
