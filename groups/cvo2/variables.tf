@@ -213,3 +213,17 @@ variable "throughput" {
   default     = 125
   description = "The throughput value for the gp3 volume types"
 }
+
+# ------------------------------------------------------------------------------
+# NetApp DNS Variables
+# ------------------------------------------------------------------------------
+
+variable "cvo_dns_name" {
+  type        = string
+  description = "The dns name for the nfs vip"
+}
+
+variable "cvo_dns_record" {
+  type        = string
+  description = "The dns record used for the cvo nfs vip dns"
+}
