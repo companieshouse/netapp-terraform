@@ -3,5 +3,5 @@ resource "aws_route53_record" "cvo_nfs_dns" {
   name    = var.cvo_dns_name
   type    = "A"
   ttl     = 300
-  records = var.cvo.cvo_dns_record
+  records = var.cvo_dns_record
 }
