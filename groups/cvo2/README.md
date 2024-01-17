@@ -60,7 +60,9 @@
 | <a name="input_cvo_instance_type"></a> [cvo\_instance\_type](#input\_cvo\_instance\_type) | Instance Type to be used for the CVO Nodes, different types allowed depending on license type chosen | `string` | n/a | yes |
 | <a name="input_cvo_is_ha"></a> [cvo\_is\_ha](#input\_cvo\_is\_ha) | Is this going to be a HA deployment or Standalone | `bool` | n/a | yes |
 | <a name="input_cvo_license_type"></a> [cvo\_license\_type](#input\_cvo\_license\_type) | The license type for the deployment, can be standalone or HA with different licenses providing different maximum storage allowance | `string` | n/a | yes |
-| <a name="input_cvo_name"></a> [cvo\_name](#input\_cvo\_name) | Name for the resources table being created | `string` | n/a | yes |
+| <a name="input_cvo2_name"></a> [cvo2\_name](#input\_cvo2\_name) | Name for the resources table being created | `string` | n/a | yes |
+| <a name="input_cvo_dns_name"></a> [cvo\_dns\_name](#input\_cvo\_dns\_name) | The dns name for the nfs vip | `string` | n/a | yes |
+| <a name="input_cvo_dns_record"></a> [cvo\_dns\_record](#input\_cvo\_dns\_record) | The dns record used for the cvo nfs vip dns | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The shorthand for the AWS region | `string` | n/a | yes |
 | <a name="input_vault_password"></a> [vault\_password](#input\_vault\_password) | Password for connecting to Vault | `string` | n/a | yes |
 | <a name="input_vault_username"></a> [vault\_username](#input\_vault\_username) | Username for connecting to Vault | `string` | n/a | yes |
