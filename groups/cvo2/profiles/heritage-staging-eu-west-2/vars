@@ -5,6 +5,10 @@ aws_account                 = "heritage-staging"
 account                     = "hstg"
 region                      = "euw2"
 
+# DNS
+cvo_dns_name                = "cvonfs.staging.heritage.aws.internal"
+cvo_dns_record              = "192.168.255.19"
+
 # NetApp Cloud Volumes Ontap (CVO)
 cvo2_name                   = "netapp-new"
 cvo_instance_type           = "m5.4xlarge"

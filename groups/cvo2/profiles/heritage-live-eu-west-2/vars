@@ -5,6 +5,10 @@ aws_account                 = "heritage-live"
 account                     = "hlive"
 region                      = "euw2"
 
+# DNS
+cvo_dns_name                = "cvonfs.live.heritage.aws.internal"
+cvo_dns_record              = "192.168.255.35"
+
 # NetApp Cloud Volumes Ontap (CVO)
 cvo2_name                   = "netapp-new"
 cvo_instance_type           = "m5.4xlarge"
