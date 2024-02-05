@@ -52,18 +52,18 @@ data "vault_generic_secret" "netapp_new_cvo" {
   path = "applications/${var.aws_account}-${var.aws_region}/netapp-new/cvo-inputs"
 }
 
-# data "aws_network_interfaces" "netapp" {
+data "aws_network_interfaces" "netapp" {
 
-#   # tags = {
-#   #   "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
-#   # }
+  tags = {
+    "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
+  }
 
-#   filter {
-#     name   = "subnet-id"
-#     values = data.aws_subnet_ids.storage.ids
-#   }
-# }
+  filter {
+    name   = "subnet-id"
+    values = data.aws_subnet_ids.storage.ids
+  }
+}
 
-# output "nics" {
-#   value = data.aws_network_interfaces.netapp.ids
-# }
+output "nics" {
+  value = data.aws_network_interfaces.netapp.ids
+}

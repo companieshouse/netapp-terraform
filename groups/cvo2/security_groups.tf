@@ -15,17 +15,17 @@ module "netapp_secondary_security_group" {
   )
 }
 
-# resource "aws_network_interface_sg_attachment" "cvo_instance_sgr_attachment" {
-#   for_each = toset(data.aws_network_interfaces.netapp.ids)
+resource "aws_network_interface_sg_attachment" "cvo_instance_sgr_attachment" {
+  for_each = toset(data.aws_network_interfaces.netapp.ids)
 
-#   security_group_id    = module.netapp_secondary_security_group.this_security_group_id
-#   network_interface_id = each.value
+  security_group_id    = module.netapp_secondary_security_group.this_security_group_id
+  network_interface_id = each.value
 
-#   depends_on = [
-#     module.netapp_secondary_security_group,
-#     data.aws_network_interfaces.netapp
-#   ]
-# }
+  depends_on = [
+    module.netapp_secondary_security_group,
+    data.aws_network_interfaces.netapp
+  ]
+}
 
 resource "aws_security_group_rule" "ingress_cidrs" {
   count = length(local.ingress_cidrs)
@@ -63,12 +63,12 @@ resource "aws_security_group" "cvo_data_nfs_sg" {
   )
 }
 
-# resource "aws_network_interface_sg_attachment" "cvo_data_nfs_sg_attachment" {
-#   count = length(data.aws_network_interfaces.cvo_data_eni.ids)
+resource "aws_network_interface_sg_attachment" "cvo_data_nfs_sg_attachment" {
+  count = length(data.aws_network_interfaces.cvo_data_eni.ids)
 
-#   security_group_id    = aws_security_group.cvo_data_nfs_sg.id
-#   network_interface_id = sort(data.aws_network_interfaces.cvo_data_eni.ids)[count.index]
-# }
+  security_group_id    = aws_security_group.cvo_data_nfs_sg.id
+  network_interface_id = sort(data.aws_network_interfaces.cvo_data_eni.ids)[count.index]
+}
 
 
 # ------------------------------------------------------------------------------
@@ -96,9 +96,9 @@ resource "aws_security_group" "cvo_data_cifs_sg" {
   )
 }
 
-# resource "aws_network_interface_sg_attachment" "cvo_data_cifs_sg_attachment" {
-#   count = length(data.aws_network_interfaces.cvo_data_eni.ids)
+resource "aws_network_interface_sg_attachment" "cvo_data_cifs_sg_attachment" {
+  count = length(data.aws_network_interfaces.cvo_data_eni.ids)
 
-#   security_group_id    = aws_security_group.cvo_data_cifs_sg.id
-#   network_interface_id = sort(data.aws_network_interfaces.cvo_data_eni.ids)[count.index]
-# }
+  security_group_id    = aws_security_group.cvo_data_cifs_sg.id
+  network_interface_id = sort(data.aws_network_interfaces.cvo_data_eni.ids)[count.index]
+}
