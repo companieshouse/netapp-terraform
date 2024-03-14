@@ -48,6 +48,18 @@ resource "aws_security_group_rule" "onpremise_admin" {
   cidr_blocks       = local.admin_cidrs
 }
 
+resource "aws_security_group_rule" "mediator_ssh" {
+
+  security_group_id = data.vault_generic_secret.existing_sg.id
+  description       = "Allow internal ranges to access CVO mediator over SSH for administration"
+  for_each          = toset(["22"])
+  type              = "ingress"
+  from_port         = each.value
+  to_port           = each.value
+  protocol          = "tcp"
+  cidr_blocks       = local.admin_cidrs
+}
+
 resource "aws_security_group_rule" "cardiff_nfs_cifs" {
   for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
 
