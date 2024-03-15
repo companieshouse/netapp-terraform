@@ -49,13 +49,13 @@ resource "aws_security_group_rule" "onpremise_admin" {
 }
 
 resource "aws_security_group_rule" "mediator_ssh" {
-
+  count = var.create_security_group ? 1 : 0
+  
   security_group_id = data.vault_generic_secret.existing_sg.id
   description       = "Allow internal ranges to access CVO mediator over SSH for administration"
-  for_each          = toset(["22"])
   type              = "ingress"
-  from_port         = each.value
-  to_port           = each.value
+  from_port         = 22
+  to_port           = 22
   protocol          = "tcp"
   cidr_blocks       = local.admin_cidrs
 }

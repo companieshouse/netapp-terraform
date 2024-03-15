@@ -38,3 +38,5 @@ client_ports                = [
     { "protocol" = "tcp", "port" = 10670 },
     { "protocol" = "tcp", "port" = 11104, "to_port" = 11105 },
 ]
+
+create_security_group = false
