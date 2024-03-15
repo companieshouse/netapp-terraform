@@ -7,6 +7,7 @@ locals {
   netapp_account_data   = data.vault_generic_secret.netapp_new_account.data
   netapp_connector_data = data.vault_generic_secret.netapp_new_connector.data
   netapp_cvo_data       = data.vault_generic_secret.netapp_new_cvo.data
+  sg_id                 = data.vault_generic_secret.existing_sg.data
 
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
