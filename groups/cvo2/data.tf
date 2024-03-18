@@ -68,6 +68,10 @@ data "vault_generic_secret" "existing_sg" {
   path = "applications/shared-services-${var.aws_region}/netapp-new/cvo/mediator"
 }
 
+data "aws_security_group" "mediator" {
+  name = local.sg_mediator_name
+}
+
 output "nics" {
   value = data.aws_network_interfaces.netapp.ids
 }

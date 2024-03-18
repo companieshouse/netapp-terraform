@@ -51,7 +51,7 @@ resource "aws_security_group_rule" "onpremise_admin" {
 resource "aws_security_group_rule" "mediator_ssh" {
   count = var.create_security_group ? 1 : 0
   
-  security_group_id = local.sg_id["security_group_id"]
+  security_group_id = data.aws_security_group.mediator.id
   description       = "Allow internal ranges to access CVO mediator over SSH for administration"
   type              = "ingress"
   from_port         = 22
