@@ -7,8 +7,8 @@ locals {
   netapp_account_data    = data.vault_generic_secret.netapp_new_account.data
   netapp_connector_data  = data.vault_generic_secret.netapp_new_connector.data
   netapp_cvo_data        = data.vault_generic_secret.netapp_new_cvo.data
-  sg_mediator_data       = data.vault_generic_secret.existing_sg.data
-  sg_mediator_name       = local.sg_mediator_data["security_group_name"]
+  mediator_sg_data       = data.vault_generic_secret.existing_sg.data
+  mediator_sg_name       = local.mediator_sg_data["security_group_name"]
 
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 

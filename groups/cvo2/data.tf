@@ -69,7 +69,7 @@ data "vault_generic_secret" "existing_sg" {
 }
 
 data "aws_security_group" "mediator" {
-  name = local.sg_mediator_name
+  name = local.mediator_sg_name
 }
 
 output "nics" {
