@@ -10,7 +10,6 @@ locals {
   sg_mediator_data       = data.vault_generic_secret.existing_sg.data
   sg_mediator_name       = local.sg_mediator_data["security_group_name"]
 
-
   internal_fqdn = format("%s.%s.aws.internal", split("-", var.aws_account)[1], split("-", var.aws_account)[0])
 
   # See https://docs.netapp.com/us-en/occm/reference_security_groups.html#rules-for-cloud-volumes-ontap for port details
