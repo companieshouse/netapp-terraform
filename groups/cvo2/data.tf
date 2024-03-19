@@ -64,12 +64,13 @@ data "aws_network_interfaces" "netapp" {
   }
 }
 
-data "vault_generic_secret" "existing_sg" {
-  path = "applications/shared-services-${var.aws_region}/netapp-new/cvo/mediator"
-}
-
 data "aws_security_group" "mediator" {
-  name = local.mediator_sg_name
+  count = var.cvo_is_ha ? 1 : 0 
+
+  filter {
+    name   = "group-name"
+    values = ["cvonetappnewhstg001-mediator-*"]
+  }
 }
 
 output "nics" {

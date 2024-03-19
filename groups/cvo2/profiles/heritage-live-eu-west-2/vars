@@ -76,5 +76,3 @@ nfs_client_cidrs            = [
 cifs_client_cidrs           = [
     "172.16.0.0/12"
 ]
-
-create_security_group = true

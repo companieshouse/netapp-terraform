@@ -227,8 +227,3 @@ variable "cvo_dns_record" {
   type        = string
   description = "The dns record used for the cvo nfs vip dns"
 }
-
-variable "create_security_group" {
-  type = bool 
-  description = "should the deployment create a security group to allow ssh access to the cvo mediator instance"
-}
