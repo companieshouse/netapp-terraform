@@ -11,7 +11,7 @@ cvo_dns_record              = "192.168.255.35"
 
 # NetApp Cloud Volumes Ontap (CVO)
 cvo2_name                   = "netapp-new"
-cvo_instance_type           = "m5.4xlarge"
+cvo_instance_type           = "c5d.9xlarge"
 cvo_license_type            = "ha-cot-premium-byol"
 cvo_is_ha                   = true
 connector_account_access_id = "CloudProviderAccount-vB0TRxbb"
