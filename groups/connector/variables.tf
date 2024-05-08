@@ -71,3 +71,8 @@ variable "cvo_ranges" {
   type        = list(string)
   description = "A list of subnets that contain CVO infrastructure"
 }
+
+variable "cvo_connector_role_names" {
+  type        = list(string)
+  description = "A list of CVO connector IAM role names to that the connector will be permitted to assume"
+}

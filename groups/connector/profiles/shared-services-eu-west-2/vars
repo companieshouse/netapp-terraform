@@ -33,3 +33,8 @@ cvo_ranges = [
     "10.84.9.128/26",
     "10.84.9.192/26"
 ]
+
+cvo_connector_role_names = [
+  "irol-netapp-connector-build",
+  "irol-netapp-connector-new"
+]
