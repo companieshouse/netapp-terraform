@@ -23,10 +23,7 @@ module "netapp_connector" {
     local.account_ids["heritage-live"]
   ]
 
-  cvo_connector_role_names = [
-    "irol-netapp-connector-build",
-    "irol-netapp-connector-new"
-  ]
+  cvo_connector_role_names = var.cvo_connector_role_names
 
   ingress_ports = var.cloud_manager_ingress_ports
 
