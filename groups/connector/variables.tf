@@ -72,6 +72,9 @@ variable "cvo_ranges" {
   description = "A list of subnets that contain CVO infrastructure"
 }
 
+# ------------------------------------------------------------------------------
+# NetApp CVO IAM roles names
+# ------------------------------------------------------------------------------
 variable "cvo_connector_role_names" {
   type        = list(string)
   description = "A list of CVO connector IAM role names to that the connector will be permitted to assume"
