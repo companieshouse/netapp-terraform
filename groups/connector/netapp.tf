@@ -4,7 +4,7 @@ resource "aws_key_pair" "netapp" {
 }
 
 module "netapp_connector" {
-  source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=tags/1.0.188"
+  source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=tags/1.0.265"
 
   name          = format("%s-%s-%s", var.application, "connector", "001")
   vpc_id        = data.aws_vpc.vpc.id
@@ -22,6 +22,8 @@ module "netapp_connector" {
     local.account_ids["heritage-staging"],
     local.account_ids["heritage-live"]
   ]
+
+  cvo_connector_role_names = var.cvo_connector_role_names
 
   ingress_ports = var.cloud_manager_ingress_ports
 
