@@ -52,27 +52,27 @@ data "vault_generic_secret" "netapp_new_cvo" {
   path = "applications/${var.aws_account}-${var.aws_region}/netapp-new/cvo-inputs"
 }
 
-data "aws_network_interfaces" "netapp" {
+# data "aws_network_interfaces" "netapp" {
 
-  tags = {
-    "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
-  }
+#   tags = {
+#     "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
+#   }
 
-  filter {
-    name   = "subnet-id"
-    values = data.aws_subnet_ids.storage.ids
-  }
-}
+#   filter {
+#     name   = "subnet-id"
+#     values = data.aws_subnet_ids.storage.ids
+#   }
+# }
 
-data "aws_security_group" "mediator" {
-  count = var.cvo_is_ha ? 1 : 0 
+# data "aws_security_group" "mediator" {
+#   count = var.cvo_is_ha ? 1 : 0 
 
-  filter {
-    name   = "group-name"
-    values = ["cvonetappnewhstg001-mediator-*"]
-  }
-}
+#   filter {
+#     name   = "group-name"
+#     values = ["cvonetappnewhstg001-mediator-*"]
+#   }
+# }
 
-output "nics" {
-  value = data.aws_network_interfaces.netapp.ids
-}
+# output "nics" {
+#   value = data.aws_network_interfaces.netapp.ids
+# }
