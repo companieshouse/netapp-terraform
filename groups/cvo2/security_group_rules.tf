@@ -75,12 +75,12 @@ resource "aws_security_group_rule" "cardiff_nfs_cifs" {
 # ------------------------------------------------------------------------------
 # NFS and CIFS
 # ------------------------------------------------------------------------------
-data "aws_network_interfaces" "cvo_data_eni" {
-  filter {
-    name   = "group-id"
-    values = [module.cvo2.cvo_security_group_id]
-  }
-}
+# data "aws_network_interfaces" "cvo_data_eni" {
+#   filter {
+#     name   = "group-id"
+#     values = [module.cvo2.cvo_security_group_id]
+#   }
+# }
 
 # ------------------------------------------------------------------------------
 # Dedciated NFS Client Access Rules
