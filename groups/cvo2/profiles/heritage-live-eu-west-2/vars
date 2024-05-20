@@ -77,4 +77,4 @@ cifs_client_cidrs           = [
     "172.16.0.0/12"
 ]
 
-mediator_sg = "cvonetappnewhlive001-mediator-*"
+mediator_sg                 = "cvonetappnewhlive001-mediator-*"
