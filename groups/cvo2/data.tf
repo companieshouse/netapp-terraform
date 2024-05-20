@@ -69,7 +69,7 @@ data "aws_security_group" "mediator" {
 
   filter {
     name   = "group-name"
-    values = ["cvonetappnewhstg001-mediator-*"]
+    values = [var.mediator_sg]
   }
 }
 
