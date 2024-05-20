@@ -216,6 +216,7 @@ variable "throughput" {
 
 variable "mediator_sg" {
   type        = string
+  default     = null
   description = "The mediator secuirty group name lookup"
 }
 
