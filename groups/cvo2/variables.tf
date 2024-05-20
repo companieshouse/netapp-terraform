@@ -214,6 +214,11 @@ variable "throughput" {
   description = "The throughput value for the gp3 volume types"
 }
 
+variable "mediator_sg" {
+  type        = string
+  description = "The mediator secuirty group name lookup"
+}
+
 # ------------------------------------------------------------------------------
 # NetApp DNS Variables
 # ------------------------------------------------------------------------------
