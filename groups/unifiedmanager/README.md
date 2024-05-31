@@ -1,6 +1,4 @@
-# XML Infrastructure
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -20,9 +18,10 @@
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_aiqum_backup_bucket"></a> [aiqum\_backup\_bucket](#module\_aiqum\_backup\_bucket) | terraform-aws-modules/s3-bucket/aws | 3.0.1 |
+| <a name="module_s3_access_logging_aiqum"></a> [s3\_access\_logging\_aiqum](#module\_s3\_access\_logging\_aiqum) | git@github.com:companieshouse/terraform-modules//aws/s3_access_logging | tags/1.0.264 |
 | <a name="module_unified_manager_ec2_security_group"></a> [unified\_manager\_ec2\_security\_group](#module\_unified\_manager\_ec2\_security\_group) | terraform-aws-modules/security-group/aws | ~> 3.0 |
-| <a name="module_unified_manager_profile"></a> [unified\_manager\_profile](#module\_unified\_manager\_profile) | git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.40 |  |
-| <a name="module_aiqum_backup_bucket"></a> [unified\_manager\_ec2\_security\_group](#module\aiqum_backup_bucket) | terraform-aws-modules/s3-bucket/aws | ~> 2.1.0 |
+| <a name="module_unified_manager_profile"></a> [unified\_manager\_profile](#module\_unified\_manager\_profile) | git@github.com:companieshouse/terraform-modules//aws/instance_profile | tags/1.0.40 |
 
 ## Resources
 
@@ -45,6 +44,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_account"></a> [account](#input\_account) | The shorthand for the AWS account | `string` | n/a | yes |
+| <a name="input_ami_name"></a> [ami\_name](#input\_ami\_name) | Name of the AMI to use for the Unified Manager Server | `string` | `"centos7-base-*"` | no |
 | <a name="input_application"></a> [application](#input\_application) | Name for the application being deployed | `string` | n/a | yes |
 | <a name="input_aws_account"></a> [aws\_account](#input\_aws\_account) | The AWS account in which resources will be administered | `string` | n/a | yes |
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region in which resources will be administered | `string` | n/a | yes |
@@ -53,9 +53,8 @@
 | <a name="input_unified_manager_instance_type"></a> [unified\_manager\_instance\_type](#input\_unified\_manager\_instance\_type) | instance type to be used for the NetApp Unified Manager EC2 instance | `string` | n/a | yes |
 | <a name="input_vault_password"></a> [vault\_password](#input\_vault\_password) | Password for connecting to Vault | `string` | n/a | yes |
 | <a name="input_vault_username"></a> [vault\_username](#input\_vault\_username) | Username for connecting to Vault | `string` | n/a | yes |
-| <a name="input_ami_name"></a> [ami\_name](#input\_ami\_name) | Name of the AMI to use for the Unified Manager Server | `string` | `"centos7-base-*"` | no |
 
 ## Outputs
 
 No outputs.
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
