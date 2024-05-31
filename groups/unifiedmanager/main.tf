@@ -30,3 +30,15 @@ provider "vault" {
     }
   }
 }
+
+####################################################################################################
+## S3 access logging
+####################################################################################################
+
+module "s3_access_logging_aiqum" {
+  source = "git@github.com:companieshouse/terraform-modules//aws/s3_access_logging?ref=tags/1.0.264"
+
+  aws_account           = var.aws_account
+  aws_region            = var.aws_region
+  source_s3_bucket_name = module.aiqum_backup_bucket.s3_bucket_id
+}
