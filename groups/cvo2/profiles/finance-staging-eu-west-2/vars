@@ -18,10 +18,7 @@ connector_account_access_id = "CloudProviderAccount-vB0TRxbb"
 cvo_instance_ami_id         = "ami-0f3eef449fe9501e4"
 
 cvo_floating_ips            = [
-    "192.168.255.66",
-    "192.168.255.67",
-    "192.168.255.68",
-    "192.168.255.69"
+
 ]
 
 vpc_ingress_cidrs           = [
