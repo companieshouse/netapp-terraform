@@ -17,10 +17,6 @@ cvo_is_ha                   = false
 connector_account_access_id = "CloudProviderAccount-vB0TRxbb"
 cvo_instance_ami_id         = "ami-0f3eef449fe9501e4"
 
-vpc_ingress_cidrs           = [
-    "10.86.0.0/16"
-]
-
 client_ips                  = [
     "10.10.9.0/28",
     "172.24.4.192/32",
