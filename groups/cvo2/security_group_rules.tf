@@ -48,17 +48,17 @@ resource "aws_security_group_rule" "onpremise_admin" {
   cidr_blocks       = local.admin_cidrs
 }
 
-resource "aws_security_group_rule" "mediator_ssh" {
-  for_each = var.cvo_is_ha ? toset(local.admin_cidrs) : []
+# resource "aws_security_group_rule" "mediator_ssh" {
+#   for_each = var.cvo_is_ha ? toset(local.admin_cidrs) : []
   
-  security_group_id = data.aws_security_group.mediator[0].id
-  description       = "Allow internal ranges to access CVO mediator over SSH for administration"
-  type              = "ingress"
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
-  cidr_blocks       = [each.value]
-}
+#   security_group_id = data.aws_security_group.mediator[0].id
+#   description       = "Allow internal ranges to access CVO mediator over SSH for administration"
+#   type              = "ingress"
+#   from_port         = 22
+#   to_port           = 22
+#   protocol          = "tcp"
+#   cidr_blocks       = [each.value]
+# }
 
 resource "aws_security_group_rule" "cardiff_nfs_cifs" {
   for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
@@ -75,12 +75,12 @@ resource "aws_security_group_rule" "cardiff_nfs_cifs" {
 # ------------------------------------------------------------------------------
 # NFS and CIFS
 # ------------------------------------------------------------------------------
-data "aws_network_interfaces" "cvo_data_eni" {
-  filter {
-    name   = "group-id"
-    values = [module.cvo2.cvo_security_group_id]
-  }
-}
+# data "aws_network_interfaces" "cvo_data_eni" {
+#   filter {
+#     name   = "group-id"
+#     values = [module.cvo2.cvo_security_group_id]
+#   }
+# }
 
 # ------------------------------------------------------------------------------
 # Dedciated NFS Client Access Rules

@@ -64,15 +64,15 @@ data "vault_generic_secret" "netapp_new_cvo" {
 #   }
 # }
 
-data "aws_security_group" "mediator" {
-  count = var.cvo_is_ha ? 1 : 0 
+# data "aws_security_group" "mediator" {
+#   count = var.cvo_is_ha ? 1 : 0 
 
-  filter {
-    name   = "group-name"
-    values = [var.mediator_sg]
-  }
-}
+#   filter {
+#     name   = "group-name"
+#     values = [var.mediator_sg]
+#   }
+# }
 
-output "nics" {
-  value = data.aws_network_interfaces.netapp.ids
-}
+# output "nics" {
+#   value = data.aws_network_interfaces.netapp.ids
+# }
