@@ -15,7 +15,7 @@ cvo_instance_type           = "c5d.18xlarge"
 cvo_license_type            = "ha-cot-standard-paygo"
 cvo_is_ha                   = true
 connector_account_access_id = "CloudProviderAccount-vB0TRxbb"
-cvo_instance_ami_id         = "ami-0f3eef449fe9501e4"
+cvo_instance_ami_id         = "ami-0affa2d2f9677fe67"
 
 cvo_floating_ips            = [
     "192.168.255.82",
