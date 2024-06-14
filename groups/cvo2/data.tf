@@ -19,13 +19,13 @@ data "aws_subnet_ids" "storage" {
   }
 }
 
-data "aws_route_table" "private" {
-  vpc_id = data.aws_vpc.vpc.id
-  filter {
-    name   = "tag:Name"
-    values = ["rtb-${var.account}-001"]
-  }
-}
+# data "aws_route_table" "private" {
+#   vpc_id = data.aws_vpc.vpc.id
+#   filter {
+#     name   = "tag:Name"
+#     values = ["rtb-${var.account}-001"]
+#   }
+# }
 
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
@@ -52,17 +52,17 @@ data "vault_generic_secret" "netapp_new_cvo" {
   path = "applications/${var.aws_account}-${var.aws_region}/netapp-new/cvo-inputs"
 }
 
-data "aws_network_interfaces" "netapp" {
+# data "aws_network_interfaces" "netapp" {
 
-  tags = {
-    "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
-  }
+#   tags = {
+#     "aws:cloudformation:stack-name" = "cvonetappnew${var.account}001"
+#   }
 
-  filter {
-    name   = "subnet-id"
-    values = data.aws_subnet_ids.storage.ids
-  }
-}
+#   filter {
+#     name   = "subnet-id"
+#     values = data.aws_subnet_ids.storage.ids
+#   }
+# }
 
 data "aws_security_group" "mediator" {
   count = var.cvo_is_ha ? 1 : 0 
