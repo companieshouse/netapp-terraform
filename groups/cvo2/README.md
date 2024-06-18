@@ -84,3 +84,5 @@
 |------|-------------|
 | <a name="output_nics"></a> [nics](#output\_nics) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+ 
