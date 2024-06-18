@@ -19,13 +19,13 @@ data "aws_subnet_ids" "storage" {
   }
 }
 
-# data "aws_route_table" "private" {
-#   vpc_id = data.aws_vpc.vpc.id
-#   filter {
-#     name   = "tag:Name"
-#     values = ["rtb-${var.account}-001"]
-#   }
-# }
+data "aws_route_table" "private" {
+  vpc_id = data.aws_vpc.vpc.id
+  filter {
+    name   = "tag:Name"
+    values = ["rtb-${var.account}-001"]
+  }
+}
 
 data "aws_route53_zone" "private_zone" {
   name         = local.internal_fqdn
