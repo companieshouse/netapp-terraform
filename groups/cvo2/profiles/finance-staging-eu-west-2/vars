@@ -2,7 +2,7 @@ aws_region                  = "eu-west-2"
 aws_account                 = "finance-staging"
 
 # shorthand
-account                     = "fstg"
+account                     = "finstg"
 region                      = "euw2"
 
 # DNS
