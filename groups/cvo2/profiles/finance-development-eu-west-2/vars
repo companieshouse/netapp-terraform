@@ -2,7 +2,7 @@ aws_region                  = "eu-west-2"
 aws_account                 = "finance-development"
 
 # shorthand
-account                     = "fdev"
+account                     = "findev"
 region                      = "euw2"
 
 # DNS

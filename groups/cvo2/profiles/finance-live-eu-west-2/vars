@@ -2,7 +2,7 @@ aws_region                  = "eu-west-2"
 aws_account                 = "finance-live"
 
 # shorthand
-account                     = "flive"
+account                     = "finlive"
 region                      = "euw2"
 
 # DNS
