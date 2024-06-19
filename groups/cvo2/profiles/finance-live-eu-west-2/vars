@@ -11,7 +11,7 @@ cvo_dns_record              = "192.168.255.81"
 
 # NetApp Cloud Volumes Ontap (CVO)
 cvo2_name                   = "netapp-finance"
-cvo_ontap_version           = 9.14.0 
+cvo_ontap_version           = 9.14.0
 cvo_instance_type           = "c5d.18xlarge"
 cvo_license_type            = "ha-cot-standard-paygo"
 cvo_is_ha                   = true
