@@ -14,7 +14,7 @@ cvo2_name                   = "netapp-finance"
 cvo_instance_type           = "c5d.18xlarge"
 cvo_license_type            = "ha-cot-standard-paygo"
 cvo_is_ha                   = true
-connector_account_access_id = "CloudProviderAccount-vB0TRxbb"
+connector_account_access_id = "CloudProviderAccount-jufYYNpi"
 cvo_instance_ami_id         = "ami-0f3eef449fe9501e4"
 
 cvo_floating_ips            = [
