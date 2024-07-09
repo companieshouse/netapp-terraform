@@ -13,7 +13,7 @@ cvo_dns_record              = "192.168.255.49"
 cvo2_name                   = "netapp-finance"
 cvo_instance_type           = "m5.xlarge"
 cvo_license_type            = "capacity-paygo"
-capacity_package_name       = "Essential"
+capacity_package_name       = "Freemium"
 cvo_is_ha                   = false
 connector_account_access_id = "CloudProviderAccount-JGKkoJFN"
 

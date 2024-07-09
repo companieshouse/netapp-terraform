@@ -16,6 +16,7 @@ module "cvo2" {
   ebs_volume_size         = var.cvo_ebs_volume_size
   ebs_volume_size_unit    = var.cvo_ebs_volume_size_unit
   license_type            = var.cvo_license_type
+  capacity_package_name   = var.capacity_package_name
   is_ha                   = var.cvo_is_ha
   use_latest_version      = true
   platform_serial_numbers = try(jsondecode(local.netapp_cvo_data["node-serial-numbers"]), [null, null])
