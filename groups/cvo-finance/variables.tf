@@ -55,6 +55,11 @@ variable "cvo_license_type" {
   description = "The license type for the deployment, can be standalone or HA with different licenses providing different maximum storage allowance"
 }
 
+variable "cvo_capacity_package_name" {
+  type        = string
+  description = "The capacity package name: ['Essential', 'Professional', 'Freemium']. Default is 'Essential'."
+}
+
 variable "cvo_ebs_volume_size" {
   type        = number
   description = "Initial aggregate size, we are limiting this to 100GB as we want all used aggregates to be create purposefully in the same way i.e. we are not using this aggregate at all"
