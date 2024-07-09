@@ -1,15 +1,15 @@
-# resource "aws_security_group_rule" "netapp_tooling" {
-#   for_each = local.tooling_cidrs
+resource "aws_security_group_rule" "netapp_tooling" {
+  for_each = local.tooling_cidrs
 
-#   security_group_id = module.cvo2.cvo_security_group_id
-#   description       = "Tooling access from ${each.key}"
+  security_group_id = module.cvo2.cvo_security_group_id
+  description       = "Tooling access from ${each.key}"
 
-#   type              = "ingress"
-#   from_port         = "-1"
-#   to_port           = "-1"
-#   protocol          = "-1"
-#   cidr_blocks       = [each.value]
-# }
+  type              = "ingress"
+  from_port         = "-1"
+  to_port           = "-1"
+  protocol          = "-1"
+  cidr_blocks       = [each.value]
+}
 
 # resource "aws_security_group_rule" "onpremise" {
 #   for_each = { for rule in var.client_ports : rule.port => rule }
