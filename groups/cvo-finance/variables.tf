@@ -55,7 +55,7 @@ variable "cvo_license_type" {
   description = "The license type for the deployment, can be standalone or HA with different licenses providing different maximum storage allowance"
 }
 
-variable "cvo_capacity_package_name" {
+variable "capacity_package_name" {
   type        = string
   description = "The capacity package name: ['Essential', 'Professional', 'Freemium']. Default is 'Essential'."
 }
