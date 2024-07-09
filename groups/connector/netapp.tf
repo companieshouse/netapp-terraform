@@ -20,7 +20,10 @@ module "netapp_connector" {
   netapp_cvo_accountIds = [
     local.account_ids["heritage-development"],
     local.account_ids["heritage-staging"],
-    local.account_ids["heritage-live"]
+    local.account_ids["heritage-live"],
+    local.account_ids["finance-development"],
+    local.account_ids["finance-staging"],
+    local.account_ids["finance-live"]
   ]
 
   cvo_connector_role_names = var.cvo_connector_role_names
