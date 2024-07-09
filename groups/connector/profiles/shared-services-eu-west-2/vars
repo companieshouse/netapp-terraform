@@ -36,5 +36,6 @@ cvo_ranges = [
 
 cvo_connector_role_names = [
   "irol-netapp-connector-build",
+  "irol-connector-netapp-finance",
   "irol-connector-netapp-new"
 ]
