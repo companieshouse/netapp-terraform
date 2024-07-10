@@ -15,6 +15,23 @@ module "netapp_secondary_security_group" {
   )
 }
 
+module "netapp_tertiary_security_group" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 3.0"
+
+  name        = "sgr-netapp-new-${var.account}-003"
+  description = "Tertiary security group for the NetApp CVO Service"
+  vpc_id      = data.aws_vpc.vpc.id
+
+  tags = merge(
+    local.default_tags,
+    map(
+      "Name", "sgr-netapp-new-${var.account}-003",
+      "ServiceTeam", "Storage"
+    )
+  )
+}
+
 resource "aws_network_interface_sg_attachment" "cvo_instance_sgr_attachment" {
   for_each = toset(data.aws_network_interfaces.netapp.ids)
 
@@ -37,19 +54,6 @@ resource "aws_security_group_rule" "ingress_cidrs" {
   to_port           = lookup(local.ingress_cidrs[count.index][1], "to_port", local.ingress_cidrs[count.index][1]["port"])
   protocol          = local.ingress_cidrs[count.index][1]["protocol"]
   cidr_blocks       = [local.ingress_cidrs[count.index][0]]
-}
-
-resource "aws_security_group_rule" "cardiff_nfs_cifs" {
-  for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
-
-  security_group_id = module.netapp_secondary_security_group.this_security_group_id
-  description       = "Allow Cardiff Backend range to access CVO via NFS and CIFS"
-
-  type        = "ingress"
-  from_port   = each.value.port
-  to_port     = lookup(each.value, "to_port", each.value.port)
-  protocol    = each.value.protocol
-  cidr_blocks = var.nfs_cifs_cidrs
 }
 
 resource "aws_security_group_rule" "onpremise_admin" {
@@ -75,6 +79,19 @@ resource "aws_security_group_rule" "onpremise" {
   to_port     = lookup(each.value, "to_port", each.value.port)
   protocol    = each.value.protocol
   cidr_blocks = var.client_ips
+}
+
+resource "aws_security_group_rule" "cardiff_nfs_cifs" {
+  for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
+
+  security_group_id = module.netapp_tertiary_security_group.this_security_group_id
+  description       = "Allow Cardiff Backend range to access CVO via NFS and CIFS"
+
+  type        = "ingress"
+  from_port   = each.value.port
+  to_port     = lookup(each.value, "to_port", each.value.port)
+  protocol    = each.value.protocol
+  cidr_blocks = var.nfs_cifs_cidrs
 }
 
 # ------------------------------------------------------------------------------
