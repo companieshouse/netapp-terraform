@@ -6,8 +6,11 @@ account                     = "hstg"
 region                      = "euw2"
 
 # DNS
-cvo_dns_name                = "cvonfs.staging.heritage.aws.internal"
-cvo_dns_record              = "192.168.255.19"
+cvo_n1_dns_name                = "cvodata-n1.staging.heritage.aws.internal"
+cvo_n1_dns_record              = "192.168.255.23"
+
+cvo_n2_dns_name                = "cvodata-n2.staging.heritage.aws.internal"
+cvo_n2_dns_record              = "192.168.255.24"
 
 # NetApp Cloud Volumes Ontap (CVO)
 cvo2_name                   = "netapp-new"
