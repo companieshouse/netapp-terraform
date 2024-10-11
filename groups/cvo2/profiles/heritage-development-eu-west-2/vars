@@ -6,8 +6,8 @@ account                     = "hdev"
 region                      = "euw2"
 
 # DNS
-cvo_n1_dns_name                = "cvonfs.development.heritage.aws.internal"
-cvo_n1_dns_record              = "10.104.9.161"
+cvo_dns_name                = "cvonfs.development.heritage.aws.internal"
+cvo_dns_record              = "10.104.9.161"
 
 # NetApp Cloud Volumes Ontap (CVO)
 cvo2_name                   = "netapp-new"
