@@ -73,6 +73,6 @@ data "vault_generic_secret" "netapp_new_cvo" {
 #   }
 # }
 
-# output "nics" {
-#   value = data.aws_network_interfaces.netapp.ids
-# }
+output "nics" {
+  value = data.aws_network_interfaces.netapp.ids
+}
