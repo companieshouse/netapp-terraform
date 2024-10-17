@@ -6,8 +6,8 @@ account                     = "findev"
 region                      = "euw2"
 
 # DNS
-cvo_data_dns_name                = "cvodata.development.finance.aws.internal"
-cvo_data_dns_record              = "10.110.12.184"
+cvo_dns_name                = "cvodata.development.finance.aws.internal"
+cvo_dns_record              = "10.110.12.184"
 
 # NetApp Cloud Volumes Ontap (CVO)
 cvo2_name                   = "netapp-finance"
