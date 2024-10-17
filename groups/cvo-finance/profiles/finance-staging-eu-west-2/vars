@@ -6,8 +6,8 @@ account                     = "finstg"
 region                      = "euw2"
 
 # DNS
-cvo_dns_name                = "cvonfs.staging.finance.aws.internal"
-cvo_dns_record              = "192.168.255.65"
+cvo_dns_name                = "cvodata.staging.finance.aws.internal"
+cvo_dns_record              = "10.100.12.172"
 
 # NetApp Cloud Volumes Ontap (CVO)
 cvo2_name                   = "netapp-finance"
