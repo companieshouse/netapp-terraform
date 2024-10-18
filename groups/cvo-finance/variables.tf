@@ -224,12 +224,46 @@ variable "mediator_sg" {
 # NetApp DNS Variables
 # ------------------------------------------------------------------------------
 
+variable "cvo_multi_node" {
+  type        = bool
+  description = "Determines if the cvo environment is multi-node"
+  default     = false
+}
+
 variable "cvo_dns_name" {
   type        = string
   description = "The dns name for the nfs vip"
+  default     = false
 }
 
 variable "cvo_dns_record" {
   type        = string
   description = "The dns record used for the cvo nfs vip dns"
+  default     = false
 }
+
+# Multi node vars
+variable "cvo_data_n1_dns_name" {
+  type        = string
+  description = "The dns name for the nfs/cifs ip (node 1)"
+  default     = false
+}
+
+variable "cvo_data_n1_dns_record" {
+  type        = string
+  description = "The dns record used for the cvo nfs/cifs vip dns (node 1)"
+  default     = false
+}
+
+variable "cvo_data_n2_dns_name" {
+  type        = string
+  description = "The dns name for the nfs/cifs ip (node 2)"
+  default     = false
+}
+
+variable "cvo_data_n2_dns_record" {
+  type        = string
+  description = "The dns record used for the cvo nfs/cifs vip dns (node 2)"
+  default     = false
+}
+
