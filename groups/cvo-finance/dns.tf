@@ -1,5 +1,5 @@
 resource "aws_route53_record" "cvo_nfs_dns" {
-  count = var.cvo_multi_node ? 1 : 0
+  count = var.cvo_multi_node ? 0 : 1
 
   zone_id = data.aws_route53_zone.private_zone.id
   name    = var.cvo_dns_name
