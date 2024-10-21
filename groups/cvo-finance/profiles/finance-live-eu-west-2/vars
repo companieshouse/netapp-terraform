@@ -6,8 +6,12 @@ account                     = "finlive"
 region                      = "euw2"
 
 # DNS
-cvo_dns_name                = "cvonfs.live.finance.aws.internal"
-cvo_dns_record              = "192.168.255.81"
+cvo_multi_node              = true
+cvo_data_n1_dns_name        = "cvodata-n1.live.finance.aws.internal"
+cvo_data_n1_dns_record      = "192.168.255.84"
+
+cvo_data_n2_dns_name        = "cvodata-n2.live.finance.aws.internal"
+cvo_data_n2_dns_record      = "192.168.255.85"
 
 # NetApp Cloud Volumes Ontap (CVO)
 cvo2_name                   = "netapp-finance"
