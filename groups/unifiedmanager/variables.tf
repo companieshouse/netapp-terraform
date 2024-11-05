@@ -37,6 +37,12 @@ variable "application" {
   description = "Name for the application being deployed"
 }
 
+variable "delete_on_termination" {
+  type        = bool
+  default     = false
+  description = "Whether the volume should be destroyed on instance termination."
+}
+
 # ------------------------------------------------------------------------------
 # NetApp Unified Manager Variables
 # ------------------------------------------------------------------------------

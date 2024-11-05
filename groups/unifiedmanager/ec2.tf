@@ -43,10 +43,11 @@ resource "aws_instance" "netapp_unified_manager" {
   vpc_security_group_ids      = [module.unified_manager_ec2_security_group.this_security_group_id]
   iam_instance_profile        = module.unified_manager_profile.aws_iam_instance_profile.name
   root_block_device {
-    volume_size = "120"
-    volume_type = "gp2"
-    encrypted   = true
-    kms_key_id  = data.aws_kms_key.ebs.arn
+    volume_size           = "120"
+    volume_type           = "gp2"
+    encrypted             = true
+    kms_key_id            = data.aws_kms_key.ebs.arn
+    delete_on_termination = false
   }
 
   user_data = templatefile("${path.module}/templates/user_data.tpl",
