@@ -69,5 +69,3 @@ resource "aws_key_pair" "ec2_keypair" {
   key_name   = format("%s-%s", var.application, "001")
   public_key = local.unified_manager_data["public-key"]
 }
-
-
