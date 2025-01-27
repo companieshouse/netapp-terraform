@@ -266,4 +266,3 @@ variable "cvo_data_n2_dns_record" {
   description = "The dns record used for the cvo nfs/cifs vip dns (node 2)"
   default     = false
 }
-

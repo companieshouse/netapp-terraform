@@ -41,7 +41,19 @@ module "aiqum_backup_bucket" {
                     "s3:x-amz-server-side-encryption": "true"
                 }
             }
-        }
+        },
+        {
+            "Sid": "AllowSSLRequestsOnly",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::${var.aws_account}.${var.aws_region}.aiqum.ch.gov.uk/*",
+            "Condition": {
+                "Bool": {
+                    "aws:SecureTransport": "false"
+                }
+            }
+        }           
     ]
   }
 POLICY
