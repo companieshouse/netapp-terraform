@@ -15,17 +15,17 @@ module "netapp_secondary_security_group" {
   )
 }
 
-resource "aws_network_interface_sg_attachment" "cvo_instance_sgr_attachment" {
-  for_each = toset(data.aws_network_interfaces.netapp.ids)
+# resource "aws_network_interface_sg_attachment" "cvo_instance_sgr_attachment" {
+#   for_each = toset(data.aws_network_interfaces.netapp.ids)
 
-  security_group_id    = module.netapp_secondary_security_group.this_security_group_id
-  network_interface_id = each.value
+#   security_group_id    = module.netapp_secondary_security_group.this_security_group_id
+#   network_interface_id = each.value
 
-  depends_on = [
-    module.netapp_secondary_security_group,
-    data.aws_network_interfaces.netapp
-  ]
-}
+#   depends_on = [
+#     module.netapp_secondary_security_group,
+#     data.aws_network_interfaces.netapp
+#   ]
+# }
 
 resource "aws_security_group_rule" "ingress_cidrs" {
   count = length(local.ingress_cidrs)
@@ -64,18 +64,18 @@ resource "aws_security_group_rule" "onpremise" {
   cidr_blocks = var.client_ips
 }
 
-resource "aws_security_group_rule" "cardiff_nfs_cifs" {
-  for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
+# resource "aws_security_group_rule" "cardiff_nfs_cifs" {
+#   for_each = { for rule in var.nfs_cifs_ports : join("_", [rule.protocol, rule.port]) => rule }
 
-  security_group_id = module.netapp_secondary_security_group.this_security_group_id
-  description       = "Allow Cardiff Backend range to access CVO via NFS and CIFS"
+#   security_group_id = module.netapp_secondary_security_group.this_security_group_id
+#   description       = "Allow Cardiff Backend range to access CVO via NFS and CIFS"
 
-  type        = "ingress"
-  from_port   = each.value.port
-  to_port     = lookup(each.value, "to_port", each.value.port)
-  protocol    = each.value.protocol
-  cidr_blocks = var.nfs_cifs_cidrs
-}
+#   type        = "ingress"
+#   from_port   = each.value.port
+#   to_port     = lookup(each.value, "to_port", each.value.port)
+#   protocol    = each.value.protocol
+#   cidr_blocks = var.nfs_cifs_cidrs
+# }
 
 # ------------------------------------------------------------------------------
 # Dedicated NFS Access Security Group
