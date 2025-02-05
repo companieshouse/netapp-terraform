@@ -73,6 +73,6 @@ data "aws_security_group" "mediator" {
   }
 }
 
-output "nics" {
-  value = data.aws_network_interfaces.netapp.ids
-}
+# output "nics" {
+#   value = data.aws_network_interfaces.netapp.ids
+# }
