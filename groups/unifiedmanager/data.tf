@@ -51,3 +51,7 @@ data "aws_ami" "unified_manager" {
     ]
   }
 }
+
+data "aws_ec2_managed_prefix_list" "iboss" {
+  name = "vpn-cidr-ranges"
+}

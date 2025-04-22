@@ -26,6 +26,20 @@ module "unified_manager_ec2_security_group" {
       protocol    = "udp"
       description = "Syslog Collector"
       cidr_blocks = join(",", local.admin_cidrs)
+    },
+    {
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      description = "iBoss access"
+      cidr_blocks = join(",", local.iboss_cidr)
+    },
+    {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      description = "iBoss access"
+      cidr_blocks = join(",", local.iboss_cidr)
     }
   ]
   egress_rules        = ["all-all"]
