@@ -3,9 +3,8 @@
 # ------------------------------------------------------------------------
 locals {
   account_ids          = data.vault_generic_secret.account_ids.data
-  admin_cidrs          = values(data.vault_generic_secret.internal_cidrs.data)
+  admin_cidrs          = data.aws_ec2_managed_prefix_list.admin_cidr_ranges
   unified_manager_data = data.vault_generic_secret.unified_manager.data
-  iboss_cidr           = [for entry in data.aws_ec2_managed_prefix_list.iboss.entries : entry.cidr if entry.description == "iBoss VPN" ]
 
   internal_fqdn = "${replace(var.aws_account, "-", "")}.aws.internal"
 

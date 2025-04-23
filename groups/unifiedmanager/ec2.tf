@@ -10,7 +10,7 @@ module "unified_manager_ec2_security_group" {
   vpc_id      = data.aws_vpc.vpc.id
 
 
-  ingress_cidr_blocks = local.admin_cidrs
+  ingress_prefix_list_ids = local.admin_cidrs
   ingress_rules       = ["http-80-tcp", "https-443-tcp", "ssh-tcp"]
   ingress_with_cidr_blocks = [
     {
@@ -27,20 +27,6 @@ module "unified_manager_ec2_security_group" {
       description = "Syslog Collector"
       cidr_blocks = join(",", local.admin_cidrs)
     },
-    {
-      from_port   = 443
-      to_port     = 443
-      protocol    = "tcp"
-      description = "iBoss access"
-      cidr_blocks = join(",", local.iboss_cidr)
-    },
-    {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
-      description = "iBoss access"
-      cidr_blocks = join(",", local.iboss_cidr)
-    }
   ]
   egress_rules        = ["all-all"]
 }
