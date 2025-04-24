@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------
 locals {
   account_ids          = data.vault_generic_secret.account_ids.data
-  admin_cidrs          = values(data.vault_generic_secret.internal_cidrs.data)
+  admin_prefix_list_id = data.aws_ec2_managed_prefix_list.admin_cidr_ranges.id
   unified_manager_data = data.vault_generic_secret.unified_manager.data
 
   internal_fqdn = "${replace(var.aws_account, "-", "")}.aws.internal"

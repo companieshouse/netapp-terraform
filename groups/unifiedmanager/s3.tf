@@ -1,6 +1,6 @@
 module "aiqum_backup_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.0.1"
+  version = "~> 4.7.0"
 
   bucket = "${var.aws_account}.${var.aws_region}.aiqum.ch.gov.uk"
   acl    = "private"

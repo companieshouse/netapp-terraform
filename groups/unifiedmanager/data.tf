@@ -4,11 +4,10 @@ data "aws_vpc" "vpc" {
   }
 }
 
-data "aws_subnet_ids" "monitor" {
-  vpc_id = data.aws_vpc.vpc.id
+data "aws_subnet" "monitor_b" {
   filter {
     name   = "tag:Name"
-    values = ["sub-monitor-*"]
+    values = ["sub-monitor-b"]
   }
 }
 
@@ -50,4 +49,8 @@ data "aws_ami" "unified_manager" {
       "available",
     ]
   }
+}
+
+data "aws_ec2_managed_prefix_list" "admin_cidr_ranges" {
+  name = "administration-cidr-ranges"
 }
