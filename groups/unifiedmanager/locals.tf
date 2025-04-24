@@ -8,8 +8,6 @@ locals {
 
   internal_fqdn = "${replace(var.aws_account, "-", "")}.aws.internal"
 
-
-
   default_tags = {
     Terraform = "true"
     Project   = var.account
