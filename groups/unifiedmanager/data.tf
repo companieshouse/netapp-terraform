@@ -24,10 +24,6 @@ data "vault_generic_secret" "account_ids" {
   path = "aws-accounts/account-ids"
 }
 
-data "vault_generic_secret" "internal_cidrs" {
-  path = "aws-accounts/network/internal_cidr_ranges"
-}
-
 data "vault_generic_secret" "unified_manager" {
   path = "applications/${var.aws_account}-${var.aws_region}/netapp/${var.application}"
 }
