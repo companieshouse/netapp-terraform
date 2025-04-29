@@ -1,0 +1,41 @@
+aws_region  = "eu-west-2"
+aws_account = "shared-services"
+
+# shorthand
+account = "shared"
+region  = "euw2"
+
+# Application
+application = "netapp"
+
+# NetApp Connector
+cloud_manager_instance_type = "t3.2xlarge"
+cloud_manager_company_name = "companieshouse"
+cloud_manager_ingress_ports = [
+    { "protocol" = "tcp", "port" = 22 },
+    { "protocol" = "tcp", "port" = 80 },
+    { "protocol" = "tcp", "port" = 443 },
+  ]
+
+cloud_manager_egress_ports = [
+    { "protocol" = "-1", "port" = 0 },
+  ]
+
+# CVO
+cvo_ranges = [
+    "10.104.9.64/26",
+    "10.104.9.128/26",
+    "10.104.9.192/26",
+    "10.94.9.64/26",
+    "10.94.9.128/26",
+    "10.94.9.192/26",
+    "10.84.9.64/26",
+    "10.84.9.128/26",
+    "10.84.9.192/26"
+]
+
+cvo_connector_role_names = [
+  "irol-netapp-connector-build",
+  "irol-connector-netapp-finance",
+  "irol-connector-netapp-new"
+]
