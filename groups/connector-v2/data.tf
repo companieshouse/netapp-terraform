@@ -36,7 +36,7 @@ data "vault_generic_secret" "netapp_connector_input" {
 data "aws_instance" "netapp_connector" {
   filter {
     name   = "tag:Name"
-    values = ["${local.connector_name}-001"]
+    values = [local.connector_instance_name]
   }
 
   filter {

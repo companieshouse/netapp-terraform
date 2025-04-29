@@ -10,6 +10,7 @@ locals {
   internal_fqdn = "${replace(var.aws_account, "-", "")}.aws.internal"
 
   connector_name = "${var.application}-connector-v2"
+  connector_instance_name = "${local.connector_name}-001"
 
   default_tags = {
     Terraform = "true"

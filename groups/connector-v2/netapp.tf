@@ -6,7 +6,7 @@ resource "aws_key_pair" "netapp" {
 module "netapp_connector" {
   source = "git::git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_connector_aws?ref=tags/1.0.271"
 
-  name          = format("%s-%s", local.connector_name, "001")
+  name          = local.connector_instance_name
   vpc_id        = data.aws_vpc.vpc.id
   company_name  = var.cloud_manager_company_name
   instance_type = var.cloud_manager_instance_type
