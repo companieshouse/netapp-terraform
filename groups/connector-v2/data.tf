@@ -33,6 +33,18 @@ data "vault_generic_secret" "netapp_connector_input" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/connector-inputs"
 }
 
+data "vault_generic_secret" "netapp_cvo_cidrs" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/cvo-cidrs"
+}
+
+data "vault_generic_secret" "netapp_cvo_hosts" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/cvo-hosts"
+}
+
+data "vault_generic_secret" "netapp_iboss_cidrs" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/iboss-cidrs"
+}
+
 data "aws_instance" "netapp_connector" {
   filter {
     name   = "tag:Name"

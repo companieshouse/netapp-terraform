@@ -65,14 +65,6 @@ variable "cloud_manager_egress_ports" {
 }
 
 # ------------------------------------------------------------------------------
-# NetApp CVO variablesg
-# ------------------------------------------------------------------------------
-variable "cvo_ranges" {
-  type        = list(string)
-  description = "A list of subnets that contain CVO infrastructure"
-}
-
-# ------------------------------------------------------------------------------
 # NetApp CVO IAM roles names
 # ------------------------------------------------------------------------------
 variable "cvo_connector_role_names" {

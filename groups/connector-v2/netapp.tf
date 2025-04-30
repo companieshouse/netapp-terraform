@@ -33,7 +33,8 @@ module "netapp_connector" {
   egress_ports = var.cloud_manager_egress_ports
 
   ingress_cidr_blocks = concat(
-    local.admin_cidrs
+    local.admin_cidrs,
+    local.iboss_cidrs
   )
 
   egress_cidr_blocks = ["0.0.0.0/0"]
@@ -55,5 +56,16 @@ resource "aws_security_group_rule" "cvo_ingress" {
   from_port   = 80
   to_port     = 80
   protocol    = "tcp"
-  cidr_blocks = var.cvo_ranges
+  cidr_blocks = local.cvo_cidrs
+}
+
+resource "aws_security_group_rule" "cvo_ingress_hosts" {
+  security_group_id = module.netapp_connector.occm_security_group_id
+  description       = "Allow CVO hosts to communicate with Connector for updates"
+
+  type        = "ingress"
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  cidr_blocks = local.cvo_hosts
 }
