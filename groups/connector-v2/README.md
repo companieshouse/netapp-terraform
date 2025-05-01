@@ -1,8 +1,8 @@
-# NetApp Cloud Manager Connector
+# NetApp Cloud Manager Connector V2
 
-This is the original version of the Connector module which has now been superceded
-by `connector-v2`. This module remains whilst the original resources are still in
-place, but should be removed once they have been retired.
+This module serves to replace the original version of the Connector. A new implementation
+of the module has been included to allow migration from the old implementation without
+disturbing the existing codebase/resources as part of troubleshooting reliability issues.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
