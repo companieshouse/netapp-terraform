@@ -10,11 +10,11 @@ SnapCenter is NetApp's data protection software that provides backup, restore, a
 
 - SnapCenter 6.1+ on Linux requires:
   - RHEL 8 or 9
-  - Minimum 4 cores, 8GB RAM
+  - Minimum 4 CPU cores, 8GB RAM
   - 15GB disk space for SnapCenter Server and repository
   - .NET Framework 8.0.12+
   - PowerShell 7.4.2+
-  - Nginx
+  - Nginx (reverse proxy)
 
 ## Ports
 
