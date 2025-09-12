@@ -14,7 +14,7 @@ SnapCenter is NetApp's data protection software that provides backup, restore, a
   - 15GB disk space for SnapCenter Server and repository
   - .NET Framework 8.0.12+
   - PowerShell 7.4.2+
-  - Nginx (reverse proxy)
+  - Nginx
 
 ## Ports
 
