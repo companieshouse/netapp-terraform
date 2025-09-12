@@ -1,0 +1,37 @@
+locals {
+  vpc_prefix = split("-", var.aws_account)[0]
+
+  dns_zone_suffix_dynamic = "${local.vpc_prefix}.aws.internal"
+
+  application_subnet_ids_by_az = values(zipmap(
+    data.aws_subnet.application[*].availability_zone,
+    data.aws_subnet.application[*].id
+  ))
+
+  common_tags = {
+    Environment    = var.environment
+    Service        = var.service
+    ServiceSubType = var.service_subtype
+    Team           = var.team
+  }
+
+  common_resource_name = "${var.environment}-${var.service_subtype}"
+  dns_zone             = "${var.environment}.${local.dns_zone_suffix_dynamic}"
+
+  security_s3_data            = data.vault_generic_secret.security_s3_buckets.data
+  session_manager_bucket_name = local.security_s3_data.session-manager-bucket-name
+
+  security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
+  ssm_kms_key_id         = local.security_kms_keys_data.session-manager-kms-key-arn
+
+  account_ids_secrets = jsondecode(data.vault_generic_secret.account_ids.data_json)
+  ami_owner_id        = local.account_ids_secrets["shared-services"]
+
+  sns_email_secret = data.vault_generic_secret.sns_email.data
+  linux_sns_email  = local.sns_email_secret["linux-email"]
+
+  # All snapcenter secrets from single Vault path
+  snapcenter_secrets = data.vault_generic_secret.snapcenter_secrets.data
+  ssh_public_key     = local.snapcenter_secrets["public_key"]
+  kms_key_alias      = local.snapcenter_secrets["kms_key_alias"]
+}
