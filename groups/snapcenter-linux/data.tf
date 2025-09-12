@@ -22,10 +22,6 @@ data "aws_vpc" "main" {
   }
 }
 
-data "vault_generic_secret" "internal_cidrs" {
-  path = "aws-accounts/network/internal_cidr_ranges"
-}
-
 data "aws_subnets" "application" {
   filter {
     name   = "vpc-id"
@@ -68,10 +64,6 @@ data "vault_generic_secret" "kms_keys" {
 
 data "vault_generic_secret" "security_s3_buckets" {
   path = "aws-accounts/security/s3"
-}
-
-data "vault_generic_secret" "internal_domain_cidrs" {
-  path = "aws-accounts/network/internal_domain"
 }
 
 data "vault_generic_secret" "sns_email" {
