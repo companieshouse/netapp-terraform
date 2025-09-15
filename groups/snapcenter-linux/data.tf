@@ -77,3 +77,13 @@ data "vault_generic_secret" "security_kms_keys" {
 data "vault_generic_secret" "snapcenter_secrets" {
   path = "/applications/${var.aws_account}-${var.aws_region}/netapp/snapcenter-linux"
 }
+
+data "template_file" "userdata" {
+  count = var.instance_count
+  
+  template = file("${path.module}/templates/user_data.tpl")
+  
+  vars = {
+    HOSTNAME = "${var.service_subtype}-${count.index + 1}.${local.dns_zone}"
+  }
+}

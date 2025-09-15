@@ -6,6 +6,7 @@ resource "aws_instance" "snapcenter_linux" {
   subnet_id     = element(local.application_subnet_ids_by_az, count.index)
   key_name      = aws_key_pair.snapcenter_linux.key_name
 
+  user_data              = data.template_file.userdata[count.index].rendered
   iam_instance_profile   = module.instance_profile.aws_iam_instance_profile.name
   vpc_security_group_ids = [aws_security_group.snapcenter_linux.id]
   
