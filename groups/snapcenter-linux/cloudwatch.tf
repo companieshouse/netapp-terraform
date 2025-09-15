@@ -2,7 +2,8 @@ resource "aws_cloudwatch_log_group" "snapcenter_linux" {
   name              = "/aws/ec2/${local.common_resource_name}"
   retention_in_days = var.default_log_retention_in_days
   kms_key_id        = local.cloudwatch_logs_kms_key
-  tags              = local.common_tags
+
+  tags = local.common_tags
 }
 
 ########## Instance Status Check ###############################################################
