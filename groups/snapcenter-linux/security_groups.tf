@@ -18,15 +18,6 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_ssh_admin" {
   to_port           = 22
 }
 
-resource "aws_vpc_security_group_ingress_rule" "snapcenter_ssh_shared_services" {
-  description       = "Inbound connectivity from Concourse pipelines"
-  security_group_id = aws_security_group.snapcenter_linux.id
-  prefix_list_id    = data.aws_ec2_managed_prefix_list.shared_services_build_cidr_ranges.id
-  ip_protocol       = "tcp"
-  from_port         = 22
-  to_port           = 22
-}
-
 # SnapCenter Ports
 resource "aws_vpc_security_group_ingress_rule" "snapcenter_main_port" {
   description       = "SnapCenter main communication port (web UI and API)"
@@ -75,39 +66,10 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_rabbitmq" {
   to_port           = 5672
 }
 
-# Egress rules
-resource "aws_vpc_security_group_egress_rule" "snapcenter_https_out" {
-  description       = "Allow HTTPS outbound for updates and ONTAP communication"
+# Egress
+resource "aws_vpc_security_group_egress_rule" "snapcenter_all_out" {
+  description       = "Allow outbound traffic"
   security_group_id = aws_security_group.snapcenter_linux.id
   cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "tcp"
-  from_port         = 443
-  to_port           = 443
-}
-
-resource "aws_vpc_security_group_egress_rule" "snapcenter_http_out" {
-  description       = "Allow HTTP outbound for ONTAP communication fallback"
-  security_group_id = aws_security_group.snapcenter_linux.id
-  cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "tcp"
-  from_port         = 80
-  to_port           = 80
-}
-
-resource "aws_vpc_security_group_egress_rule" "snapcenter_dns_tcp" {
-  description       = "Allow DNS TCP"
-  security_group_id = aws_security_group.snapcenter_linux.id
-  cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "tcp"
-  from_port         = 53
-  to_port           = 53
-}
-
-resource "aws_vpc_security_group_egress_rule" "snapcenter_dns_udp" {
-  description       = "Allow DNS UDP"
-  security_group_id = aws_security_group.snapcenter_linux.id
-  cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "udp"
-  from_port         = 53
-  to_port           = 53
+  ip_protocol       = "-1"
 }
