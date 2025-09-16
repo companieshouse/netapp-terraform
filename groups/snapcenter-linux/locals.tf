@@ -23,7 +23,7 @@ locals {
 
   security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
   ssm_kms_key_id         = local.security_kms_keys_data.session-manager-kms-key-arn
-  
+
   kms_keys                = data.vault_generic_secret.kms_keys.data
   cloudwatch_logs_kms_key = local.kms_keys.logs
 
@@ -33,8 +33,8 @@ locals {
   sns_email_secret = data.vault_generic_secret.sns_email.data
   linux_sns_email  = local.sns_email_secret["linux-email"]
 
-  # All snapcenter secrets from single Vault path
-  snapcenter_secrets = data.vault_generic_secret.snapcenter_secrets.data
-  ssh_public_key     = local.snapcenter_secrets["public_key"]
-  kms_key_alias      = local.snapcenter_secrets["kms_key_alias"]
+  snapcenter_secrets           = data.vault_generic_secret.snapcenter_secrets.data
+  ssh_public_key               = local.snapcenter_secrets["public_key"]
+  kms_key_alias                = local.snapcenter_secrets["kms_key_alias"]
+  shared_resources_bucket_name = local.snapcenter_secrets["s3_resources_bucket"]
 }
