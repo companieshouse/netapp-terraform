@@ -9,13 +9,14 @@ resource "aws_instance" "snapcenter_linux" {
   user_data              = data.template_file.userdata[count.index].rendered
   iam_instance_profile   = module.instance_profile.aws_iam_instance_profile.name
   vpc_security_group_ids = [aws_security_group.snapcenter_linux.id]
-  
+
   tags = merge(local.common_tags, {
-    Name          = "${local.common_resource_name}-${count.index + 1}"
-    Backup        = true
-    SecurityScans = true
-    Hostname      = "${var.service_subtype}-${count.index + 1}"
-    Zone          = local.dns_zone
+    Name             = "${local.common_resource_name}-${count.index + 1}"
+    Backup           = true
+    SecurityScans    = true
+    SnapCenterServer = true
+    Hostname         = "${var.service_subtype}-${count.index + 1}"
+    Zone             = local.dns_zone
   })
 
   root_block_device {
@@ -25,7 +26,7 @@ resource "aws_instance" "snapcenter_linux" {
     kms_key_id  = data.aws_kms_alias.ebs.target_key_arn
     throughput  = var.root_block_device_throughput
     volume_type = var.root_block_device_volume_type
-    
+
     tags = merge(local.common_tags, {
       Name   = "${local.common_resource_name}-${count.index + 1}-root"
       Backup = true
@@ -43,6 +44,6 @@ resource "aws_instance" "snapcenter_linux" {
 resource "aws_key_pair" "snapcenter_linux" {
   key_name   = local.common_resource_name
   public_key = local.ssh_public_key
-  
+
   tags = local.common_tags
 }
