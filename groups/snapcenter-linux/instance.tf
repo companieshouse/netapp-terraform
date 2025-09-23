@@ -20,7 +20,7 @@ resource "aws_instance" "snapcenter_linux" {
   })
 
   root_block_device {
-    volume_size = 100
+    volume_size = var.root_volume_size
     encrypted   = var.encrypt_root_block_device
     iops        = var.root_block_device_iops
     kms_key_id  = data.aws_kms_alias.ebs.target_key_arn
