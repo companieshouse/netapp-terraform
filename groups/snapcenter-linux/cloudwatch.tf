@@ -120,3 +120,51 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_critical" {
 
   tags = local.common_tags
 }
+
+########## SnapCenter Data Disk Usage ##########################################################
+# Note: The post-run ansible needs to be run for these disks, otherwise the disks won't be mounted and these alarms won't work
+resource "aws_cloudwatch_metric_alarm" "snapcenter_data_disk_warning" {
+  count = var.instance_count
+
+  alarm_name          = "${upper(var.aws_account)} - WARNING - ${local.common_resource_name}-${count.index + 1}-snapcenter-disk"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "disk_used_percent"
+  namespace           = "CWAgent"
+  period              = "300"
+  statistic           = "Average"
+  threshold           = "80"
+  alarm_description   = "SnapCenter data disk usage warning threshold (80%)"
+  alarm_actions       = [aws_sns_topic.snapcenter_alerts.arn]
+  ok_actions          = [aws_sns_topic.snapcenter_alerts.arn]
+
+  dimensions = {
+    InstanceId = aws_instance.snapcenter_linux[count.index].id
+    path       = "/opt/NetApp" # SnapCenter installation path
+  }
+
+  tags = local.common_tags
+}
+
+resource "aws_cloudwatch_metric_alarm" "snapcenter_data_disk_critical" {
+  count = var.instance_count
+
+  alarm_name          = "${upper(var.aws_account)} - CRITICAL - ${local.common_resource_name}-${count.index + 1}-snapcenter-disk"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "disk_used_percent"
+  namespace           = "CWAgent"
+  period              = "300"
+  statistic           = "Average"
+  threshold           = "90"
+  alarm_description   = "SnapCenter data disk usage critical threshold (90%)"
+  alarm_actions       = [aws_sns_topic.snapcenter_alerts.arn]
+  ok_actions          = [aws_sns_topic.snapcenter_alerts.arn]
+
+  dimensions = {
+    InstanceId = aws_instance.snapcenter_linux[count.index].id
+    path       = "/opt/NetApp" # SnapCenter installation path
+  }
+
+  tags = local.common_tags
+}
