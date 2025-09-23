@@ -91,3 +91,39 @@ variable "default_log_retention_in_days" {
   description = "CloudWatch log retention period"
   default     = "7"
 }
+
+variable "snapcenter_data_volume_size" {
+  type        = number
+  description = "The size of the SnapCenter data volume in gibibytes (GiB)"
+  default     = 200
+}
+
+variable "snapcenter_data_device_name" {
+  type        = string
+  description = "The device name for the SnapCenter data EBS volume"
+  default     = "/dev/xvdf"
+}
+
+variable "encrypt_ebs_block_device" {
+  type        = bool
+  description = "Defines whether the EBS volume should be encrypted"
+  default     = true
+}
+
+variable "ebs_block_device_iops" {
+  type        = number
+  description = "The required IOPS on the EBS volume"
+  default     = 3000
+}
+
+variable "ebs_block_device_throughput" {
+  type        = number
+  description = "The required EBS volume throughput in MiB/s"
+  default     = 125
+}
+
+variable "ebs_block_device_volume_type" {
+  type        = string
+  description = "The type of EBS volume to provision"
+  default     = "gp3"
+}

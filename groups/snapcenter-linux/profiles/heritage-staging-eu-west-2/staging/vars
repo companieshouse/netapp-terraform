@@ -6,4 +6,5 @@ environment = "staging"
 # Instance details
 ### default = instance_type = "t3.xlarge"
 ### default = root_volume_size = 100
+### default = snapcenter_data_volume_size = 200
 ### default = default_log_retention_in_days = "7"

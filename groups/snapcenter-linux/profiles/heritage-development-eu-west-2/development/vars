@@ -1,7 +1,7 @@
 # Account details
-aws_account = "finance-staging"
+aws_account = "heritage-development"
 aws_region  = "eu-west-2"
-environment = "staging"
+environment = "development"
 
 # Instance details
 ### default = instance_type = "t3.xlarge"
