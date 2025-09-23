@@ -30,8 +30,8 @@ locals {
   account_ids_secrets = jsondecode(data.vault_generic_secret.account_ids.data_json)
   ami_owner_id        = local.account_ids_secrets["shared-services"]
 
-  sns_email_secret = data.vault_generic_secret.sns_email.data
-  linux_sns_email  = local.sns_email_secret["linux-email"]
+  sns_email_secret = var.environment != "development" ? data.vault_generic_secret.sns_email[0].data : {}
+  linux_sns_email  = var.environment != "development" ? local.sns_email_secret["linux-email"] : ""
 
   snapcenter_secrets           = data.vault_generic_secret.snapcenter_secrets.data
   ssh_public_key               = local.snapcenter_secrets["public_key"]

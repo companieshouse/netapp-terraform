@@ -8,7 +8,7 @@ resource "aws_cloudwatch_log_group" "snapcenter_linux" {
 
 ########## Instance Status Check ###############################################################
 resource "aws_cloudwatch_metric_alarm" "snapcenter_instance_status" {
-  count = var.instance_count
+  count = var.environment != "development" ? var.instance_count : 0
 
   alarm_name          = "${upper(var.aws_account)} - CRITICAL - ${local.common_resource_name}-${count.index + 1}-status-check"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -19,8 +19,8 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_instance_status" {
   statistic           = "Maximum"
   threshold           = "1"
   alarm_description   = "EC2 instance status check failed"
-  alarm_actions       = [aws_sns_topic.snapcenter_alerts.arn]
-  ok_actions          = [aws_sns_topic.snapcenter_alerts.arn]
+  alarm_actions       = [aws_sns_topic.snapcenter_alerts[0].arn]
+  ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
     InstanceId = aws_instance.snapcenter_linux[count.index].id
@@ -31,7 +31,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_instance_status" {
 
 ########## CPU Utilisation #####################################################################
 resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_warning" {
-  count = var.instance_count
+  count = var.environment != "development" ? var.instance_count : 0
 
   alarm_name          = "${upper(var.aws_account)} - WARNING - ${local.common_resource_name}-${count.index + 1}-cpu"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -42,8 +42,8 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_warning" {
   statistic           = "Maximum"
   threshold           = "75"
   alarm_description   = "CPU utilization warning threshold (75%)"
-  alarm_actions       = [aws_sns_topic.snapcenter_alerts.arn]
-  ok_actions          = [aws_sns_topic.snapcenter_alerts.arn]
+  alarm_actions       = [aws_sns_topic.snapcenter_alerts[0].arn]
+  ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
     InstanceId = aws_instance.snapcenter_linux[count.index].id
@@ -53,7 +53,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_warning" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_critical" {
-  count = var.instance_count
+  count = var.environment != "development" ? var.instance_count : 0
 
   alarm_name          = "${upper(var.aws_account)} - CRITICAL - ${local.common_resource_name}-${count.index + 1}-cpu"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -64,8 +64,8 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_critical" {
   statistic           = "Maximum"
   threshold           = "95"
   alarm_description   = "CPU utilization critical threshold (95%)"
-  alarm_actions       = [aws_sns_topic.snapcenter_alerts.arn]
-  ok_actions          = [aws_sns_topic.snapcenter_alerts.arn]
+  alarm_actions       = [aws_sns_topic.snapcenter_alerts[0].arn]
+  ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
     InstanceId = aws_instance.snapcenter_linux[count.index].id
@@ -76,7 +76,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_critical" {
 
 ########## Root Disk Usage #####################################################################
 resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_warning" {
-  count = var.instance_count
+  count = var.environment != "development" ? var.instance_count : 0
 
   alarm_name          = "${upper(var.aws_account)} - WARNING - ${local.common_resource_name}-${count.index + 1}-root-disk"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -87,8 +87,8 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_warning" {
   statistic           = "Average"
   threshold           = "80"
   alarm_description   = "Root disk usage warning threshold (80%)"
-  alarm_actions       = [aws_sns_topic.snapcenter_alerts.arn]
-  ok_actions          = [aws_sns_topic.snapcenter_alerts.arn]
+  alarm_actions       = [aws_sns_topic.snapcenter_alerts[0].arn]
+  ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
     InstanceId = aws_instance.snapcenter_linux[count.index].id
@@ -99,7 +99,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_warning" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_critical" {
-  count = var.instance_count
+  count = var.environment != "development" ? var.instance_count : 0
 
   alarm_name          = "${upper(var.aws_account)} - CRITICAL - ${local.common_resource_name}-${count.index + 1}-root-disk"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -110,8 +110,8 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_critical" {
   statistic           = "Average"
   threshold           = "90"
   alarm_description   = "Root disk usage critical threshold (90%)"
-  alarm_actions       = [aws_sns_topic.snapcenter_alerts.arn]
-  ok_actions          = [aws_sns_topic.snapcenter_alerts.arn]
+  alarm_actions       = [aws_sns_topic.snapcenter_alerts[0].arn]
+  ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
     InstanceId = aws_instance.snapcenter_linux[count.index].id
@@ -124,7 +124,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_critical" {
 ########## SnapCenter Data Disk Usage ##########################################################
 # Note: The post-run ansible needs to be run for these disks, otherwise the disks won't be mounted and these alarms won't work
 resource "aws_cloudwatch_metric_alarm" "snapcenter_data_disk_warning" {
-  count = var.instance_count
+  count = var.environment != "development" ? var.instance_count : 0
 
   alarm_name          = "${upper(var.aws_account)} - WARNING - ${local.common_resource_name}-${count.index + 1}-snapcenter-disk"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -135,8 +135,8 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_data_disk_warning" {
   statistic           = "Average"
   threshold           = "80"
   alarm_description   = "SnapCenter data disk usage warning threshold (80%)"
-  alarm_actions       = [aws_sns_topic.snapcenter_alerts.arn]
-  ok_actions          = [aws_sns_topic.snapcenter_alerts.arn]
+  alarm_actions       = [aws_sns_topic.snapcenter_alerts[0].arn]
+  ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
     InstanceId = aws_instance.snapcenter_linux[count.index].id
@@ -147,7 +147,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_data_disk_warning" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "snapcenter_data_disk_critical" {
-  count = var.instance_count
+  count = var.environment != "development" ? var.instance_count : 0
 
   alarm_name          = "${upper(var.aws_account)} - CRITICAL - ${local.common_resource_name}-${count.index + 1}-snapcenter-disk"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -158,8 +158,8 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_data_disk_critical" {
   statistic           = "Average"
   threshold           = "90"
   alarm_description   = "SnapCenter data disk usage critical threshold (90%)"
-  alarm_actions       = [aws_sns_topic.snapcenter_alerts.arn]
-  ok_actions          = [aws_sns_topic.snapcenter_alerts.arn]
+  alarm_actions       = [aws_sns_topic.snapcenter_alerts[0].arn]
+  ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
     InstanceId = aws_instance.snapcenter_linux[count.index].id

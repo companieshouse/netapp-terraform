@@ -67,7 +67,8 @@ data "vault_generic_secret" "security_s3_buckets" {
 }
 
 data "vault_generic_secret" "sns_email" {
-  path = "applications/${var.aws_account}-${var.aws_region}/monitoring"
+  count = var.environment != "development" ? 1 : 0
+  path  = "applications/${var.aws_account}-${var.aws_region}/monitoring"
 }
 
 data "vault_generic_secret" "security_kms_keys" {
