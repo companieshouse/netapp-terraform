@@ -33,8 +33,12 @@ locals {
   sns_email_secret = var.environment != "development" ? data.vault_generic_secret.sns_email[0].data : {}
   linux_sns_email  = var.environment != "development" ? local.sns_email_secret["linux-email"] : ""
 
-  snapcenter_secrets           = data.vault_generic_secret.snapcenter_secrets.data
-  ssh_public_key               = local.snapcenter_secrets["public_key"]
-  kms_key_alias                = local.snapcenter_secrets["kms_key_alias"]
-  shared_resources_bucket_name = local.snapcenter_secrets["s3_resources_bucket"]
+  snapcenter_ssh_secrets       = data.vault_generic_secret.snapcenter_ssh.data
+  ssh_public_key               = local.snapcenter_ssh_secrets["aws_public_key"]
+
+  snapcenter_kms_secrets       = data.vault_generic_secret.snapcenter_kms.data
+  kms_key_alias                = local.snapcenter_kms_secrets["kms_key_alias"]
+
+  snapcenter_s3_secrets        = data.vault_generic_secret.snapcenter_s3.data
+  shared_resources_bucket_name = local.snapcenter_s3_secrets["s3_resources_bucket"]
 }
