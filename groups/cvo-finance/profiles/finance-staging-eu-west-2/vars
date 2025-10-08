@@ -15,7 +15,8 @@ cvo_instance_type           = "m5.xlarge"
 cvo_license_type            = "capacity-paygo"
 capacity_package_name       = "Essential"
 cvo_is_ha                   = false
-connector_account_access_id = "CloudProviderAccount-CyBxlU87"
+connector_account_access_id = "xwVyjSPL8QCgr5miHP60rXXKyRXt1VStclients"
+#connector_account_access_id = "CloudProviderAccount-CyBxlU87"
 
 client_ips                  = [
     "10.10.9.0/28",
@@ -41,7 +42,10 @@ client_ports                 = [
 
 nfs_cifs_cidrs              = [
     "172.19.236.0/24",
-    "172.16.0.0/16"
+    "172.16.0.0/16",
+    "10.94.10.0/24",
+    "10.94.11.0/24",
+    "10.94.12.0/24"
 ]
 
 nfs_cifs_ports              = [
