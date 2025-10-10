@@ -4,7 +4,7 @@ resource "aws_instance" "snapcenter_linux" {
   ami           = data.aws_ami.rhel9_base.id
   instance_type = var.instance_type
   subnet_id     = element(local.application_subnet_ids_by_az, count.index)
-  key_name      = aws_key_pair.snapcenter_linux.key_name
+  key_name      = aws_key_pair.snapcenter_linux_ansible.key_name
 
   iam_instance_profile   = module.instance_profile.aws_iam_instance_profile.name
   vpc_security_group_ids = [aws_security_group.snapcenter_linux.id]
