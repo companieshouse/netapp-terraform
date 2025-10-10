@@ -39,9 +39,9 @@ resource "aws_instance" "snapcenter_linux" {
   }
 }
 
-resource "aws_key_pair" "snapcenter_linux" {
-  key_name   = local.common_resource_name
-  public_key = local.ssh_public_key
+resource "aws_key_pair" "snapcenter_linux_ansible" {
+  key_name   = "${local.common_resource_name}-ansible"
+  public_key = local.snapcenter_ansible_ssh_public_key
 
   tags = local.common_tags
 }

@@ -33,8 +33,8 @@ locals {
   sns_email_secret = var.environment != "development" ? data.vault_generic_secret.sns_email[0].data : {}
   linux_sns_email  = var.environment != "development" ? local.sns_email_secret["linux-email"] : ""
 
-  snapcenter_ssh_secrets       = data.vault_generic_secret.snapcenter_ssh.data
-  ssh_public_key               = local.snapcenter_ssh_secrets["aws_public_key"]
+  snapcenter_ansible_ssh_secrets     = data.vault_generic_secret.snapcenter_ansible_ssh_keys.data
+  snapcenter_ansible_ssh_public_key  = local.snapcenter_ansible_ssh_secrets["ssh_public_key"]
 
   snapcenter_kms_secrets       = data.vault_generic_secret.snapcenter_kms.data
   kms_key_alias                = local.snapcenter_kms_secrets["kms_key_alias"]
