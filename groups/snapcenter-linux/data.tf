@@ -75,8 +75,8 @@ data "vault_generic_secret" "security_kms_keys" {
   path = "aws-accounts/security/kms"
 }
 
-data "vault_generic_secret" "snapcenter_ssh" {
-  path = "applications/${var.aws_account}-${var.aws_region}/netapp/snapcenter-linux/ssh"
+data "vault_generic_secret" "snapcenter_ansible_ssh_keys" {
+  path = "applications/${var.aws_account}-${var.aws_region}/netapp/snapcenter-linux/ansible"
 }
 
 data "vault_generic_secret" "snapcenter_kms" {
