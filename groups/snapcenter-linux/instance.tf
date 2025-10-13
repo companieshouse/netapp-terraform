@@ -11,6 +11,7 @@ resource "aws_instance" "snapcenter_linux" {
 
   tags = merge(local.common_tags, {
     Name             = "${local.common_resource_name}-${count.index + 1}"
+    Repository       = var.repository
     Backup           = true
     SecurityScans    = true
     SnapCenterServer = true
@@ -43,7 +44,9 @@ resource "aws_key_pair" "snapcenter_linux_ansible" {
   key_name   = "${local.common_resource_name}-ansible"
   public_key = local.snapcenter_ansible_ssh_public_key
 
-  tags = local.common_tags
+  tags = merge(local.common_tags, {
+    Repository = var.repository
+  })
 }
 
 # Note: The post-run ansible needs to be run for these disks, otherwise they won't get mounted
@@ -58,9 +61,10 @@ resource "aws_ebs_volume" "snapcenter_data" {
   type              = var.ebs_block_device_volume_type
 
   tags = merge(local.common_tags, {
-    Name    = "${local.common_resource_name}-${count.index + 1}-snapcenter-data"
-    Backup  = true
-    Purpose = "SnapCenter Installation and Data"
+    Name       = "${local.common_resource_name}-${count.index + 1}-snapcenter-data"
+    Repository = var.repository
+    Backup     = true
+    Purpose    = "SnapCenter Installation and Data"
   })
 }
 

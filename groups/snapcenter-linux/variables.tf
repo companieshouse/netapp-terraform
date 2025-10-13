@@ -1,3 +1,9 @@
+variable "repository" {
+  type        = string
+  description = "The name of the GitHub repository containing this Terraform code."
+  default     = "netapp-terraform"
+}
+
 variable "aws_account" {
   type        = string
   description = "The name of the AWS account in which resources will be provisioned."
