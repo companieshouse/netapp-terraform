@@ -8,9 +8,11 @@ module "netapp_secondary_security_group" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "Name", "sgr-netapp-new-${var.account}-002",
-      "ServiceTeam", "Storage"
+    tomap(
+      {
+        Name = "sgr-netapp-new-${var.account}-002",
+        ServiceTeam = "Storage"
+      }
     )
   )
 }
@@ -94,9 +96,11 @@ resource "aws_security_group" "cvo_data_nfs_sg" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "Name", "sgr-netapp-new-${var.account}-nfs-001",
-      "ServiceTeam", "Storage"
+    tomap(
+      {
+        Name = "sgr-netapp-new-${var.account}-nfs-001",
+        ServiceTeam = "Storage"
+      }
     )
   )
 }
@@ -127,9 +131,11 @@ resource "aws_security_group" "cvo_data_cifs_sg" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "Name", "sgr-netapp-new-${var.account}-cifs-001",
-      "ServiceTeam", "Storage"
+    tomap(
+      {
+        Name = "sgr-netapp-new-${var.account}-cifs-001",
+        ServiceTeam = "Storage"
+      }
     )
   )
 }
