@@ -15,7 +15,7 @@ cvo_instance_type           = "m5.xlarge"
 cvo_license_type            = "capacity-paygo"
 capacity_package_name       = "Essential"
 cvo_is_ha                   = false
-connector_account_access_id = "CloudProviderAccount-iiaghy0b"
+connector_account_access_id = "CloudProviderAccount-CyBxlU87"
 
 client_ips                  = [
     "10.10.9.0/28",
