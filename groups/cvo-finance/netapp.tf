@@ -4,7 +4,7 @@ resource "aws_key_pair" "netapp_mediator_key" {
 }
 
 module "cvo2" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_finance_aws?ref=tags/1.0.281"
+  source = "git@github.com:companieshouse/terraform-modules//aws/netapp_cloudmanager_cvo_finance_aws?ref=tags/1.0.356"
 
   vpc_id     = data.aws_vpc.vpc.id
   subnet_ids = data.aws_subnet_ids.storage.ids
@@ -26,7 +26,7 @@ module "cvo2" {
   connector_accountId     = local.account_ids["shared-services"]
   svm_password            = local.netapp_cvo_data["svm-password"]
   cloud_provider_account  = var.connector_account_access_id
-  capacity_tier           = var.capacity_tier 
+  capacity_tier           = var.capacity_tier
   ebs_volume_type         = var.ebs_volume_type
   iops                    = var.iops
   throughput              = var.throughput
@@ -40,8 +40,10 @@ module "cvo2" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "ServiceTeam", "Storage"
+    tomap(
+      {
+        ServiceTeam = "Storage"
+      }
     )
   )
 }

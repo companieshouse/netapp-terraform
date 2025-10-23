@@ -2,7 +2,7 @@
 # Providers
 # ------------------------------------------------------------------------------
 terraform {
-  required_version = ">= 0.13.0, < 0.14"
+  required_version = ">= 1.3, < 1.4"
 
   required_providers {
     aws = {
@@ -15,7 +15,7 @@ terraform {
     }
     netapp-cloudmanager = {
       source  = "NetApp/netapp-cloudmanager"
-      version = "24.5.0"
+      version = "24.11.0"
     }
   }
   backend "s3" {}
