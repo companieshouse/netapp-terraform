@@ -2,12 +2,15 @@ module "instance_profile" {
   source = "git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.283"
   name   = local.common_resource_name
 
-  enable_ssm       = true
-  kms_key_refs     = [local.ssm_kms_key_id]
+  enable_ssm   = true
+  kms_key_refs = concat(
+    [local.ssm_kms_key_id],
+    local.s3_resources_kms_key_arn != "" ? [local.s3_resources_kms_key_arn] : []
+  )
   s3_buckets_write = [local.session_manager_bucket_name]
   s3_buckets_read  = [
     local.session_manager_bucket_name,
-    local.shared_resources_bucket_name
+    local.s3_resources_bucket_name
   ]
 
   custom_statements = [

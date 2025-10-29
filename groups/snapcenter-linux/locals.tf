@@ -39,6 +39,7 @@ locals {
   snapcenter_kms_secrets       = data.vault_generic_secret.snapcenter_kms.data
   kms_key_alias                = local.snapcenter_kms_secrets["kms_key_alias"]
 
-  snapcenter_s3_secrets        = data.vault_generic_secret.snapcenter_s3.data
-  shared_resources_bucket_name = local.snapcenter_s3_secrets["s3_resources_bucket"]
+  snapcenter_s3_secrets    = data.vault_generic_secret.snapcenter_s3.data
+  s3_resources_bucket_name = local.snapcenter_s3_secrets["s3_resources_bucket"]
+  s3_resources_kms_key_arn = lookup(local.snapcenter_s3_secrets, "s3_key_arn", "")
 }
