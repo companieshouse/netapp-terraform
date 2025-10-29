@@ -68,7 +68,7 @@ data "vault_generic_secret" "security_s3_buckets" {
 
 data "vault_generic_secret" "sns_email" {
   count = var.environment != "development" ? 1 : 0
-  path  = "applications/${var.aws_account}-${var.aws_region}/monitoring"
+  path  = startswith(var.aws_account, "heritage") ? "applications/${var.aws_account}-${var.aws_region}/monitoring" : "applications/${var.aws_account}-${var.aws_region}/sns"
 }
 
 data "vault_generic_secret" "security_kms_keys" {
