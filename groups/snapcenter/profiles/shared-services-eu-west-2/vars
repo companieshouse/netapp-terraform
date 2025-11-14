@@ -1,3 +1,19 @@
-aws_account = "shared-services"
-ami_id = "ami-073613937254785ce"
-subnet_name = "sub-monitor-a"
+aws_account   = "shared-services"
+ami_id        = "ami-073613937254785ce"
+subnet_name   = "sub-monitor-a"
+
+azure_ad_ingress_tcp_udp = [
+  [53, 88, 135, 389, 445, 464]
+]
+
+azure_ad_ingress_tcp = [
+  [137, 139, 636]
+]
+
+azure_ad_ingress_udp = [
+  [123, 3268]
+]
+
+azure_ad_cidrs = [
+  ["10.128.247.4/32", "10.128.247.5/32"]
+]

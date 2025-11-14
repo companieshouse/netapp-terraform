@@ -63,3 +63,35 @@ variable "subnet_name" {
   type        = string
   description = "Name of the subnet to deploy the instance into"
 }
+
+# Azure AD security group variables
+
+variable "azure_ad_ingress_tcp_udp" {
+  type        = list(any)
+  description = "A list of ports for Azure AD access UDP & TCP"
+  default     = []
+}
+
+variable "azure_ad_ingress_tcp" {
+  type        = list(any)
+  description = "A list of ports for Azure AD access TCP"
+  default     = []
+}
+
+variable "azure_ad_ingress_udp" {
+  type        = list(any)
+  description = "A list of ports for Azure AD access UDP"
+  default     = []
+}
+
+variable "azure_ad_cidrs" {
+  type        = list(any)
+  description = "A list of cirdr blocks for azure AD access"
+  default     = []
+}
+
+variable "Azure_ad_ingress_port_ranges_tcp_udp" {
+  type        = list(any)
+  description = "A list of ports, protocols and cirdr blocks for azure AD access"
+  default     = []
+}
