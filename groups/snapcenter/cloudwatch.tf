@@ -1,4 +1,4 @@
-resource "aws_cloudwatch_log_group" "snapcenter_linux" {
+resource "aws_cloudwatch_log_group" "snapcenter" {
   name              = "/aws/ec2/${local.common_resource_name}"
   retention_in_days = var.default_log_retention_in_days
   kms_key_id        = local.cloudwatch_logs_kms_key
@@ -23,7 +23,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_instance_status" {
   ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
-    InstanceId = aws_instance.snapcenter_linux[count.index].id
+    InstanceId = aws_instance.snapcenter[count.index].id
   }
 
   tags = local.common_tags
@@ -33,7 +33,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_instance_status" {
 resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_warning" {
   count = var.environment != "development" ? var.instance_count : 0
 
-  alarm_name          = "${upper(var.aws_account)} - WARNING - ${local.common_resource_name}-${count.index + 1}-cpu"
+  alarm_name          = "${upper(var.aws_account)} - WARNING - ${local.common_resource_name}-cpu"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
@@ -46,7 +46,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_warning" {
   ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
-    InstanceId = aws_instance.snapcenter_linux[count.index].id
+    InstanceId = aws_instance.snapcenter[count.index].id
   }
 
   tags = local.common_tags
@@ -55,7 +55,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_warning" {
 resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_critical" {
   count = var.environment != "development" ? var.instance_count : 0
 
-  alarm_name          = "${upper(var.aws_account)} - CRITICAL - ${local.common_resource_name}-${count.index + 1}-cpu"
+  alarm_name          = "${upper(var.aws_account)} - CRITICAL - ${local.common_resource_name}-cpu"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
@@ -68,7 +68,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_critical" {
   ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
-    InstanceId = aws_instance.snapcenter_linux[count.index].id
+    InstanceId = aws_instance.snapcenter[count.index].id
   }
 
   tags = local.common_tags
@@ -78,7 +78,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_cpu_critical" {
 resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_warning" {
   count = var.environment != "development" ? var.instance_count : 0
 
-  alarm_name          = "${upper(var.aws_account)} - WARNING - ${local.common_resource_name}-${count.index + 1}-root-disk"
+  alarm_name          = "${upper(var.aws_account)} - WARNING - ${local.common_resource_name}-root-disk"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "disk_used_percent"
@@ -91,7 +91,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_warning" {
   ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
-    InstanceId = aws_instance.snapcenter_linux[count.index].id
+    InstanceId = aws_instance.snapcenter[count.index].id
     path       = "/"
   }
 
@@ -114,7 +114,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_disk_critical" {
   ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
-    InstanceId = aws_instance.snapcenter_linux[count.index].id
+    InstanceId = aws_instance.snapcenter[count.index].id
     path       = "/"
   }
 
@@ -139,7 +139,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_data_disk_warning" {
   ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
-    InstanceId = aws_instance.snapcenter_linux[count.index].id
+    InstanceId = aws_instance.snapcenter[count.index].id
     path       = "/opt/NetApp" # SnapCenter installation path
   }
 
@@ -162,7 +162,7 @@ resource "aws_cloudwatch_metric_alarm" "snapcenter_data_disk_critical" {
   ok_actions          = [aws_sns_topic.snapcenter_alerts[0].arn]
 
   dimensions = {
-    InstanceId = aws_instance.snapcenter_linux[count.index].id
+    InstanceId = aws_instance.snapcenter[count.index].id
     path       = "/opt/NetApp" # SnapCenter installation path
   }
 

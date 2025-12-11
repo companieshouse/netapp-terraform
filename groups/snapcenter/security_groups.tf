@@ -1,4 +1,4 @@
-resource "aws_security_group" "snapcenter_linux" {
+resource "aws_security_group" "netapp_snapcenter" {
   name        = local.common_resource_name
   description = "Security group for the ${var.service_subtype} EC2 instances"
   vpc_id      = data.aws_vpc.main.id
@@ -11,7 +11,7 @@ resource "aws_security_group" "snapcenter_linux" {
 # SSH Access
 resource "aws_vpc_security_group_ingress_rule" "snapcenter_ssh_admin" {
   description       = "Allow SSH connectivity for administration"
-  security_group_id = aws_security_group.snapcenter_linux.id
+  security_group_id = aws_security_group.netapp_snapcenter.id
   prefix_list_id    = data.aws_ec2_managed_prefix_list.administration_cidr_ranges.id
   ip_protocol       = "tcp"
   from_port         = 22
@@ -20,7 +20,7 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_ssh_admin" {
 
 resource "aws_vpc_security_group_ingress_rule" "snapcenter_ssh_shared_services" {
   description       = "Allow SSH connectivity for ansible (via pipelines)"
-  security_group_id = aws_security_group.snapcenter_linux.id
+  security_group_id = aws_security_group.netapp_snapcenter.id
   prefix_list_id    = data.aws_ec2_managed_prefix_list.shared_services_build_cidr_ranges.id
   ip_protocol       = "tcp"
   from_port         = 22
@@ -30,7 +30,7 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_ssh_shared_services" 
 # SnapCenter Ports
 resource "aws_vpc_security_group_ingress_rule" "snapcenter_main_port" {
   description       = "SnapCenter main communication port (web UI and API)"
-  security_group_id = aws_security_group.snapcenter_linux.id
+  security_group_id = aws_security_group.netapp_snapcenter.id
   prefix_list_id    = data.aws_ec2_managed_prefix_list.administration_cidr_ranges.id
   ip_protocol       = "tcp"
   from_port         = 8146
@@ -39,7 +39,7 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_main_port" {
 
 resource "aws_vpc_security_group_ingress_rule" "snapcenter_smcore_port" {
   description       = "SnapCenter SMCore communication port"
-  security_group_id = aws_security_group.snapcenter_linux.id
+  security_group_id = aws_security_group.netapp_snapcenter.id
   prefix_list_id    = data.aws_ec2_managed_prefix_list.administration_cidr_ranges.id
   ip_protocol       = "tcp"
   from_port         = 8145
@@ -48,7 +48,7 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_smcore_port" {
 
 resource "aws_vpc_security_group_ingress_rule" "snapcenter_scheduler_port" {
   description       = "SnapCenter Scheduler Service port"
-  security_group_id = aws_security_group.snapcenter_linux.id
+  security_group_id = aws_security_group.netapp_snapcenter.id
   prefix_list_id    = data.aws_ec2_managed_prefix_list.administration_cidr_ranges.id
   ip_protocol       = "tcp"
   from_port         = 8154
@@ -58,7 +58,7 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_scheduler_port" {
 # MySQL Port
 resource "aws_vpc_security_group_ingress_rule" "snapcenter_mysql" {
   description       = "MySQL database port for SnapCenter repository"
-  security_group_id = aws_security_group.snapcenter_linux.id
+  security_group_id = aws_security_group.netapp_snapcenter.id
   cidr_ipv4         = "127.0.0.1/32"
   ip_protocol       = "tcp"
   from_port         = 3306
@@ -68,7 +68,7 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_mysql" {
 # RabbitMQ Port
 resource "aws_vpc_security_group_ingress_rule" "snapcenter_rabbitmq" {
   description       = "RabbitMQ messaging port"
-  security_group_id = aws_security_group.snapcenter_linux.id
+  security_group_id = aws_security_group.netapp_snapcenter.id
   cidr_ipv4         = "127.0.0.1/32"
   ip_protocol       = "tcp"
   from_port         = 5672
@@ -78,7 +78,7 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_rabbitmq" {
 # Egress
 resource "aws_vpc_security_group_egress_rule" "snapcenter_all_out" {
   description       = "Allow outbound traffic"
-  security_group_id = aws_security_group.snapcenter_linux.id
+  security_group_id = aws_security_group.netapp_snapcenter.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
 }

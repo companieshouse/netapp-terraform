@@ -2,16 +2,10 @@ module "instance_profile" {
   source = "git@github.com:companieshouse/terraform-modules//aws/instance_profile?ref=tags/1.0.283"
   name   = local.common_resource_name
 
-  enable_ssm   = true
-  kms_key_refs = concat(
-    [local.ssm_kms_key_id],
-    local.s3_resources_kms_key_arn != "" ? [local.s3_resources_kms_key_arn] : []
-  )
+  enable_ssm       = true
+  kms_key_refs     = [local.ssm_kms_key_id]
   s3_buckets_write = [local.session_manager_bucket_name]
-  s3_buckets_read  = [
-    local.session_manager_bucket_name,
-    local.s3_resources_bucket_name
-  ]
+  s3_buckets_read  = [local.session_manager_bucket_name]
 
   custom_statements = [
     {
@@ -39,18 +33,18 @@ resource "aws_iam_role_policy_attachment" "ssm_session_manager" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
-resource "aws_iam_policy" "snapcenter_linux" {
+resource "aws_iam_policy" "snapcenter" {
   name        = local.common_resource_name
   description = "IAM policy for ${var.service_subtype} EC2 instances"
-  policy      = data.aws_iam_policy_document.snapcenter_linux.json
+  policy      = data.aws_iam_policy_document.snapcenter.json
 }
 
-resource "aws_iam_role_policy_attachment" "snapcenter_linux" {
+resource "aws_iam_role_policy_attachment" "snapcenter" {
   role       = module.instance_profile.aws_iam_role.name
-  policy_arn = aws_iam_policy.snapcenter_linux.arn
+  policy_arn = aws_iam_policy.snapcenter.arn
 }
 
-data "aws_iam_policy_document" "snapcenter_linux" {
+data "aws_iam_policy_document" "snapcenter" {
   statement {
     sid    = "SnapCenterEC2Permissions"
     effect = "Allow"
