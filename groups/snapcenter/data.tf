@@ -1,32 +1,86 @@
-data "aws_ec2_managed_prefix_list" "admin" {
-  filter {
-    name   = "prefix-list-name"
-    values = [var.admin_prefix_list_name]
-  }
+data "aws_ec2_managed_prefix_list" "administration_cidr_ranges" {
+  name = "administration-cidr-ranges"
 }
 
-data "aws_vpc" "vpc" {
+data "aws_ec2_managed_prefix_list" "shared_services_build_cidr_ranges" {
+  name = "shared-services-management-cidrs"
+}
+
+data "aws_kms_alias" "ebs" {
+  name = local.kms_key_alias
+}
+
+data "aws_route53_zone" "snapcenter" {
+  name   = local.dns_zone
+  vpc_id = data.aws_vpc.main.id
+}
+
+data "aws_vpc" "main" {
   filter {
     name   = "tag:Name"
-    values = ["vpc-${var.aws_account}"]
+    values = ["vpc-${local.vpc_prefix}-${var.environment}"]
   }
 }
 
-data "aws_kms_key" "ebs_key" {
-  key_id = local.kms_secret_data["ebs"]
+data "aws_subnets" "application" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.main.id]
+  }
+
+  filter {
+    name   = "tag:Name"
+    values = [var.application_subnet_pattern]
+  }
 }
 
-data "vault_generic_secret" "ec2_data" {
-  path = "applications/${var.aws_account}-${var.aws_region}/${var.service}/${var.application}/ec2"
+data "aws_subnet" "application" {
+  count = length(data.aws_subnets.application.ids)
+  id    = tolist(data.aws_subnets.application.ids)[count.index]
 }
 
-data "vault_generic_secret" "kms_data" {
+data "aws_ami" "netapp_snapcenter" {
+  most_recent = true
+  name_regex  = "^netapp-snapcenter-ami-\\d.\\d.\\d"
+
+  filter {
+    name   = "name"
+    values = ["netapp-snapcenter-ami-${var.ami_version_pattern}"]
+  }
+
+  filter {
+    name   = "owner-id"
+    values = [local.ami_owner_id]
+  }
+}
+
+data "vault_generic_secret" "account_ids" {
+  path = "aws-accounts/account-ids"
+}
+
+data "vault_generic_secret" "kms_keys" {
   path = "aws-accounts/${var.aws_account}/kms"
 }
 
-data "aws_subnet" "monitor" {
-   filter {
-    name   = "tag:Name"
-    values = [var.subnet_name]
-  } 
+data "vault_generic_secret" "security_s3_buckets" {
+  path = "aws-accounts/security/s3"
 }
+
+data "vault_generic_secret" "sns_email" {
+  count = var.environment != "development" ? 1 : 0
+  path  = startswith(var.aws_account, "heritage") ? "applications/${var.aws_account}-${var.aws_region}/monitoring" : "applications/${var.aws_account}-${var.aws_region}/sns"
+}
+
+data "vault_generic_secret" "security_kms_keys" {
+  path = "aws-accounts/security/kms"
+}
+
+data "vault_generic_secret" "snapcenter_ansible_ssh_keys" {
+  path = "applications/${var.aws_account}-${var.aws_region}/netapp/snapcenter/ansible"
+}
+
+data "vault_generic_secret" "snapcenter_kms" {
+  path = "applications/${var.aws_account}-${var.aws_region}/netapp/snapcenter/kms"
+}
+
+

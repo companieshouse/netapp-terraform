@@ -1,4 +1,48 @@
 locals {
-  ec2_secret_data = data.vault_generic_secret.ec2_data.data
-  kms_secret_data = data.vault_generic_secret.kms_data.data
+  vpc_prefix = split("-", var.aws_account)[0]
+
+  dns_zone_suffix_dynamic = "${local.vpc_prefix}.aws.internal"
+
+  application_subnet_ids_by_az = values(zipmap(
+    data.aws_subnet.application[*].availability_zone,
+    data.aws_subnet.application[*].id
+  ))
+
+  common_tags = {
+    Environment    = var.environment
+    Service        = var.service
+    ServiceSubType = var.service_subtype
+    Team           = var.team
+  }
+
+  common_resource_name = "${var.environment}-${var.service}-${var.service_subtype}"
+  dns_zone             = "${var.environment}.${local.dns_zone_suffix_dynamic}"
+
+  security_s3_data            = data.vault_generic_secret.security_s3_buckets.data
+  session_manager_bucket_name = local.security_s3_data.session-manager-bucket-name
+
+  security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
+  ssm_kms_key_id         = local.security_kms_keys_data.session-manager-kms-key-arn
+
+  kms_keys                = data.vault_generic_secret.kms_keys.data
+  cloudwatch_logs_kms_key = local.kms_keys.logs
+
+  account_ids_secrets = jsondecode(data.vault_generic_secret.account_ids.data_json)
+  ami_owner_id        = local.account_ids_secrets["shared-services"]
+
+  sns_email_secret = var.environment != "development" ? data.vault_generic_secret.sns_email[0].data : {}
+  linux_sns_email  = var.environment != "development" ? local.sns_email_secret["linux-email"] : ""
+
+  snapcenter_ansible_ssh_secrets    = data.vault_generic_secret.snapcenter_ansible_ssh_keys.data
+  snapcenter_ansible_ssh_public_key = local.snapcenter_ansible_ssh_secrets["ssh_public_key"]
+
+  snapcenter_kms_secrets = data.vault_generic_secret.snapcenter_kms.data
+  kms_key_alias          = local.snapcenter_kms_secrets["kms_key_alias"]
+
+  # Find snapshot of data volume from AMI so we can define and manage the volume in instance.tf (e.g. adjust throughput)
+  data_volume_snapshot_id = [
+    for bdm in data.aws_ami.netapp_snapcenter.block_device_mappings :
+    bdm.ebs.snapshot_id
+    if bdm.device_name == "/dev/sdb"
+  ][0]
 }
