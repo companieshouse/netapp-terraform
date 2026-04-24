@@ -76,6 +76,11 @@ resource "aws_ebs_volume" "snapcenter_data" {
     Backup     = true
     Purpose    = "SnapCenter Installation and Data"
   })
+
+  lifecycle {
+    ignore_changes  = [snapshot_id]
+    prevent_destroy = true
+  }
 }
 
 resource "aws_volume_attachment" "snapcenter_data" {
