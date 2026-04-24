@@ -77,4 +77,31 @@ data "aws_iam_policy_document" "snapcenter" {
 
     resources = ["*"]
   }
+
+  statement {
+    sid    = "SharedServicesResourcesRead"
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket",
+      "s3:ListBucketVersions",
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:GetObjectVersionTagging",
+      "s3:GetBucketAcl",
+      "s3:GetEncryptionConfiguration",
+    ]
+
+    resources = [
+      "arn:aws:s3:::shared-services.eu-west-2.resources.ch.gov.uk",
+      "arn:aws:s3:::shared-services.eu-west-2.resources.ch.gov.uk/*",
+    ]
+  }
+
+  statement {
+    sid       = "GetCallerIdentity"
+    effect    = "Allow"
+    actions   = ["sts:GetCallerIdentity"]
+    resources = ["*"]
+  }
 }
