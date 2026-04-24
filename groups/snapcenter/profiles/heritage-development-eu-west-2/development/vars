@@ -8,3 +8,6 @@ environment = "development"
 ### default = root_volume_size = 100
 ### default = snapcenter_data_volume_size = 200
 ### default = default_log_retention_in_days = "7"
+
+# AMI
+ami_version_pattern = "0.1.4"
