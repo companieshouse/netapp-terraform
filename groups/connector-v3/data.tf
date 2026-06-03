@@ -4,11 +4,22 @@ data "aws_vpc" "vpc" {
   }
 }
 
-data "aws_subnet_ids" "monitor" {
-  vpc_id = data.aws_vpc.vpc.id
+data "aws_subnets" "monitor_subnets" {
+ filter {
+   name   = "tag:Name"
+   values = ["sub-smonitor-*"]
+ }
+}
+
+data "aws_subnet" "monitor_subnet" {
+  for_each = toset(data.aws_subnets.monitor_subnets.ids)
+  id       = each.value
+}
+
+data "aws_subnet" "subnet_monitor_a" {
   filter {
-    name   = "tag:Name"
-    values = ["sub-monitor-*"]
+     name   = "tag:Name"
+     values = ["sub-monitor-a"]
   }
 }
 
