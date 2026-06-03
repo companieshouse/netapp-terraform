@@ -4,11 +4,22 @@ data "aws_vpc" "vpc" {
   }
 }
 
-data "aws_subnet_ids" "monitor" {
-  vpc_id = data.aws_vpc.vpc.id
+data "aws_subnets" "monitor_subnets" {
+ filter {
+   name   = "tag:Name"
+   values = ["sub-smonitor-*"]
+ }
+}
+
+data "aws_subnet" "monitor_subnet" {
+  for_each = toset(data.aws_subnets.monitor_subnets.ids)
+  id       = each.value
+}
+
+data "aws_subnet" "subnet_monitor_a" {
   filter {
-    name   = "tag:Name"
-    values = ["sub-monitor-*"]
+     name   = "tag:Name"
+     values = ["sub-monitor-a"]
   }
 }
 
@@ -33,10 +44,22 @@ data "vault_generic_secret" "netapp_connector_input" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/connector-inputs"
 }
 
+data "vault_generic_secret" "netapp_cvo_cidrs" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/cvo-cidrs"
+}
+
+data "vault_generic_secret" "netapp_cvo_hosts" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/cvo-hosts"
+}
+
+data "vault_generic_secret" "netapp_iboss_cidrs" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.application}/iboss-cidrs"
+}
+
 data "aws_instance" "netapp_connector" {
   filter {
     name   = "tag:Name"
-    values = ["netapp-connector-001"]
+    values = [local.connector_instance_name]
   }
 
   filter {
