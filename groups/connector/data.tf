@@ -41,7 +41,6 @@ data "aws_instance" "netapp_connector" {
 
   filter {
     name   = "instance-state-name"
-    #values = ["stopped"]
     values = ["running"]
   }
 
