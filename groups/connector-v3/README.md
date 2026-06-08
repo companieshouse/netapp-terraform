@@ -1,8 +1,19 @@
-# NetApp Cloud Manager Connector V2
+# NetApp Cloud Manager Connector
 
-This module serves to replace the original version of the Connector. A new implementation
-of the module has been included to allow migration from the old implementation without
-disturbing the existing codebase/resources as part of troubleshooting reliability issues.
+New implementation of the group has been included to allow migration from the old implementation
+without disturbing the existing codebase/resources as part of troubleshooting reliability issues.
+
+## Note
+
+Whenever a new group is deployed for the first time (i.e. when we move to V4) it is necessary
+to set the `build_connector` property in the `netapp_connector` module in `netapp.tf` to
+`true` to allow the initial deployment to complete. Once deployed, this value should then be
+set to `false`, to allow future updates to be applied to the instance without the connnector
+being rebuilt.
+
+If this was a frequent operation we would look to change the code to avoid this condition,
+however a new major version is rarely deployed and with the move to FSX, the NetApp
+Connector is likely to be retired.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
