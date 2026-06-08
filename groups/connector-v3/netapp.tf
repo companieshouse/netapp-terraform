@@ -15,7 +15,7 @@ module "netapp_connector" {
   key_pair_name = aws_key_pair.netapp.key_name
 
   # Set to false because of an issue with the app level connector service, terraform wants to build a new one which we do not want
-  build_connector   = true
+  build_connector   = false
   netapp_account_id = local.netapp_account_data["account-id"]
   netapp_cvo_accountIds = [
     local.account_ids["heritage-development"],
